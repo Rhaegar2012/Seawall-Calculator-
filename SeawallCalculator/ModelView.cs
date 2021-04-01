@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
+using System.Reflection;
 
 namespace SeawallCalculator
 {
@@ -15,7 +16,6 @@ namespace SeawallCalculator
         //ICommand objects that bind the controls in the UI, instead of having them bound directly to their click events
         //WallControl Properties
         private ICommand m_WallAnalyzeCommand;
-
         public ICommand WallAnalyzeButton
         {
             get
@@ -85,6 +85,18 @@ namespace SeawallCalculator
             set
             {
                 in_MudlineSlope = value;
+            }
+        }
+        private string in_LandslideSlope;
+        public string LandslideSlope
+        {
+            get
+            {
+                return in_LandslideSlope;
+            }
+            set
+            {
+                in_LandslideSlope = value;
             }
         }
         private string in_TopOfPile;
@@ -171,7 +183,8 @@ namespace SeawallCalculator
                 in_SafetyFactor = value;
             }
         }
-        public string in_SoilDensity
+        private string in_SoilDensity;
+        public string SoilDensity
         {
             get
             {
@@ -242,8 +255,10 @@ namespace SeawallCalculator
                 in_LiveSurcharge = value;
             }
         }
+        //Wall property list for verification
+        
 
-        private CalculationManager calculationManager = new CalculationManager();
+    private CalculationManager calculationManager = new CalculationManager();
 
         //The model view constructor creates the relay command from the button objects and collects the data from the UI 
         public ModelView()
@@ -257,13 +272,45 @@ namespace SeawallCalculator
         {
             MessageBox.Show(obj.ToString());
         }
-        private void CheckWallData()
+        private bool CheckWallData()
         {
-            Console.WriteLine("This is the check wall method reporting in");
+            bool Verified = true;
+            string[] DataArray = {in_GroundElevation,
+                                  in_GroundWaterDepth,
+                                  in_LandslideSlope,
+                                  in_LateralCapacityKingPiles,
+                                  in_LiveSurcharge,
+                                  in_MudlineSlope,
+                                  in_OpenWaterLevel,
+                                  in_PanelThickness,
+                                  in_PassiveFrictionAngle,
+                                  in_Penetration,
+                                  in_PilesSpacing,
+                                  in_SafetyFactor,
+                                  in_SaturatedSoilDensity,
+                                  in_SlopeBatteredPiles,
+                                  in_SoilDensity,
+                                  in_SoilToWallFrictionAngle,
+                                  in_TopOfPile};
+            for(int i=0; i < DataArray.Length; i++)
+            {
+                if (DataArray[i] == null)
+                    Verified = false;
+            }
+            return Verified;
         }
         private void AnalyzeWall(object obj)
         {
-
+            Console.WriteLine(in_GroundElevation);
+            Console.WriteLine(in_Penetration);
+            if (CheckWallData())
+            {
+                //TODO: Call stack to wall calculation manager
+            }
+            else
+            {
+                MessageBox.Show("Check input variables", "Warning Message");
+            }
         }
         private void CreateWallReport(object obj)
         {
