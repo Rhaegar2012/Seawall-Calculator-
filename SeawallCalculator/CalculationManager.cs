@@ -8,5 +8,6 @@ namespace SeawallCalculator
 {
     class CalculationManager
     {
+
     }
 }
