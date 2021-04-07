@@ -26,6 +26,7 @@ namespace SeawallCalculator
         private int PilesSpacing;
         private int LateralCapacityPiles;
         private double TargetSafetyFactor;
+        private bool Cantilever;
 
         //Model Variables
         private int TieBack_Elevation {
@@ -158,7 +159,7 @@ namespace SeawallCalculator
                 return (Math.Pow(this.Penetration, 2) * this.Passive_Pressure_Coefficient * this.Submerged_Density);
             }
         }
-     
+        private double Battered_Pile_Resultant_Force { get; set; }
 
         //AT stands for "Above Toe"
         private double Surcharge_Resultant_AT
@@ -233,7 +234,7 @@ namespace SeawallCalculator
         public WallModel(int GroundElevation, int TopOfPile,int MudlineDepth,
             int GroundWaterDepth,int OpenWaterLevel,int Penetration,int SaturatedSoilDensity,
             int ActiveFrictionAngle, int PassiveFrictionAngle,int SoilToWallFrictionAngle,
-            int LandslideSlope, int MudlineSlope,int LiveSurcharge, int PilesSpacing, int PilesLateralCapacity,double InputSafetyFactor)
+            int LandslideSlope, int MudlineSlope,int LiveSurcharge, int PilesSpacing, int PilesLateralCapacity,double InputSafetyFactor,bool isCantilever)
         {
             this.Ground_Elevation = GroundElevation;
             this.Top_of_Pile = TopOfPile;
@@ -251,6 +252,7 @@ namespace SeawallCalculator
             this.PilesSpacing = PilesSpacing;
             this.LateralCapacityPiles = PilesLateralCapacity;
             this.TargetSafetyFactor = InputSafetyFactor;
+            this.Cantilever = isCantilever;
         }
         private void Calculate_Moment_At_Toe()
         {
@@ -279,7 +281,7 @@ namespace SeawallCalculator
             double Factored_Passive_Saturated_Soil_Moment = Moment_At_Toe[Moment_At_Toe.Count] / this.TargetSafetyFactor;
             double Battered_Pile_Moment = Factored_Passive_Saturated_Soil_Moment - Overturning_Moment;
             double Battered_Pile_Resultant_AT = this.Panel_Height - this.Top_of_Pile;
-            double Battered_Pile_Resultant_Force = Battered_Pile_Moment / Battered_Pile_Resultant_AT;
+            this.Battered_Pile_Resultant_Force = Battered_Pile_Moment / Battered_Pile_Resultant_AT;
             double Resisting_Forces = Restoring_Forces + Battered_Pile_Resultant_Force;
             this.Safety_Factor = Resisting_Forces / Resultant_Overturning_Force;
 
@@ -290,91 +292,234 @@ namespace SeawallCalculator
             //TODO
         }
         //Generate_Wall_Elevations is load specific, returs the wall elevations used to calculate a specific load distribution
-        private List<double> Generate_Wall_Elevations(string Case)
+        private (List<double>,List<double>) Generate_Wall_Elevations(string Case  )
         {
             //TODO: Needs to return both the depth and the moment lever 
             List<double> Depth = new List<double>();
             List<double> Moment_Arm = new List<double>();
-            switch (Case)
+            if (this.Cantilever)
             {
-                case "Surcharge":
-                    Depth = this.WallDepth;
-                    break;
-                case "Soil":
-                    foreach (double depth in this.WallDepth)
-                        Depth.Add(Math.Min(depth, this.Ground_Water_Depth));
-                    break;
-                case "Uniform Soil":
-                    foreach (double depth in this.WallDepth)
-                        Depth.Add(Math.Max(0, depth - this.Ground_Water_Depth));
-                    break;
-                case "Gradient Soil":
-                    foreach (double depth in this.WallDepth)
-                        Depth.Add(Math.Max(0, depth - this.Ground_Water_Depth));
-                    break;
-                case "Hydrostatic Ground Water":
-                    foreach (double depth in this.WallDepth)
-                        Depth.Add(Math.Max(0, depth - this.Ground_Water_Depth));
-                    break;
-                case "Hydrostatic Open Water":
-                    foreach (double depth in this.WallDepth)
-                        Depth.Add(Math.Max(0, depth - this.Open_Water_Level));
-                    break;
-                case "Factored Passive Pressure":
-                    foreach (double depth in this.WallDepth)
-                        Depth.Add(Math.Max(0, depth - this.Open_Water_Level));
-                    break;
-                case "King and Battered Piles":
-                    foreach (double depth in this.WallDepth)
-                        Depth.Add(Math.Max(0, depth - this.Top_of_Pile));
-                    break;
+                switch (Case)
+                {
+                    case "Surcharge":
+                        Depth = this.WallDepth;
+                        foreach (double depth in Depth)
+                            Moment_Arm.Add(depth / 2);
+                        break;
+                    case "Soil":
+                        foreach (double depth in this.WallDepth)
+                        {
+                            Depth.Add(Math.Min(depth, this.Ground_Water_Depth));
+                            Moment_Arm.Add((2 / 3) * (Math.Max(0, depth - this.Ground_Water_Depth)));
+                        }
+                        break;
+                    case "Uniform Soil":
+                        foreach (double depth in this.WallDepth)
+                        {
+                            Depth.Add(Math.Max(0, depth - this.Ground_Water_Depth));
+                            Moment_Arm.Add((1 / 2) * (Math.Max(0, depth - this.Ground_Water_Depth)));
+                        }
+                        break;
+                    case "Gradient Soil":
+                        foreach (double depth in this.WallDepth)
+                        {
+                            Depth.Add(Math.Max(0, depth - this.Ground_Water_Depth));
+                            Moment_Arm.Add((1 / 3) * (Math.Max(0, depth - this.Ground_Water_Depth)));
+                        }
+                        break;
+                    case "Hydrostatic Ground Water":
+                        foreach (double depth in this.WallDepth)
+                        {
+                            Depth.Add(Math.Max(0, depth - this.Ground_Water_Depth));
+                            Moment_Arm.Add((1 / 3) * (Math.Max(0, depth - this.Ground_Water_Depth)));
+                        }
+
+                        break;
+                    case "Hydrostatic Open Water":
+                        foreach (double depth in this.WallDepth)
+                        {
+                            Depth.Add(Math.Max(0, depth - this.Open_Water_Level));
+                            Moment_Arm.Add((1 / 3) * (Math.Max(0, depth - this.Open_Water_Level)));
+                        }
+                        break;
+                    case "Factored Passive Pressure":
+                        foreach (double depth in this.WallDepth)
+                        {
+                            Depth.Add(Math.Max(0, depth - this.Mudline_Depth));
+                            Moment_Arm.Add((1 / 3) * Math.Max(0, depth - this.Mudline_Depth));
+                        }
+                        break;
+                    case "King and Battered Piles":
+                        foreach (double depth in this.WallDepth)
+                        {
+                            Depth.Add(Math.Max(0, depth - this.Top_of_Pile));
+                        }
+                        break;
+                }
+              
             }
-            return Depth;
+            else
+            {
+                //TODO braced wall case
+            }
+            return (Depth, Moment_Arm);
+
         }
             
-        private void Calculate_Surcharge_Load_Distribution()
+        private (List<double>,List<double>) Calculate_Surcharge_Load_Distribution()
         {
-            //TODO
+            List<double> ShearForce = new List<double>();
+            List<double> Moment = new List<double>();
+            (List<double> Depth, List<double> MomentArm) = Generate_Wall_Elevations("Surcharge");
+            for(int i=0;i<Depth.Count;i++)
+            {
+
+                double Force = Depth[i] * this.Active_Pressure_Coefficient * this.Live_Surcharge;
+                ShearForce.Add(Force);
+                Moment.Add(Force * MomentArm[i]);
+            }
+            return (ShearForce, Moment);
         }
-        private void Calculate_Surcharge_Soil_Load_Distribution()
+        private (List<double>,List<double>) Calculate_Soil_Load_Distribution()
         {
-            //TODO
+            List<double> ShearForce = new List<double>();
+            List<double> Moment = new List<double>();
+            (List<double> Depth, List<double> MomentArm) = Generate_Wall_Elevations("Soil");
+            for (int i = 0; i < Depth.Count; i++)
+            {
+
+                double Force = (Math.Pow(Depth[i],2) * this.Active_Pressure_Coefficient * this.Soil_Density)/2;
+                ShearForce.Add(Force);
+                Moment.Add(Force * (this.WallDepth[i]-MomentArm[i]));
+            }
+            return (ShearForce, Moment);
         }
-        private void Calculate_Uniform_Soil_Load_Distribution()
+        private (List<double>,List<double>) Calculate_Uniform_Soil_Load_Distribution()
         {
-            //TODO
+            List<double> ShearForce = new List<double>();
+            List<double> Moment = new List<double>();
+            (List<double> Depth, List<double> MomentArm) = Generate_Wall_Elevations("Uniform Soil");
+            for (int i = 0; i < Depth.Count; i++)
+            {
+
+                double Force = (Depth[i] * this.Active_Pressure_Coefficient * this.Submerged_Density);
+                ShearForce.Add(Force);
+                Moment.Add(Force * MomentArm[i]);
+            }
+            return (ShearForce, Moment);
         }
-        private void Calculate_Gradient_Soil_Load_Distribution()
+        private (List<double>,List<double>) Calculate_Gradient_Soil_Load_Distribution()
         {
-            //TODO
+            List<double> ShearForce = new List<double>();
+            List<double> Moment = new List<double>();
+            (List<double> Depth, List<double> MomentArm) = Generate_Wall_Elevations("Gradient Soil");
+            for (int i = 0; i < Depth.Count; i++)
+            {
+
+                double Force = (Math.Pow(Depth[i], 2) * this.Active_Pressure_Coefficient * this.Submerged_Density)/2;
+                ShearForce.Add(Force);
+                Moment.Add(Force * MomentArm[i]);
+            }
+            return (ShearForce, Moment);
         }
-        private void Calculate_Hydrostatic_Ground_Water_Load_Distribution()
+        private (List<double>,List<double>) Calculate_Hydrostatic_Ground_Water_Load_Distribution()
         {
-            //TODO
+            List<double> ShearForce = new List<double>();
+            List<double> Moment = new List<double>();
+            (List<double> Depth, List<double> MomentArm) = Generate_Wall_Elevations("Hydrostatic Ground Water");
+            for (int i = 0; i < Depth.Count; i++)
+            {
+
+                double Force = (Math.Pow(Depth[i], 2) * 62.5) / 2;
+                ShearForce.Add(Force);
+                Moment.Add(Force * MomentArm[i]);
+            }
+            return (ShearForce, Moment);
         }
-        private void Calculate_Hydrostatic_Open_Water_Load_Distribution()
+        private (List<double>,List<double>) Calculate_Hydrostatic_Open_Water_Load_Distribution()
         {
-            //TODO
+            List<double> ShearForce = new List<double>();
+            List<double> Moment = new List<double>();
+            (List<double> Depth, List<double> MomentArm) = Generate_Wall_Elevations("Hydrostatic Open Water");
+            for (int i = 0; i < Depth.Count; i++)
+            {
+
+                double Force = (Math.Pow(Depth[i], 2) * 62.5) / 2;
+                ShearForce.Add(Force);
+                Moment.Add(Force * MomentArm[i]);
+            }
+            return (ShearForce, Moment);
         }
-        private void Calculate_Passive_Pressure_Load_Distribution()
+        private (List<double>,List<double>) Calculate_Passive_Pressure_Load_Distribution()
         {
-            //TODO
+            List<double> ShearForce = new List<double>();
+            List<double> Moment = new List<double>();
+            (List<double> Depth, List<double> MomentArm) = Generate_Wall_Elevations("Factored Passive Pressue");
+            for (int i = 0; i < Depth.Count; i++)
+            {
+
+                double Force = (Math.Pow(Depth[i], 2) * this.Passive_Pressure_Coefficient*this.Submerged_Density) / (2*TargetSafetyFactor);
+                ShearForce.Add(Force);
+                Moment.Add(Force * MomentArm[i]);
+            }
+            return (ShearForce, Moment);
         }
-        private void Calculate_King_Battered_Pile()
+        private (List<double>,List<double>) Calculate_King_Battered_Pile()
         {
-            //TODO 
+            List<double> ShearForce = new List<double>();
+            List<double> Moment = new List<double>();
+            (List<double> Depth, List<double> MomentArm) = Generate_Wall_Elevations("Factored Passive Pressue");
+            double Force;
+            for (int i = 0; i < Depth.Count; i++)
+            {
+                if (Depth[i] == 0)
+                {
+                    Force = 0;    
+                }
+                else
+                {
+                    Force = (this.King_Pile_Resultant_Force+this.Battered_Pile_Resultant_Force);  
+                }
+                ShearForce.Add(Force);
+                Moment.Add(Force * MomentArm[i]);
+
+            }
+            return (ShearForce, Moment);
         }
-        public void Calculate_Wall_Load_Distributions()
+        public (List<double>,List<double>) Calculate_Wall_Load_Distributions()
         {
+            
             Generate_Wall_Geometry();
-            Calculate_Surcharge_Load_Distribution();
-            Calculate_Surcharge_Soil_Load_Distribution();
-            Calculate_Uniform_Soil_Load_Distribution();
-            Calculate_Gradient_Soil_Load_Distribution();
-            Calculate_Hydrostatic_Ground_Water_Load_Distribution();
-            Calculate_Hydrostatic_Open_Water_Load_Distribution();
-            Calculate_Passive_Pressure_Load_Distribution();
-            Calculate_King_Battered_Pile();
+            List<double> TotalWallShear = new List<double>();
+            List<double> TotalWallMoment = new List<double>();
+            (List<double> SurchargeShear,List<double> SurchargeMoment)=Calculate_Surcharge_Load_Distribution();
+            (List<double>SoilShear,List<double>SoilMoment)=Calculate_Soil_Load_Distribution();
+            (List<double>UniformSoilShear,List<double>UniformSoilMoment)=Calculate_Uniform_Soil_Load_Distribution();
+            (List<double>GradientSoilShear,List<double>GradientSoilMoment)=Calculate_Gradient_Soil_Load_Distribution();
+            (List<double>HydrostaticGroundWaterShear,List<double>HydrostaticGroundWaterMoment)=Calculate_Hydrostatic_Ground_Water_Load_Distribution();
+            (List<double>HydrostaticOpenWaterShear,List<double>HydrostaticOpenWaterMoment)=Calculate_Hydrostatic_Open_Water_Load_Distribution();
+            (List<double>PassivePressureShear,List<double>PassivePressureMoment)=Calculate_Passive_Pressure_Load_Distribution();
+            (List<double>KingBatteredShearForce,List<double>KingBatteredMoment)=Calculate_King_Battered_Pile();
+            for(int i=0; i < this.WallDepth.Count; i++)
+            {
+                TotalWallShear.Add(SurchargeShear[i] +
+                    SoilShear[i] +
+                    UniformSoilShear[i] +
+                    GradientSoilShear[i] +
+                    HydrostaticGroundWaterShear[i] -
+                    HydrostaticOpenWaterShear[i] -
+                    PassivePressureShear[i] -
+                    KingBatteredShearForce[i]);
+                TotalWallMoment.Add(SurchargeMoment[i] +
+                    SoilMoment[i] +
+                    UniformSoilMoment[i] +
+                    GradientSoilMoment[i] +
+                    HydrostaticGroundWaterMoment[i] -
+                    HydrostaticOpenWaterMoment[i] -
+                    PassivePressureMoment[i] -
+                    KingBatteredMoment[i]);
+            }
+            return (TotalWallShear, TotalWallMoment);
         }
 
 
