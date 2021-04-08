@@ -297,71 +297,64 @@ namespace SeawallCalculator
             //TODO: Needs to return both the depth and the moment lever 
             List<double> Depth = new List<double>();
             List<double> Moment_Arm = new List<double>();
-            if (this.Cantilever)
+            switch (Case)
             {
-                switch (Case)
-                {
-                    case "Surcharge":
-                        Depth = this.WallDepth;
-                        foreach (double depth in Depth)
-                            Moment_Arm.Add(depth / 2);
-                        break;
-                    case "Soil":
-                        foreach (double depth in this.WallDepth)
-                        {
-                            Depth.Add(Math.Min(depth, this.Ground_Water_Depth));
-                            Moment_Arm.Add((2 / 3) * (Math.Max(0, depth - this.Ground_Water_Depth)));
-                        }
-                        break;
-                    case "Uniform Soil":
-                        foreach (double depth in this.WallDepth)
-                        {
-                            Depth.Add(Math.Max(0, depth - this.Ground_Water_Depth));
-                            Moment_Arm.Add((1 / 2) * (Math.Max(0, depth - this.Ground_Water_Depth)));
-                        }
-                        break;
-                    case "Gradient Soil":
-                        foreach (double depth in this.WallDepth)
-                        {
-                            Depth.Add(Math.Max(0, depth - this.Ground_Water_Depth));
-                            Moment_Arm.Add((1 / 3) * (Math.Max(0, depth - this.Ground_Water_Depth)));
-                        }
-                        break;
-                    case "Hydrostatic Ground Water":
-                        foreach (double depth in this.WallDepth)
-                        {
-                            Depth.Add(Math.Max(0, depth - this.Ground_Water_Depth));
-                            Moment_Arm.Add((1 / 3) * (Math.Max(0, depth - this.Ground_Water_Depth)));
-                        }
+                case "Surcharge":
+                    Depth = this.WallDepth;
+                    foreach (double depth in Depth)
+                        Moment_Arm.Add(depth / 2);
+                    break;
+                case "Soil":
+                    foreach (double depth in this.WallDepth)
+                    {
+                        Depth.Add(Math.Min(depth, this.Ground_Water_Depth));
+                        Moment_Arm.Add((2 / 3) * (Math.Max(0, depth - this.Ground_Water_Depth)));
+                    }
+                    break;
+                case "Uniform Soil":
+                    foreach (double depth in this.WallDepth)
+                    {
+                        Depth.Add(Math.Max(0, depth - this.Ground_Water_Depth));
+                        Moment_Arm.Add((1 / 2) * (Math.Max(0, depth - this.Ground_Water_Depth)));
+                    }
+                    break;
+                case "Gradient Soil":
+                    foreach (double depth in this.WallDepth)
+                    {
+                        Depth.Add(Math.Max(0, depth - this.Ground_Water_Depth));
+                        Moment_Arm.Add((1 / 3) * (Math.Max(0, depth - this.Ground_Water_Depth)));
+                    }
+                    break;
+                case "Hydrostatic Ground Water":
+                    foreach (double depth in this.WallDepth)
+                    {
+                        Depth.Add(Math.Max(0, depth - this.Ground_Water_Depth));
+                        Moment_Arm.Add((1 / 3) * (Math.Max(0, depth - this.Ground_Water_Depth)));
+                    }
 
-                        break;
-                    case "Hydrostatic Open Water":
-                        foreach (double depth in this.WallDepth)
-                        {
-                            Depth.Add(Math.Max(0, depth - this.Open_Water_Level));
-                            Moment_Arm.Add((1 / 3) * (Math.Max(0, depth - this.Open_Water_Level)));
-                        }
-                        break;
-                    case "Factored Passive Pressure":
-                        foreach (double depth in this.WallDepth)
-                        {
-                            Depth.Add(Math.Max(0, depth - this.Mudline_Depth));
-                            Moment_Arm.Add((1 / 3) * Math.Max(0, depth - this.Mudline_Depth));
-                        }
-                        break;
-                    case "King and Battered Piles":
-                        foreach (double depth in this.WallDepth)
-                        {
-                            Depth.Add(Math.Max(0, depth - this.Top_of_Pile));
-                        }
-                        break;
-                }
-              
+                    break;
+                case "Hydrostatic Open Water":
+                    foreach (double depth in this.WallDepth)
+                    {
+                        Depth.Add(Math.Max(0, depth - this.Open_Water_Level));
+                        Moment_Arm.Add((1 / 3) * (Math.Max(0, depth - this.Open_Water_Level)));
+                    }
+                    break;
+                case "Factored Passive Pressure":
+                    foreach (double depth in this.WallDepth)
+                    {
+                        Depth.Add(Math.Max(0, depth - this.Mudline_Depth));
+                        Moment_Arm.Add((1 / 3) * Math.Max(0, depth - this.Mudline_Depth));
+                    }
+                    break;
+                case "King and Battered Piles":
+                    foreach (double depth in this.WallDepth)
+                    {
+                        Depth.Add(Math.Max(0, depth - this.Top_of_Pile));
+                    }
+                    break;
             }
-            else
-            {
-                //TODO braced wall case
-            }
+
             return (Depth, Moment_Arm);
 
         }
