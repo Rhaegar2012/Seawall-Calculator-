@@ -76,6 +76,18 @@ namespace SeawallCalculator
             }
         }
         private string in_MudlineSlope;
+        private string in_MudlineDepth;
+        public string MudlineDepth
+        {
+            get
+            {
+                return in_MudlineDepth;
+            }
+            set
+            {
+                in_MudlineDepth = value;
+            }
+        }
         public string MudlineSlope
         {
             get
@@ -255,10 +267,12 @@ namespace SeawallCalculator
                 in_LiveSurcharge = value;
             }
         }
+        //TODO:Bind cantilever bool variable to checkbox in the view  
+        public bool isCantilever=true;
         //Wall property list for verification
-        
 
-    private CalculationManager calculationManager = new CalculationManager();
+
+        private CalculationManager calculationManager;
 
         //The model view constructor creates the relay command from the button objects and collects the data from the UI 
         public ModelView()
@@ -281,6 +295,7 @@ namespace SeawallCalculator
                                   in_LateralCapacityKingPiles,
                                   in_LiveSurcharge,
                                   in_MudlineSlope,
+                                  in_MudlineDepth, 
                                   in_OpenWaterLevel,
                                   in_PanelThickness,
                                   in_PassiveFrictionAngle,
@@ -301,11 +316,36 @@ namespace SeawallCalculator
         }
         private void AnalyzeWall(object obj)
         {
-            Console.WriteLine(in_GroundElevation);
-            Console.WriteLine(in_Penetration);
+            
             if (CheckWallData())
             {
-                //TODO: Call stack to wall calculation manager
+                int parse_groundElevation = Int32.Parse(GroundElevation);
+                int parse_groundWaterDepth = Int32.Parse(GroundWaterDepth);
+                int parse_openWaterLevel = Int32.Parse(OpenWaterLevel);
+                int parse_MudlineDepth = Int32.Parse(MudlineDepth);
+                int parse_MudlineSlope = Int32.Parse(MudlineSlope);
+                int parse_OpenWaterLevel = Int32.Parse(OpenWaterLevel);
+                int parse_wallThickness = Int32.Parse(PanelThickness);
+                int parse_PassiveFrictionAngle = Int32.Parse(PassiveFrictionAngle);
+                int parse_ActiveFrictionAngle = Int32.Parse(ActiveFrictionAngle);
+                int parse_LandslideSlope = Int32.Parse(LandslideSlope);
+                int parse_LiveSurcharge = Int32.Parse(LiveSurcharge);
+                int parse_Penetration = Int32.Parse(Penetration);
+                int parse_PilesSpacing = Int32.Parse(PilesSpacing);
+                int parse_PilesLateralCapacity = Int32.Parse(LateralCapacityKingPiles);
+                double parse_SafetyFactor = Double.Parse(SafetyFactor);
+                int parse_SaturatedSoilDensity = Int32.Parse(SaturatedSoilDensity);
+                int parse_SlopeBatteredPiles = Int32.Parse(SlopeBatteredPiles);
+                int parse_SoilDensity = Int32.Parse(SoilDensity);
+                int parse_SoilToWallFrictionAngle = Int32.Parse(SoilToWallFrictionAngle);
+                int parse_TopOfPile = Int32.Parse(TopOfPile);
+                calculationManager.CreateWall(parse_groundElevation, parse_TopOfPile, parse_MudlineDepth, parse_groundWaterDepth, parse_OpenWaterLevel,
+                    parse_Penetration, parse_SaturatedSoilDensity, parse_ActiveFrictionAngle, parse_PassiveFrictionAngle, parse_SoilToWallFrictionAngle,
+                    parse_LandslideSlope, parse_MudlineSlope, parse_LiveSurcharge, parse_PilesSpacing, parse_PilesLateralCapacity, parse_SoilToWallFrictionAngle,
+                    isCantilever);
+                calculationManager.CalculateWall();
+                UpdateWallForm();
+
             }
             else
             {
@@ -315,6 +355,10 @@ namespace SeawallCalculator
         private void CreateWallReport(object obj)
         {
             throw new  NotImplementedException();
+        }
+        private void UpdateWallForm()
+        {
+
         }
 
 

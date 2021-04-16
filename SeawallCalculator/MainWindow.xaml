@@ -69,7 +69,7 @@
                     <TextBox x:Name="OpenWaterLevelInput" Width="75" Margin="0,0,20,3" Text="{Binding OpenWaterLevel,Mode=TwoWay}"/>
                     <TextBox x:Name="MudlineSlopeInput" Width="75" Margin="0,0,20,3" Text="{Binding MudlineSlope,Mode=TwoWay}"/>
                     <TextBox x:Name="LandslideSlopeInput" Width="75" Margin="0,0,20,3" Text="{Binding LandslideSlope,Mode=TwoWay}"/>
-                    <TextBox x:Name="MudlineDepthInput" Width="75" Margin="0,0,20,20" Text="{Binding MudlineSlope,Mode=TwoWay}"/>
+                    <TextBox x:Name="MudlineDepthInput" Width="75" Margin="0,0,20,20" Text="{Binding MudlineDepth,Mode=TwoWay}"/>
                     <TextBox x:Name="TopofPileInput" Width="75" Margin="0,0,20,3" Text="{Binding TopOfPile,Mode=TwoWay}"/>
                     <TextBox x:Name="PilespacingInput" Width="75" Margin="0,0,20,3" Text="{Binding PilesSpacing,Mode=TwoWay}"/>
                     <TextBox x:Name="LateralPileCapacityInput" Width="75" Margin="0,0,20,3" Text="{Binding LateralCapacityKingPiles,Mode=TwoWay}"/>
