@@ -269,10 +269,16 @@ namespace SeawallCalculator
         }
         //TODO:Bind cantilever bool variable to checkbox in the view  
         public bool isCantilever=true;
-        //Wall property list for verification
-
-
-        private CalculationManager calculationManager;
+        //Collections 
+        private List<double> WallMomentDistribution;
+        private List<double> WallShearDistribution;
+        //Output variables 
+        public string LateralForceOnCap="LateralForce";
+        public string MaxWallShear="MaxWallShear";
+        public string MaxWallMoment="MaxWallMoment";
+        public string AxialForceinBatteredPile="AxialForceInBatteredPile";
+        public string AxialForceinKingPile="AxialForceinKingPile";
+        private CalculationManager calculationManager=new CalculationManager();
 
         //The model view constructor creates the relay command from the button objects and collects the data from the UI 
         public ModelView()
@@ -319,31 +325,34 @@ namespace SeawallCalculator
             
             if (CheckWallData())
             {
-                int parse_groundElevation = Int32.Parse(GroundElevation);
-                int parse_groundWaterDepth = Int32.Parse(GroundWaterDepth);
-                int parse_openWaterLevel = Int32.Parse(OpenWaterLevel);
-                int parse_MudlineDepth = Int32.Parse(MudlineDepth);
-                int parse_MudlineSlope = Int32.Parse(MudlineSlope);
-                int parse_OpenWaterLevel = Int32.Parse(OpenWaterLevel);
-                int parse_wallThickness = Int32.Parse(PanelThickness);
-                int parse_PassiveFrictionAngle = Int32.Parse(PassiveFrictionAngle);
-                int parse_ActiveFrictionAngle = Int32.Parse(ActiveFrictionAngle);
-                int parse_LandslideSlope = Int32.Parse(LandslideSlope);
-                int parse_LiveSurcharge = Int32.Parse(LiveSurcharge);
-                int parse_Penetration = Int32.Parse(Penetration);
-                int parse_PilesSpacing = Int32.Parse(PilesSpacing);
-                int parse_PilesLateralCapacity = Int32.Parse(LateralCapacityKingPiles);
+                double parse_groundElevation = Double.Parse(GroundElevation);
+                double parse_groundWaterDepth = Double.Parse(GroundWaterDepth);
+                double parse_openWaterLevel = Double.Parse(OpenWaterLevel);
+                double parse_MudlineDepth = Double.Parse(MudlineDepth);
+                double parse_MudlineSlope = Double.Parse(MudlineSlope);
+                double parse_OpenWaterLevel = Double.Parse(OpenWaterLevel);
+                double parse_wallThickness = Double.Parse(PanelThickness);
+                double parse_PassiveFrictionAngle = Double.Parse(PassiveFrictionAngle);
+                double parse_ActiveFrictionAngle = Double.Parse(ActiveFrictionAngle);
+                double parse_LandslideSlope = Double.Parse(LandslideSlope);
+                double parse_LiveSurcharge = Double.Parse(LiveSurcharge);
+                double parse_Penetration = Double.Parse(Penetration);
+                double parse_PilesSpacing = Double.Parse(PilesSpacing);
+                double parse_SlopeBatteredPiles = Double.Parse(SlopeBatteredPiles);
+                double parse_PilesLateralCapacity = Double.Parse(LateralCapacityKingPiles);
                 double parse_SafetyFactor = Double.Parse(SafetyFactor);
-                int parse_SaturatedSoilDensity = Int32.Parse(SaturatedSoilDensity);
-                int parse_SlopeBatteredPiles = Int32.Parse(SlopeBatteredPiles);
-                int parse_SoilDensity = Int32.Parse(SoilDensity);
-                int parse_SoilToWallFrictionAngle = Int32.Parse(SoilToWallFrictionAngle);
-                int parse_TopOfPile = Int32.Parse(TopOfPile);
+                double parse_SaturatedSoilDensity = Double.Parse(SaturatedSoilDensity);
+                double parse_SoilDensity = Double.Parse(SoilDensity);
+                double parse_SoilToWallFrictionAngle = Double.Parse(SoilToWallFrictionAngle);
+                double parse_TopOfPile = Double.Parse(TopOfPile);
                 calculationManager.CreateWall(parse_groundElevation, parse_TopOfPile, parse_MudlineDepth, parse_groundWaterDepth, parse_OpenWaterLevel,
-                    parse_Penetration, parse_SaturatedSoilDensity, parse_ActiveFrictionAngle, parse_PassiveFrictionAngle, parse_SoilToWallFrictionAngle,
-                    parse_LandslideSlope, parse_MudlineSlope, parse_LiveSurcharge, parse_PilesSpacing, parse_PilesLateralCapacity, parse_SoilToWallFrictionAngle,
+                    parse_Penetration, parse_SaturatedSoilDensity, parse_ActiveFrictionAngle, parse_PassiveFrictionAngle, parse_SoilToWallFrictionAngle,parse_wallThickness,
+                    parse_LandslideSlope, parse_MudlineSlope, parse_LiveSurcharge, parse_PilesSpacing,parse_SlopeBatteredPiles, parse_PilesLateralCapacity, parse_SoilToWallFrictionAngle,
                     isCantilever);
-                calculationManager.CalculateWall();
+                (this.WallMomentDistribution, this.WallShearDistribution)=calculationManager.CalculateWall();
+                //Debugging
+                Console.WriteLine(this.WallMomentDistribution.ToString());
+                Console.WriteLine(this.WallShearDistribution.ToString());
                 UpdateWallForm();
 
             }
@@ -358,6 +367,11 @@ namespace SeawallCalculator
         }
         private void UpdateWallForm()
         {
+            LateralForceOnCap = calculationManager.LateralForceOnCap;
+            MaxWallShear = calculationManager.Maximum_Wall_Shear;
+            MaxWallMoment = calculationManager.Maximum_Wall_Moment;
+            AxialForceinBatteredPile = calculationManager.Axial_Force_On_Pile;
+            AxialForceinKingPile = calculationManager.Axial_Force_On_King_Pile;
 
         }
 

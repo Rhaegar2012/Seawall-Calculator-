@@ -6,57 +6,59 @@ using System.Threading.Tasks;
 
 namespace SeawallCalculator
 {
-    class WallModel
+    class WallModel:ListFunctions
     {
         //Input Variables 
-        private int Ground_Elevation;
-        private int Top_of_Pile;
-        private int Mudline_Depth;
-        private int Ground_Water_Depth;
-        private int Open_Water_Level;
-        private int Penetration;
-        private int Soil_Density;
-        private int Saturated_Soil_Density;
+        private double Ground_Elevation;
+        private double Top_of_Pile;
+        private double Mudline_Depth;
+        private double Ground_Water_Depth;
+        private double Open_Water_Level;
+        private double Penetration;
+        private double Soil_Density;
+        private double Saturated_Soil_Density;
+        private double Panel_Thickness;
         private double Active_Friction_Angle;
         private double Passive_Friction_Angle;
         private double Soil_to_Wall_Friction_Angle;
-        private int Landslide_Slope;
-        private int Mudline_Slope;
-        private int Live_Surcharge;
-        private int PilesSpacing;
-        private int LateralCapacityPiles;
+        private double Landslide_Slope;
+        private double Mudline_Slope;
+        private double Live_Surcharge;
+        private double PilesSpacing;
+        private double SlopeOfBatteredPiles;
+        private double LateralCapacityPiles;
         private double TargetSafetyFactor;
         private bool Cantilever;
 
         //Model Variables
-        private int TieBack_Elevation {
+        private double TieBack_Elevation {
             get
             {
                 return this.Ground_Elevation - this.Top_of_Pile;
             }
         }
-        private int Mudline_Elevation
+        private double Mudline_Elevation
         {
             get
             {
                 return this.Mudline_Depth - this.Ground_Elevation;
             }
         }
-        private int GroundWater_Elevation {
+        private double GroundWater_Elevation {
             get
             {
                 return this.Ground_Elevation - this.Ground_Water_Depth;
             }
             
         }
-        private int SeaWater_Elevation 
+        private double SeaWater_Elevation 
         {
             get
             {
                 return this.Ground_Elevation - this.Open_Water_Level;
             }
         }
-        private int Panel_Height
+        private double Panel_Height
         {
             get
             {
@@ -218,7 +220,32 @@ namespace SeawallCalculator
                 return (this.Penetration / 3);
             }
         }
-        
+
+        //Resultant Vertical Forces
+        private double Panels_Weight
+        {
+            get
+            {
+                return this.Panel_Thickness / 12 * 150 * this.Panel_Height;
+            }
+        }
+        private double Friction_Force
+        {
+            get
+            {
+                double value = (Surcharge_Resultant_Force + Soil_Above_GroundWater_Resultant_Force + Active_Saturated_Soil_Uniform_Resultant_Force +
+                    Active_Saturated_Soil_Gradient_Resultant_Force + Passive_Saturated_Soil_Resultant_Force) * Math.Tan(this.Soil_to_Wall_Friction_Angle);
+                return value;
+            }
+        }
+        private double Vertical_Force
+        {
+            get
+            {
+                double value = 0.6 * this.Panels_Weight + this.Friction_Force;
+                return value;
+            }
+        }
         //Collections, public collections can be sent to the frontend layer
         private List<double> Moment_At_Toe = new List<double>();
         public List<double> WallElevation = new List<double>();
@@ -226,21 +253,64 @@ namespace SeawallCalculator
         private List<double> WallDepth = new List<double>();
         public List<double> WallShear = new List<double>();
         public List<double> WallMoment = new List<double>();
-        
 
+        //Output Variables to be displayed on the View
+        public double LateralForceonCap 
+        {
+            get 
+            {
+                return this.Battered_Pile_Resultant_Force;
+            }
+        }
+        public double Max_Shear 
+        {
+            get
+            {
+                double max_value = this.FindMaxValue(WallShear);
+                return max_value;
+            }
+        }
+        public double Max_Moment
+        {
+            get
+            {
+                double max_value = this.FindMaxValue(WallMoment);
+                return max_value;
+            }
+        }
+        public double Axial_Force_in_Battered_Pile 
+        {
+            get
+            {
+                double value = Math.Sqrt(Math.Pow(12, 2) + Math.Pow(this.PilesSpacing, 2)) / (this.SlopeOfBatteredPiles) * (this.LateralForceonCap) * (this.PilesSpacing / 1000);
+                return value;
+            }
+            
+        }
+        public double Axial_Force_in_King_Pile
+        {
+            get
+            {
+                double value = this.Axial_Force_in_Battered_Pile * 12 / (Math.Sqrt(Math.Pow(12, 2) + Math.Pow(this.SlopeOfBatteredPiles, 2))) - (this.PilesSpacing * this.Vertical_Force) / 1000;
+                return value;
+            }
+        }
+      
         //Output Variables
         public double Safety_Factor;
         //Constructor
-        public WallModel(int GroundElevation, int TopOfPile,int MudlineDepth,
-            int GroundWaterDepth,int OpenWaterLevel,int Penetration,int SaturatedSoilDensity,
-            int ActiveFrictionAngle, int PassiveFrictionAngle,int SoilToWallFrictionAngle,
-            int LandslideSlope, int MudlineSlope,int LiveSurcharge, int PilesSpacing, int PilesLateralCapacity,double InputSafetyFactor,bool isCantilever)
+        public WallModel(double GroundElevation, double TopOfPile,double MudlineDepth,
+            double GroundWaterDepth,double OpenWaterLevel,double Penetration,double SaturatedSoilDensity,
+            double ActiveFrictionAngle, double PassiveFrictionAngle,double SoilToWallFrictionAngle,double panelThickness,
+            double LandslideSlope, double MudlineSlope,double LiveSurcharge, 
+            double PilesSpacing, double SlopeOfBattered, double PilesLateralCapacity,double InputSafetyFactor,bool isCantilever)
         {
             this.Ground_Elevation = GroundElevation;
             this.Top_of_Pile = TopOfPile;
             this.Mudline_Depth = MudlineDepth;
             this.Ground_Water_Depth = GroundWaterDepth;
             this.Open_Water_Level = OpenWaterLevel;
+            this.Panel_Thickness = panelThickness;
             this.Penetration = Penetration;
             this.Saturated_Soil_Density = SaturatedSoilDensity;
             this.Active_Friction_Angle = ActiveFrictionAngle*Math.PI/180;
@@ -253,6 +323,7 @@ namespace SeawallCalculator
             this.LateralCapacityPiles = PilesLateralCapacity;
             this.TargetSafetyFactor = InputSafetyFactor;
             this.Cantilever = isCantilever;
+            this.SlopeOfBatteredPiles = SlopeOfBattered;
         }
         private void Calculate_Moment_At_Toe()
         {
@@ -289,7 +360,18 @@ namespace SeawallCalculator
         //Wall Geometry is the base wall elevation progression across its entire height
         private void Generate_Wall_Geometry()
         {
-            //TODO
+            double index = this.Panel_Height;
+            this.WallHeight.Add(index);
+            while (index > 0.01)
+            {
+                index = index - this.Panel_Height / 20;
+                this.WallHeight.Add(index);
+            }
+            for(int i=0; i < this.WallHeight.Count; i++)
+            {
+                this.WallDepth.Add(this.Panel_Height-this.WallHeight[i]);
+            }
+
         }
         //Generate_Wall_Elevations is load specific, returs the wall elevations used to calculate a specific load distribution
         private (List<double>,List<double>) Generate_Wall_Elevations(string Case  )
@@ -514,6 +596,7 @@ namespace SeawallCalculator
             }
             return (TotalWallShear, TotalWallMoment);
         }
+
 
 
     }

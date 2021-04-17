@@ -136,7 +136,32 @@
                         Command="{Binding WallReportButton}"
                         CommandParameter="Pon"/>
             </StackPanel>
-
+            <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" >
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Output" FontSize="16" FontWeight="Bold" Grid.Row="1" Grid.Column="0" Margin="20,0,0,5"/>
+                        <TextBlock Text="Lateral Force on Cap" Margin="20,0,0,5"/>
+                        <TextBlock Text="Max. Shear" Margin="20,0,0,5"/>
+                        <TextBlock Text="Max. Moment" Margin="20,0,0,5"/>
+                        <TextBlock Text="Axial Force in Battered Pile" Margin="20,0,0,5"/>
+                        <TextBlock Text="Axial Force in King Pile" Margin="20,0,0,5"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding LateralForceOnCap,Mode=TwoWay}" Margin="5,25,0,0"/>
+                        <TextBlock Text="{Binding MaxWallShear,Mode=TwoWay}" Margin="5,5,0,0"/>
+                        <TextBlock Text="{Binding MaxWallMoment,Mode=TwoWay}" Margin="5,5,0,0"/>
+                        <TextBlock Text="{Binding AxialForceinBatteredPile,Mode=TwoWay}" Margin="5,5,0,0"/>
+                        <TextBlock Text="{Binding AxialForceinKingPile,Mode=TwoWay}" Margin="5,5,0,0"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="lb/ft" Margin="80,25,0,0"/>
+                        <TextBlock Text="lb*ft/ft" Margin="80,5,0,0"/>
+                        <TextBlock Text="lb*ft/ft" Margin="80,5,0,0"/>
+                        <TextBlock Text="kip" Margin="80,5,0,0"/>
+                        <TextBlock Text="kip" Margin="80,5,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
         </Grid>
 
     </Page>
