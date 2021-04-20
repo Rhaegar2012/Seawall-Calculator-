@@ -20,6 +20,7 @@ namespace SeawallCalculator
         {
             get
             {
+                Console.WriteLine("Max Wall Shear "+Wall.Max_Shear.ToString());
                 return (Wall.Max_Shear.ToString());
             }
         }

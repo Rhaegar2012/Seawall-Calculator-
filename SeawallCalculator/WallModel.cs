@@ -428,6 +428,7 @@ namespace SeawallCalculator
                         Depth.Add(Math.Max(0, depth - this.Mudline_Depth));
                         Moment_Arm.Add((1 / 3) * Math.Max(0, depth - this.Mudline_Depth));
                     }
+                    Depth.ForEach(Console.WriteLine);
                     break;
                 case "King and Battered Piles":
                     foreach (double depth in this.WallDepth)
@@ -453,6 +454,7 @@ namespace SeawallCalculator
                 ShearForce.Add(Force);
                 Moment.Add(Force * MomentArm[i]);
             }
+            Console.WriteLine(Depth);
             return (ShearForce, Moment);
         }
         private (List<double>,List<double>) Calculate_Soil_Load_Distribution()
@@ -529,11 +531,12 @@ namespace SeawallCalculator
         {
             List<double> ShearForce = new List<double>();
             List<double> Moment = new List<double>();
-            (List<double> Depth, List<double> MomentArm) = Generate_Wall_Elevations("Factored Passive Pressue");
+            (List<double> Depth, List<double> MomentArm) = Generate_Wall_Elevations("Factored Passive Pressure");
             for (int i = 0; i < Depth.Count; i++)
             {
 
                 double Force = (Math.Pow(Depth[i], 2) * this.Passive_Pressure_Coefficient*this.Submerged_Density) / (2*TargetSafetyFactor);
+                Console.WriteLine("Target Safety Factor " +this.TargetSafetyFactor.ToString()+ Force.ToString());
                 ShearForce.Add(Force);
                 Moment.Add(Force * MomentArm[i]);
             }
@@ -543,7 +546,7 @@ namespace SeawallCalculator
         {
             List<double> ShearForce = new List<double>();
             List<double> Moment = new List<double>();
-            (List<double> Depth, List<double> MomentArm) = Generate_Wall_Elevations("Factored Passive Pressue");
+            (List<double> Depth, List<double> MomentArm) = Generate_Wall_Elevations("King and Battered Piles");
             double Force;
             for (int i = 0; i < Depth.Count; i++)
             {
@@ -556,7 +559,7 @@ namespace SeawallCalculator
                     Force = (this.King_Pile_Resultant_Force+this.Battered_Pile_Resultant_Force);  
                 }
                 ShearForce.Add(Force);
-                Moment.Add(Force * MomentArm[i]);
+                Moment.Add(Force * Depth[i]);
 
             }
             return (ShearForce, Moment);
@@ -575,8 +578,21 @@ namespace SeawallCalculator
             (List<double>HydrostaticOpenWaterShear,List<double>HydrostaticOpenWaterMoment)=Calculate_Hydrostatic_Open_Water_Load_Distribution();
             (List<double>PassivePressureShear,List<double>PassivePressureMoment)=Calculate_Passive_Pressure_Load_Distribution();
             (List<double>KingBatteredShearForce,List<double>KingBatteredMoment)=Calculate_King_Battered_Pile();
-            for(int i=0; i < this.WallDepth.Count; i++)
+            Console.WriteLine("Wall Depth");
+            this.WallDepth.ForEach(Console.WriteLine);
+            Console.WriteLine("Wall Height");
+            this.WallHeight.ForEach(Console.WriteLine);
+            Console.WriteLine("Wall Elevation");
+            this.WallElevation.ForEach(Console.WriteLine);
+            for (int i=0; i < this.WallDepth.Count; i++)
             {
+                Console.WriteLine(SoilShear[i] + " " +
+                    UniformSoilShear[i] + " " +
+                    GradientSoilShear[i] + " " +
+                    HydrostaticGroundWaterShear[i] + " " +
+                    HydrostaticOpenWaterShear[i] + " " +
+                    PassivePressureShear[i] + " " +
+                    KingBatteredShearForce[i]);
                 TotalWallShear.Add(SurchargeShear[i] +
                     SoilShear[i] +
                     UniformSoilShear[i] +
@@ -594,6 +610,10 @@ namespace SeawallCalculator
                     PassivePressureMoment[i] -
                     KingBatteredMoment[i]);
             }
+            Console.WriteLine("Wall Shear");
+            TotalWallShear.ForEach(Console.WriteLine);
+            this.WallShear = TotalWallShear;
+            this.WallMoment = TotalWallMoment;
             return (TotalWallShear, TotalWallMoment);
         }
 

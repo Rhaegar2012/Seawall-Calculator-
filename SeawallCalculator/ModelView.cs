@@ -273,11 +273,11 @@ namespace SeawallCalculator
         private List<double> WallMomentDistribution;
         private List<double> WallShearDistribution;
         //Output variables 
-        public string LateralForceOnCap="LateralForce";
-        public string MaxWallShear="MaxWallShear";
-        public string MaxWallMoment="MaxWallMoment";
-        public string AxialForceinBatteredPile="AxialForceInBatteredPile";
-        public string AxialForceinKingPile="AxialForceinKingPile";
+        public string LateralForceOnCap { get; set; }
+        public string MaxWallShear { get; set; }
+        public string MaxWallMoment { get; set; }
+        public string AxialForceinBatteredPile { get; set; }
+        public string AxialForceinKingPile { get; set; }
         private CalculationManager calculationManager=new CalculationManager();
 
         //The model view constructor creates the relay command from the button objects and collects the data from the UI 
@@ -345,10 +345,9 @@ namespace SeawallCalculator
                 double parse_SoilDensity = Double.Parse(SoilDensity);
                 double parse_SoilToWallFrictionAngle = Double.Parse(SoilToWallFrictionAngle);
                 double parse_TopOfPile = Double.Parse(TopOfPile);
-                calculationManager.CreateWall(parse_groundElevation, parse_TopOfPile, parse_MudlineDepth, parse_groundWaterDepth, parse_OpenWaterLevel,
-                    parse_Penetration, parse_SaturatedSoilDensity, parse_ActiveFrictionAngle, parse_PassiveFrictionAngle, parse_SoilToWallFrictionAngle,parse_wallThickness,
-                    parse_LandslideSlope, parse_MudlineSlope, parse_LiveSurcharge, parse_PilesSpacing,parse_SlopeBatteredPiles, parse_PilesLateralCapacity, parse_SoilToWallFrictionAngle,
-                    isCantilever);
+                calculationManager.CreateWall(parse_groundElevation,parse_TopOfPile,parse_MudlineDepth,parse_groundWaterDepth,parse_OpenWaterLevel,
+                    parse_Penetration,parse_SaturatedSoilDensity,parse_ActiveFrictionAngle,parse_PassiveFrictionAngle,parse_SoilToWallFrictionAngle,parse_wallThickness,parse_LandslideSlope,
+                    parse_MudlineSlope,parse_LiveSurcharge,parse_PilesSpacing,parse_SlopeBatteredPiles,parse_PilesLateralCapacity,parse_SafetyFactor,isCantilever);
                 (this.WallMomentDistribution, this.WallShearDistribution)=calculationManager.CalculateWall();
                 //Debugging
                 Console.WriteLine(this.WallMomentDistribution.ToString());
@@ -367,8 +366,10 @@ namespace SeawallCalculator
         }
         private void UpdateWallForm()
         {
-            LateralForceOnCap = calculationManager.LateralForceOnCap;
+            LateralForceOnCap= calculationManager.LateralForceOnCap;
+            Console.WriteLine("Lateral Force " + LateralForceOnCap);
             MaxWallShear = calculationManager.Maximum_Wall_Shear;
+            Console.WriteLine("Max Shear " + MaxWallShear);
             MaxWallMoment = calculationManager.Maximum_Wall_Moment;
             AxialForceinBatteredPile = calculationManager.Axial_Force_On_Pile;
             AxialForceinKingPile = calculationManager.Axial_Force_On_King_Pile;
