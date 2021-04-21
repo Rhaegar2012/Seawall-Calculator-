@@ -9,122 +9,120 @@
     <Window.DataContext>
         <local:ModelView/>
     </Window.DataContext>
-    <Window.Resources>
-        <DataTemplate x:Name="capViewTemplate" DataType="{x:Type local:CapViewModel}">
-            <local:BeamView DataContext="{Binding}"/>
-        </DataTemplate> 
-    </Window.Resources>
-    <Page x:Name="WallPage" Background="CadetBlue">
-        <Grid x:Name="WallPageGrid" Margin="0,0,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
-                <TextBlock Text="Wall Analysis" FontSize="20" Foreground="Black" Margin="20,20,10,10" FontWeight="Bold"/>
-                <Menu Background="Transparent" Margin="20,10,10,10">
-                    <MenuItem Header="File">
-                        <MenuItem Header="New"></MenuItem>
-                        <MenuItem Header="Open"></MenuItem>
-                        <MenuItem Header="Save"></MenuItem>
-                    </MenuItem>
-                    <MenuItem Header="Wall Analysis" Click="WallNavigateButton"/>
-                    <MenuItem Header="Cap Analysis" Click="CapNavigateButton" />
-                    <MenuItem Header="Design"/>
-                </Menu>
-            </StackPanel>
-            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
-                <TextBlock Text="Wall Analysis" FontSize="20" Foreground="Black" Margin="20,20,10,10" FontWeight="Bold"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Menu Background="Transparent"  Grid.Row="0">
+            <MenuItem Header="File">
+                <MenuItem Header="New"></MenuItem>
+                <MenuItem Header="Open"></MenuItem>
+                <MenuItem Header="Save"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <TabControl Grid.Row="1" Background="CadetBlue" Width="Auto">
+            <TabItem Header="Wall Analysis" Height="Auto">
+                <Grid x:Name="WallPageGrid" Margin="0,0,0,0" Background="CadetBlue">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
+                        <TextBlock Text="Wall Analysis" FontSize="20" Foreground="Black" Margin="20,20,10,10" FontWeight="Bold"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
+                        <TextBlock Text="Wall Analysis" FontSize="20" Foreground="Black" Margin="20,20,10,10" FontWeight="Bold"/>
 
-            </StackPanel>
-            <TextBlock Text="Input Variables" FontSize="16" FontWeight="Bold" Grid.Row="1" Grid.Column="0" Margin="20,0,0,20"/>
-            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Coastline Properties" FontSize="12" FontWeight="Bold" Margin="20,0,20,10"/>
-                    <TextBlock Text="Ground Elevation" FontSize="12" Margin="20,0,5,5"/>
-                    <TextBlock Text="Ground Water Depth" FontSize="12" Margin="20,0,5,5"/>
-                    <TextBlock Text="Open Water Level" FontSize="12" Margin="20,0,5,5"/>
-                    <TextBlock Text="Mudline Slope" FontSize="12" Margin="20,0,5,5"/>
-                    <TextBlock Text="Landslide Slope " FontSize="12" Margin="20,0,5,5"/>
-                    <TextBlock Text="Mudline Depth" FontSize="12" Margin="20,0,5,10"/>
-                    <TextBlock Text="Piling" FontSize="12" FontWeight="Bold" Margin="20,0,10,0"/>
-                    <TextBlock Text="Top of Pile" FontSize="12" Margin="20,0,5,3"/>
-                    <TextBlock Text="Piles Spacing" FontSize="12" Margin="20,0,5,3"/>
-                    <TextBlock Text="Lateral Capacity of King Piles" FontSize="12" Margin="20,0,5,3"/>
-                    <TextBlock Text="Slope of Battered Piles" FontSize="12" Margin="20,0,5,10"/>
-                    <TextBlock Text="Wall Properties" FontSize="12" FontWeight="Bold" Margin="20,0,10,3"/>
-                    <TextBlock Text="Panel Thickness" FontSize="12" Margin="20,0,5,3"/>
-                    <TextBlock Text="Penetration" FontSize="12" Margin="20,0,5,3"/>
-                    <TextBlock Text="Safety Factor" FontSize="12" Margin="20,0,5,10"/>
-                    <TextBlock Text="Soil Properties" FontSize="12" FontWeight="Bold" Margin="20,0,10,0"/>
-                    <TextBlock Text="Soil Density" FontSize="12" Margin="20,0,5,3"/>
-                    <TextBlock Text="Saturated Soil Density" FontSize="12" Margin="20,0,5,3"/>
-                    <TextBlock Text="Active Friction Angle" FontSize="12" Margin="20,0,5,3"/>
-                    <TextBlock Text="Passive Friction Angle" FontSize="12" Margin="20,0,5,3"/>
-                    <TextBlock Text="Soil to Wall Friction Angle" FontSize="12" Margin="20,0,5,3"/>
-                    <TextBlock Text="Live Surcharge" FontSize="12" Margin="20,0,5,3"/>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <TextBox x:Name="GroundElevationInput" Width="75" Margin="0,25,20,3" Text="{Binding GroundElevation,Mode=TwoWay}"/>
-                    <TextBox x:Name="GroundWaterDepthInput" Width="75" Margin="0,0,20,3" Text="{Binding GroundWaterDepth,Mode=TwoWay}"/>
-                    <TextBox x:Name="OpenWaterLevelInput" Width="75" Margin="0,0,20,3" Text="{Binding OpenWaterLevel,Mode=TwoWay}"/>
-                    <TextBox x:Name="MudlineSlopeInput" Width="75" Margin="0,0,20,3" Text="{Binding MudlineSlope,Mode=TwoWay}"/>
-                    <TextBox x:Name="LandslideSlopeInput" Width="75" Margin="0,0,20,3" Text="{Binding LandslideSlope,Mode=TwoWay}"/>
-                    <TextBox x:Name="MudlineDepthInput" Width="75" Margin="0,0,20,20" Text="{Binding MudlineDepth,Mode=TwoWay}"/>
-                    <TextBox x:Name="TopofPileInput" Width="75" Margin="0,0,20,3" Text="{Binding TopOfPile,Mode=TwoWay}"/>
-                    <TextBox x:Name="PilespacingInput" Width="75" Margin="0,0,20,3" Text="{Binding PilesSpacing,Mode=TwoWay}"/>
-                    <TextBox x:Name="LateralPileCapacityInput" Width="75" Margin="0,0,20,3" Text="{Binding LateralCapacityKingPiles,Mode=TwoWay}"/>
-                    <TextBox x:Name="SlopeBatteredPilesInput" Width="75" Margin="0,0,20,25" Text="{Binding SlopeBatteredPiles,Mode=TwoWay}"/>
-                    <TextBox x:Name="PanelThicknessInput" Width="75" Margin="0,0,20,3" Text="{Binding PanelThickness,Mode=TwoWay}"/>
-                    <TextBox x:Name="WallPenetrationInput" Width="75" Margin="0,0,20,3" Text="{Binding Penetration,Mode=TwoWay}"/>
-                    <TextBox x:Name="SafetyFactorInput" Width="75" Margin="0,0,20,20" Text="{Binding SafetyFactor,Mode=TwoWay}"/>
-                    <TextBox x:Name="SoilDensityInput" Width="75" Margin="0,0,20,3" Text="{Binding SoilDensity,Mode=TwoWay}"/>
-                    <TextBox x:Name="SaturatedSoilDensityInput" Width="75" Margin="0,0,20,3" Text="{Binding SaturatedSoilDensity,Mode=TwoWay}"/>
-                    <TextBox x:Name="ActiveFrictionAngleInput" Width="75" Margin="0,0,20,3" Text="{Binding ActiveFrictionAngle ,Mode=TwoWay}"/>
-                    <TextBox x:Name="PassiveFrictionAngleInput" Width="75" Margin="0,0,20,3" Text="{Binding PassiveFrictionAngle,Mode=TwoWay}"/>
-                    <TextBox x:Name="SoilToWallFrictionAngle" Width="75" Margin="0,0,20,3" Text="{Binding SoilToWallFrictionAngle,Mode=TwoWay}"/>
-                    <TextBox x:Name="LiveSurcharge" Width="75" Margin="0,0,20,3" Text="{Binding LiveSurcharge,Mode=TwoWay}"/>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="" FontSize="12" FontWeight="Bold" Margin="20,0,20,10"/>
-                    <TextBlock Text="ft" FontSize="12" Margin="20,0,5,5"/>
-                    <TextBlock Text="ft below Ground" FontSize="12" Margin="20,0,5,5"/>
-                    <TextBlock Text="ft below Ground" FontSize="12" Margin="20,0,5,5"/>
-                    <TextBlock Text="Downward+" FontSize="12" Margin="20,0,5,5"/>
-                    <TextBlock Text="Upward+" FontSize="12" Margin="20,0,5,5"/>
-                    <TextBlock Text="ft below Ground" FontSize="12" Margin="20,0,5,10"/>
-                    <TextBlock Text="" FontSize="12" FontWeight="Bold" Margin="20,0,10,0"/>
-                    <TextBlock Text="ft below ground" FontSize="12" Margin="20,0,5,3"/>
-                    <TextBlock Text="ft" FontSize="12" Margin="20,0,5,3"/>
-                    <TextBlock Text="Kip" FontSize="12" Margin="20,0,5,3"/>
-                    <TextBlock Text="in/ft" FontSize="12" Margin="20,0,5,10"/>
-                    <TextBlock Text="" FontSize="12" FontWeight="Bold" Margin="20,0,10,3"/>
-                    <TextBlock Text="in" FontSize="12" Margin="20,0,5,3"/>
-                    <TextBlock Text="ft below Mudline" FontSize="12" Margin="20,0,5,3"/>
-                    <TextBlock Text="Unitless" FontSize="12" Margin="20,0,5,10"/>
-                    <TextBlock Text="" FontSize="12" FontWeight="Bold" Margin="20,0,10,0"/>
-                    <TextBlock Text="pcf" FontSize="12" Margin="20,0,5,3"/>
-                    <TextBlock Text="pcf" FontSize="12" Margin="20,0,5,3"/>
-                    <TextBlock Text="Deg" FontSize="12" Margin="20,0,5,3"/>
-                    <TextBlock Text="Deg" FontSize="12" Margin="20,0,5,3"/>
-                    <TextBlock Text="Deg" FontSize="12" Margin="20,0,5,3"/>
-                    <TextBlock Text="psf" FontSize="12" Margin="20,0,5,20"/>
+                    </StackPanel>
+                    <TextBlock Text="Input Variables" FontSize="16" FontWeight="Bold" Grid.Row="1" Grid.Column="0" Margin="20,0,0,20"/>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Coastline Properties" FontSize="12" FontWeight="Bold" Margin="20,0,20,10"/>
+                            <TextBlock Text="Ground Elevation" FontSize="12" Margin="20,0,5,5"/>
+                            <TextBlock Text="Ground Water Depth" FontSize="12" Margin="20,0,5,5"/>
+                            <TextBlock Text="Open Water Level" FontSize="12" Margin="20,0,5,5"/>
+                            <TextBlock Text="Mudline Slope" FontSize="12" Margin="20,0,5,5"/>
+                            <TextBlock Text="Landslide Slope " FontSize="12" Margin="20,0,5,5"/>
+                            <TextBlock Text="Mudline Depth" FontSize="12" Margin="20,0,5,10"/>
+                            <TextBlock Text="Piling" FontSize="12" FontWeight="Bold" Margin="20,0,10,0"/>
+                            <TextBlock Text="Top of Pile" FontSize="12" Margin="20,0,5,3"/>
+                            <TextBlock Text="Piles Spacing" FontSize="12" Margin="20,0,5,3"/>
+                            <TextBlock Text="Lateral Capacity of King Piles" FontSize="12" Margin="20,0,5,3"/>
+                            <TextBlock Text="Slope of Battered Piles" FontSize="12" Margin="20,0,5,10"/>
+                            <TextBlock Text="Wall Properties" FontSize="12" FontWeight="Bold" Margin="20,0,10,3"/>
+                            <TextBlock Text="Panel Thickness" FontSize="12" Margin="20,0,5,3"/>
+                            <TextBlock Text="Penetration" FontSize="12" Margin="20,0,5,3"/>
+                            <TextBlock Text="Safety Factor" FontSize="12" Margin="20,0,5,10"/>
+                            <TextBlock Text="Soil Properties" FontSize="12" FontWeight="Bold" Margin="20,0,10,0"/>
+                            <TextBlock Text="Soil Density" FontSize="12" Margin="20,0,5,3"/>
+                            <TextBlock Text="Saturated Soil Density" FontSize="12" Margin="20,0,5,3"/>
+                            <TextBlock Text="Active Friction Angle" FontSize="12" Margin="20,0,5,3"/>
+                            <TextBlock Text="Passive Friction Angle" FontSize="12" Margin="20,0,5,3"/>
+                            <TextBlock Text="Soil to Wall Friction Angle" FontSize="12" Margin="20,0,5,3"/>
+                            <TextBlock Text="Live Surcharge" FontSize="12" Margin="20,0,5,3"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <TextBox x:Name="GroundElevationInput" Width="75" Margin="0,25,20,3" Text="{Binding GroundElevation,Mode=TwoWay}"/>
+                            <TextBox x:Name="GroundWaterDepthInput" Width="75" Margin="0,0,20,3" Text="{Binding GroundWaterDepth,Mode=TwoWay}"/>
+                            <TextBox x:Name="OpenWaterLevelInput" Width="75" Margin="0,0,20,3" Text="{Binding OpenWaterLevel,Mode=TwoWay}"/>
+                            <TextBox x:Name="MudlineSlopeInput" Width="75" Margin="0,0,20,3" Text="{Binding MudlineSlope,Mode=TwoWay}"/>
+                            <TextBox x:Name="LandslideSlopeInput" Width="75" Margin="0,0,20,3" Text="{Binding LandslideSlope,Mode=TwoWay}"/>
+                            <TextBox x:Name="MudlineDepthInput" Width="75" Margin="0,0,20,20" Text="{Binding MudlineDepth,Mode=TwoWay}"/>
+                            <TextBox x:Name="TopofPileInput" Width="75" Margin="0,0,20,3" Text="{Binding TopOfPile,Mode=TwoWay}"/>
+                            <TextBox x:Name="PilespacingInput" Width="75" Margin="0,0,20,3" Text="{Binding PilesSpacing,Mode=TwoWay}"/>
+                            <TextBox x:Name="LateralPileCapacityInput" Width="75" Margin="0,0,20,3" Text="{Binding LateralCapacityKingPiles,Mode=TwoWay}"/>
+                            <TextBox x:Name="SlopeBatteredPilesInput" Width="75" Margin="0,0,20,25" Text="{Binding SlopeBatteredPiles,Mode=TwoWay}"/>
+                            <TextBox x:Name="PanelThicknessInput" Width="75" Margin="0,0,20,3" Text="{Binding PanelThickness,Mode=TwoWay}"/>
+                            <TextBox x:Name="WallPenetrationInput" Width="75" Margin="0,0,20,3" Text="{Binding Penetration,Mode=TwoWay}"/>
+                            <TextBox x:Name="SafetyFactorInput" Width="75" Margin="0,0,20,20" Text="{Binding SafetyFactor,Mode=TwoWay}"/>
+                            <TextBox x:Name="SoilDensityInput" Width="75" Margin="0,0,20,3" Text="{Binding SoilDensity,Mode=TwoWay}"/>
+                            <TextBox x:Name="SaturatedSoilDensityInput" Width="75" Margin="0,0,20,3" Text="{Binding SaturatedSoilDensity,Mode=TwoWay}"/>
+                            <TextBox x:Name="ActiveFrictionAngleInput" Width="75" Margin="0,0,20,3" Text="{Binding ActiveFrictionAngle ,Mode=TwoWay}"/>
+                            <TextBox x:Name="PassiveFrictionAngleInput" Width="75" Margin="0,0,20,3" Text="{Binding PassiveFrictionAngle,Mode=TwoWay}"/>
+                            <TextBox x:Name="SoilToWallFrictionAngle" Width="75" Margin="0,0,20,3" Text="{Binding SoilToWallFrictionAngle,Mode=TwoWay}"/>
+                            <TextBox x:Name="LiveSurcharge" Width="75" Margin="0,0,20,3" Text="{Binding LiveSurcharge,Mode=TwoWay}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="" FontSize="12" FontWeight="Bold" Margin="20,0,20,10"/>
+                            <TextBlock Text="ft" FontSize="12" Margin="20,0,5,5"/>
+                            <TextBlock Text="ft below Ground" FontSize="12" Margin="20,0,5,5"/>
+                            <TextBlock Text="ft below Ground" FontSize="12" Margin="20,0,5,5"/>
+                            <TextBlock Text="Downward+" FontSize="12" Margin="20,0,5,5"/>
+                            <TextBlock Text="Upward+" FontSize="12" Margin="20,0,5,5"/>
+                            <TextBlock Text="ft below Ground" FontSize="12" Margin="20,0,5,10"/>
+                            <TextBlock Text="" FontSize="12" FontWeight="Bold" Margin="20,0,10,0"/>
+                            <TextBlock Text="ft below ground" FontSize="12" Margin="20,0,5,3"/>
+                            <TextBlock Text="ft" FontSize="12" Margin="20,0,5,3"/>
+                            <TextBlock Text="Kip" FontSize="12" Margin="20,0,5,3"/>
+                            <TextBlock Text="in/ft" FontSize="12" Margin="20,0,5,10"/>
+                            <TextBlock Text="" FontSize="12" FontWeight="Bold" Margin="20,0,10,3"/>
+                            <TextBlock Text="in" FontSize="12" Margin="20,0,5,3"/>
+                            <TextBlock Text="ft below Mudline" FontSize="12" Margin="20,0,5,3"/>
+                            <TextBlock Text="Unitless" FontSize="12" Margin="20,0,5,10"/>
+                            <TextBlock Text="" FontSize="12" FontWeight="Bold" Margin="20,0,10,0"/>
+                            <TextBlock Text="pcf" FontSize="12" Margin="20,0,5,3"/>
+                            <TextBlock Text="pcf" FontSize="12" Margin="20,0,5,3"/>
+                            <TextBlock Text="Deg" FontSize="12" Margin="20,0,5,3"/>
+                            <TextBlock Text="Deg" FontSize="12" Margin="20,0,5,3"/>
+                            <TextBlock Text="Deg" FontSize="12" Margin="20,0,5,3"/>
+                            <TextBlock Text="psf" FontSize="12" Margin="20,0,5,20"/>
 
 
-                </StackPanel>
-            </StackPanel>
-            <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="0">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Cantilever" Margin="80,0,0,0"/>
-                    <CheckBox x:Name="CheckBoxCantilever" Margin="40,0,0,0"/>
-                </StackPanel>
-                <Button x:Name="ExecuteAnalysisButton" 
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Cantilever" Margin="80,0,0,0"/>
+                            <CheckBox x:Name="CheckBoxCantilever" Margin="40,0,0,0"/>
+                        </StackPanel>
+                        <Button x:Name="ExecuteAnalysisButton" 
                         Content="Analyze" 
                         MaxWidth="100"
                         MaxHeight="400"
@@ -132,42 +130,49 @@
                         Command="{Binding WallAnalyzeButton}"
                         CommandParameter="Hai"/>
 
-                <Button x:Name="GenerateReportButton" 
+                        <Button x:Name="GenerateReportButton" 
                         Content="Report"   
                         MaxWidth="100" 
                         MaxHeight="400" 
                         Margin="0,30,0,0"
                         Command="{Binding WallReportButton}"
                         CommandParameter="Pon"/>
-            </StackPanel>
-            <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" >
-                <StackPanel Orientation="Horizontal">
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Text="Output" FontSize="16" FontWeight="Bold" Grid.Row="1" Grid.Column="0" Margin="20,0,0,5"/>
-                        <TextBlock Text="Lateral Force on Cap" Margin="20,0,0,5"/>
-                        <TextBlock Text="Max. Shear" Margin="20,0,0,5"/>
-                        <TextBlock Text="Max. Moment" Margin="20,0,0,5"/>
-                        <TextBlock Text="Axial Force in Battered Pile" Margin="20,0,0,5"/>
-                        <TextBlock Text="Axial Force in King Pile" Margin="20,0,0,5"/>
                     </StackPanel>
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{Binding LateralForceOnCap,Mode=TwoWay}" Margin="5,25,0,0" Width="75"/>
-                        <TextBlock Text="{Binding MaxWallShear,Mode=TwoWay}" Margin="5,5,0,0" Width="75"/>
-                        <TextBlock Text="{Binding MaxWallMoment,Mode=TwoWay}" Margin="5,5,0,0" Width="75"/>
-                        <TextBlock Text="{Binding AxialForceinBatteredPile,Mode=TwoWay}" Margin="5,5,0,0" Width="75"/>
-                        <TextBlock Text="{Binding AxialForceinKingPile,Mode=TwoWay}" Margin="5,5,0,0" Width="75"/>
+                    <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" >
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="Output" FontSize="16" FontWeight="Bold" Grid.Row="1" Grid.Column="0" Margin="20,0,0,5"/>
+                                <TextBlock Text="Lateral Force on Cap" Margin="20,0,0,5"/>
+                                <TextBlock Text="Max. Shear" Margin="20,0,0,5"/>
+                                <TextBlock Text="Max. Moment" Margin="20,0,0,5"/>
+                                <TextBlock Text="Axial Force in Battered Pile" Margin="20,0,0,5"/>
+                                <TextBlock Text="Axial Force in King Pile" Margin="20,0,0,5"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding LateralForceOnCap,Mode=TwoWay}" Margin="5,25,0,0" Width="75"/>
+                                <TextBlock Text="{Binding MaxWallShear,Mode=TwoWay}" Margin="5,5,0,0" Width="75"/>
+                                <TextBlock Text="{Binding MaxWallMoment,Mode=TwoWay}" Margin="5,5,0,0" Width="75"/>
+                                <TextBlock Text="{Binding AxialForceinBatteredPile,Mode=TwoWay}" Margin="5,5,0,0" Width="75"/>
+                                <TextBlock Text="{Binding AxialForceinKingPile,Mode=TwoWay}" Margin="5,5,0,0" Width="75"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="lb/ft" Margin="0,25,0,0"/>
+                                <TextBlock Text="lb*ft/ft" Margin="0,5,0,0"/>
+                                <TextBlock Text="lb*ft/ft" Margin="0,5,0,0"/>
+                                <TextBlock Text="kip" Margin="0,5,0,0"/>
+                                <TextBlock Text="kip" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </StackPanel>
                     </StackPanel>
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Text="lb/ft" Margin="0,25,0,0"/>
-                        <TextBlock Text="lb*ft/ft" Margin="0,5,0,0"/>
-                        <TextBlock Text="lb*ft/ft" Margin="0,5,0,0"/>
-                        <TextBlock Text="kip" Margin="0,5,0,0"/>
-                        <TextBlock Text="kip" Margin="0,5,0,0"/>
-                    </StackPanel>
-                </StackPanel>
-            </StackPanel>
-            <ContentControl Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding}" Visibility="Collapsed"/>
-        </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Cap Analysis">
+                <Grid Background="CadetBlue">
 
-    </Page>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+    
+   
 </Window>

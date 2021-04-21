@@ -25,13 +25,6 @@ namespace SeawallCalculator
             InitializeComponent();
             
         }
-        private void CapNavigateButton(object sender , RoutedEventArgs e)
-        {
-            DataContext = new CapViewModel();
-        }
-        private void WallNavigateButton(object sender, RoutedEventArgs e)
-        {
-           DataContext = new ModelView();
-        }
+      
     }
 }
