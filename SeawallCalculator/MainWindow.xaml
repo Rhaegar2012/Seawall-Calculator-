@@ -9,8 +9,12 @@
     <Window.DataContext>
         <local:ModelView/>
     </Window.DataContext>
-    
-        <Page x:Name="WallPage" Background="CadetBlue">
+    <Window.Resources>
+        <DataTemplate x:Name="capViewTemplate" DataType="{x:Type local:CapViewModel}">
+            <local:BeamView DataContext="{Binding}"/>
+        </DataTemplate> 
+    </Window.Resources>
+    <Page x:Name="WallPage" Background="CadetBlue">
         <Grid x:Name="WallPageGrid" Margin="0,0,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -30,9 +34,14 @@
                         <MenuItem Header="Open"></MenuItem>
                         <MenuItem Header="Save"></MenuItem>
                     </MenuItem>
-                    <MenuItem Header="Cap Analysis"/>
+                    <MenuItem Header="Wall Analysis" Click="WallNavigateButton"/>
+                    <MenuItem Header="Cap Analysis" Click="CapNavigateButton" />
                     <MenuItem Header="Design"/>
                 </Menu>
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
+                <TextBlock Text="Wall Analysis" FontSize="20" Foreground="Black" Margin="20,20,10,10" FontWeight="Bold"/>
+
             </StackPanel>
             <TextBlock Text="Input Variables" FontSize="16" FontWeight="Bold" Grid.Row="1" Grid.Column="0" Margin="20,0,0,20"/>
             <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
@@ -60,8 +69,6 @@
                     <TextBlock Text="Passive Friction Angle" FontSize="12" Margin="20,0,5,3"/>
                     <TextBlock Text="Soil to Wall Friction Angle" FontSize="12" Margin="20,0,5,3"/>
                     <TextBlock Text="Live Surcharge" FontSize="12" Margin="20,0,5,3"/>
-
-
                 </StackPanel>
                 <StackPanel Orientation="Vertical">
                     <TextBox x:Name="GroundElevationInput" Width="75" Margin="0,25,20,3" Text="{Binding GroundElevation,Mode=TwoWay}"/>
@@ -83,9 +90,6 @@
                     <TextBox x:Name="PassiveFrictionAngleInput" Width="75" Margin="0,0,20,3" Text="{Binding PassiveFrictionAngle,Mode=TwoWay}"/>
                     <TextBox x:Name="SoilToWallFrictionAngle" Width="75" Margin="0,0,20,3" Text="{Binding SoilToWallFrictionAngle,Mode=TwoWay}"/>
                     <TextBox x:Name="LiveSurcharge" Width="75" Margin="0,0,20,3" Text="{Binding LiveSurcharge,Mode=TwoWay}"/>
-
-
-
                 </StackPanel>
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="" FontSize="12" FontWeight="Bold" Margin="20,0,20,10"/>
@@ -127,7 +131,7 @@
                         Margin="0,30,0,5"
                         Command="{Binding WallAnalyzeButton}"
                         CommandParameter="Hai"/>
-                
+
                 <Button x:Name="GenerateReportButton" 
                         Content="Report"   
                         MaxWidth="100" 
@@ -162,6 +166,7 @@
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
+            <ContentControl Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding}" Visibility="Collapsed"/>
         </Grid>
 
     </Page>

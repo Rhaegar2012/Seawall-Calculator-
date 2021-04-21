@@ -6,11 +6,19 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using System.Reflection;
+using System.Windows.Data;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
 
 namespace SeawallCalculator
 {
     //ModelView collects and displays information from the UI 
-    public class ModelView
+    public class ModelView:ObservableObject
     {
         //Control Properties
         //ICommand objects that bind the controls in the UI, instead of having them bound directly to their click events
@@ -37,6 +45,18 @@ namespace SeawallCalculator
             set
             {
                 m_WallReportCommand = value;
+            }
+        }
+        private ICommand m_CapNavigateButton;
+        public ICommand CapNavigateButton
+        {
+            get
+            {
+                return m_CapNavigateButton;
+            }
+            set
+            {
+                m_CapNavigateButton = value;
             }
         }
         //Wall input Data Properties 
@@ -273,11 +293,68 @@ namespace SeawallCalculator
         private List<double> WallMomentDistribution;
         private List<double> WallShearDistribution;
         //Output variables 
-        public string LateralForceOnCap { get; set; }
-        public string MaxWallShear { get; set; }
-        public string MaxWallMoment { get; set; }
-        public string AxialForceinBatteredPile { get; set; }
-        public string AxialForceinKingPile { get; set; }
+        private string _lateralForceOnCap;
+        public string LateralForceOnCap
+        {
+            get
+            {
+                return _lateralForceOnCap;
+            }
+            set
+            {
+                _lateralForceOnCap = value;
+                OnPropertyChanged("LateralForceOnCap");
+            }
+        }
+        private string _maxWallShear;
+        public string MaxWallShear {
+            get
+            {
+                return _maxWallShear;
+            }
+            set
+            {
+                _maxWallShear = value;
+                OnPropertyChanged("MaxWallShear");
+            }
+        }
+        private string _maxWallMoment;
+        public string MaxWallMoment 
+        {
+            get
+            {
+                return _maxWallMoment;
+            }
+            set
+            {
+                _maxWallMoment = value;
+                OnPropertyChanged("MaxWallMoment");
+            }
+        }
+        public string _axialForceInBatteredPile;
+        public string AxialForceinBatteredPile { 
+            get 
+            {
+                return _axialForceInBatteredPile;
+            }
+            set 
+            {
+                _axialForceInBatteredPile = value;
+                OnPropertyChanged("AxialForceinBatteredPile");
+            }
+        }
+        private string _axialForceinKingPile;
+        public string AxialForceinKingPile {
+            get
+            {
+                return _axialForceinKingPile;
+            }
+            set
+            {
+                _axialForceinKingPile = value;
+                OnPropertyChanged("AxialForceinKingPile");
+            }
+        }
         private CalculationManager calculationManager=new CalculationManager();
 
         //The model view constructor creates the relay command from the button objects and collects the data from the UI 
@@ -286,6 +363,7 @@ namespace SeawallCalculator
             //Initializes the controls as ICommand objects 
             WallAnalyzeButton = new RelayCommand(new Action<object>(AnalyzeWall));
             WallReportButton = new RelayCommand(new Action<object>(CreateWallReport));
+            CapNavigateButton = new RelayCommand(new Action<object>(NavigateCap));
             
         }
         public void ShowMessage(object obj)
@@ -349,9 +427,6 @@ namespace SeawallCalculator
                     parse_Penetration,parse_SaturatedSoilDensity,parse_ActiveFrictionAngle,parse_PassiveFrictionAngle,parse_SoilToWallFrictionAngle,parse_wallThickness,parse_LandslideSlope,
                     parse_MudlineSlope,parse_LiveSurcharge,parse_PilesSpacing,parse_SlopeBatteredPiles,parse_PilesLateralCapacity,parse_SafetyFactor,isCantilever);
                 (this.WallMomentDistribution, this.WallShearDistribution)=calculationManager.CalculateWall();
-                //Debugging
-                Console.WriteLine(this.WallMomentDistribution.ToString());
-                Console.WriteLine(this.WallShearDistribution.ToString());
                 UpdateWallForm();
 
             }
@@ -360,6 +435,12 @@ namespace SeawallCalculator
                 MessageBox.Show("Check input variables", "Warning Message");
             }
         }
+        private void NavigateCap(object obj)
+        {
+            MessageBox.Show("Navigation button reporting");
+            
+
+        }
         private void CreateWallReport(object obj)
         {
             throw new  NotImplementedException();
@@ -367,9 +448,7 @@ namespace SeawallCalculator
         private void UpdateWallForm()
         {
             LateralForceOnCap= calculationManager.LateralForceOnCap;
-            Console.WriteLine("Lateral Force " + LateralForceOnCap);
             MaxWallShear = calculationManager.Maximum_Wall_Shear;
-            Console.WriteLine("Max Shear " + MaxWallShear);
             MaxWallMoment = calculationManager.Maximum_Wall_Moment;
             AxialForceinBatteredPile = calculationManager.Axial_Force_On_Pile;
             AxialForceinKingPile = calculationManager.Axial_Force_On_King_Pile;

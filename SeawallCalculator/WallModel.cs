@@ -291,7 +291,7 @@ namespace SeawallCalculator
         {
             get
             {
-                double value = this.Axial_Force_in_Battered_Pile * 12 / (Math.Sqrt(Math.Pow(12, 2) + Math.Pow(this.SlopeOfBatteredPiles, 2))) - (this.PilesSpacing * this.Vertical_Force) / 1000;
+                double value =Math.Abs( this.Axial_Force_in_Battered_Pile * 12 / (Math.Sqrt(Math.Pow(12, 2) + Math.Pow(this.SlopeOfBatteredPiles, 2))) - (this.PilesSpacing * this.Vertical_Force) / 1000);
                 return value;
             }
         }
@@ -454,7 +454,7 @@ namespace SeawallCalculator
                 ShearForce.Add(Force);
                 Moment.Add(Force * MomentArm[i]);
             }
-            Console.WriteLine(Depth);
+  
             return (ShearForce, Moment);
         }
         private (List<double>,List<double>) Calculate_Soil_Load_Distribution()
@@ -536,7 +536,6 @@ namespace SeawallCalculator
             {
 
                 double Force = (Math.Pow(Depth[i], 2) * this.Passive_Pressure_Coefficient*this.Submerged_Density) / (2*TargetSafetyFactor);
-                Console.WriteLine("Target Safety Factor " +this.TargetSafetyFactor.ToString()+ Force.ToString());
                 ShearForce.Add(Force);
                 Moment.Add(Force * MomentArm[i]);
             }
@@ -578,21 +577,12 @@ namespace SeawallCalculator
             (List<double>HydrostaticOpenWaterShear,List<double>HydrostaticOpenWaterMoment)=Calculate_Hydrostatic_Open_Water_Load_Distribution();
             (List<double>PassivePressureShear,List<double>PassivePressureMoment)=Calculate_Passive_Pressure_Load_Distribution();
             (List<double>KingBatteredShearForce,List<double>KingBatteredMoment)=Calculate_King_Battered_Pile();
-            Console.WriteLine("Wall Depth");
             this.WallDepth.ForEach(Console.WriteLine);
-            Console.WriteLine("Wall Height");
             this.WallHeight.ForEach(Console.WriteLine);
-            Console.WriteLine("Wall Elevation");
             this.WallElevation.ForEach(Console.WriteLine);
             for (int i=0; i < this.WallDepth.Count; i++)
             {
-                Console.WriteLine(SoilShear[i] + " " +
-                    UniformSoilShear[i] + " " +
-                    GradientSoilShear[i] + " " +
-                    HydrostaticGroundWaterShear[i] + " " +
-                    HydrostaticOpenWaterShear[i] + " " +
-                    PassivePressureShear[i] + " " +
-                    KingBatteredShearForce[i]);
+                
                 TotalWallShear.Add(SurchargeShear[i] +
                     SoilShear[i] +
                     UniformSoilShear[i] +
@@ -610,7 +600,7 @@ namespace SeawallCalculator
                     PassivePressureMoment[i] -
                     KingBatteredMoment[i]);
             }
-            Console.WriteLine("Wall Shear");
+            
             TotalWallShear.ForEach(Console.WriteLine);
             this.WallShear = TotalWallShear;
             this.WallMoment = TotalWallMoment;

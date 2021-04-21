@@ -55,7 +55,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BeamView.xaml.cs">
+      <DependentUpon>BeamView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CalculationManager.cs" />
+    <Compile Include="CapViewModel.cs" />
     <Compile Include="ListFunctions.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -64,11 +68,23 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ObservableObject.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="WallModel.cs" />
+    <Compile Include="WallView.xaml.cs">
+      <DependentUpon>WallView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="BeamView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WallView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

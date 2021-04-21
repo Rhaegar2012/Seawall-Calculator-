@@ -16,22 +16,13 @@ using System.Windows.Shapes;
 namespace SeawallCalculator
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for WallView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class WallView : UserControl
     {
-        public MainWindow()
+        public WallView()
         {
             InitializeComponent();
-            
-        }
-        private void CapNavigateButton(object sender , RoutedEventArgs e)
-        {
-            DataContext = new CapViewModel();
-        }
-        private void WallNavigateButton(object sender, RoutedEventArgs e)
-        {
-           DataContext = new ModelView();
         }
     }
 }

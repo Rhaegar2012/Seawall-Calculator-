@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\SeawallCalculator\App.xaml
-11151548125
+3-1693006249
 
-11-1171577140
+15950870746
 13-1505183044
-MainWindow.xaml;
+BeamView.xaml;MainWindow.xaml;WallView.xaml;
 
-False
+True
 
