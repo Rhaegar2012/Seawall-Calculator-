@@ -59,6 +59,8 @@ namespace SeawallCalculator
         }
         public (List<double>,List<double>) CalculateWall()
         {
+            Wall.CantileverWallPenetration();
+            
             return (Wall.Calculate_Wall_Load_Distributions());
         }
         

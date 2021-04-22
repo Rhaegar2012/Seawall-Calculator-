@@ -15,3 +15,4 @@ C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\Se
 C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\SeawallCalculator\obj\Debug\SeawallCalculator.pdb
 C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\SeawallCalculator\obj\Debug\BeamView.g.cs
 C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\SeawallCalculator\obj\Debug\BeamView.baml
+C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\SeawallCalculator\obj\Debug\SeawallCalculator.csprojAssemblyReference.cache

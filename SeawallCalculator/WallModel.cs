@@ -31,69 +31,115 @@ namespace SeawallCalculator
         private bool Cantilever;
 
         //Model Variables
+        private double _tieBack_Elevation;
         private double TieBack_Elevation {
             get
             {
-                return this.Ground_Elevation - this.Top_of_Pile;
+                return _tieBack_Elevation=this.Ground_Elevation - this.Top_of_Pile;
+            }
+            set
+            {
+                _tieBack_Elevation = value;
             }
         }
+        private double _mudline_Elevation;
         private double Mudline_Elevation
         {
             get
             {
-                return this.Mudline_Depth - this.Ground_Elevation;
+                return _mudline_Elevation= this.Mudline_Depth - this.Ground_Elevation;
+            }
+            set
+            {
+                _mudline_Elevation = value;
             }
         }
+        private double _groundWater_Elevation;
         private double GroundWater_Elevation {
             get
             {
-                return this.Ground_Elevation - this.Ground_Water_Depth;
+                return _groundWater_Elevation= this.Ground_Elevation - this.Ground_Water_Depth;
+            }
+            set
+            {
+                _groundWater_Elevation = value;
             }
             
         }
+        private double _seaWater_Elevation;
         private double SeaWater_Elevation 
         {
             get
             {
-                return this.Ground_Elevation - this.Open_Water_Level;
+                return _seaWater_Elevation=this.Ground_Elevation - this.Open_Water_Level;
+            }
+            set
+            {
+                _seaWater_Elevation = value;
             }
         }
+        private double _panel_Height;
         private double Panel_Height
         {
             get
             {
                 return this.Mudline_Depth + this.Penetration;
             }
+            set
+            {
+                _panel_Height = value;
+            }
         }
+        private double _submerged_Density;
         private double Submerged_Density 
         {
             get
             {
-                return this.Saturated_Soil_Density - 62.5;
+                return _submerged_Density=this.Saturated_Soil_Density - 62.5;
+            }
+            set
+            {
+                _submerged_Density = value;
             }
         }
+        private double _landslide_Angle;
         private double Landslide_Angle {
             get 
             {
-                return Math.Atan(this.Landslide_Slope);
-            } 
+                return _landslide_Angle=Math.Atan(this.Landslide_Slope);
+            }
+            set
+            {
+                _landslide_Angle = value;
+            }
         }
+        private double _mudline_Angle;
         private double Mudline_Angle
         {
             get
             {
-                return Math.Atan(this.Mudline_Slope);
+                return _mudline_Angle=Math.Atan(this.Mudline_Slope);
+            }
+            set
+            {
+                _mudline_Angle = value;
             }
         }
+        private double _active_Pressure_Coefficient;
         private double  Active_Pressure_Coefficient
         {
             get
             {
-                return (Math.Pow(Math.Cos(this.Active_Friction_Angle),2)/(Math.Cos(this.Soil_to_Wall_Friction_Angle)*
+                return _active_Pressure_Coefficient=(Math.Pow(Math.Cos(this.Active_Friction_Angle),2)/(Math.Cos(this.Soil_to_Wall_Friction_Angle)*
                     Math.Pow((1+Math.Sqrt((Math.Sin(this.Active_Friction_Angle+this.Soil_to_Wall_Friction_Angle)*Math.Sin(this.Active_Friction_Angle-this.Landslide_Angle))/
                     (Math.Cos(this.Soil_to_Wall_Friction_Angle)*Math.Cos(this.Landslide_Angle)))),2)));
             }
+            set
+            {
+                _active_Pressure_Coefficient = value;
+            }
         }
+        private double _passive_Pressure_Coefficient;
         private double Passive_Pressure_Coefficient 
         {
             get
@@ -102,65 +148,109 @@ namespace SeawallCalculator
                     Math.Pow((1 - Math.Sqrt((Math.Sin(this.Passive_Friction_Angle + this.Soil_to_Wall_Friction_Angle) * Math.Sin(this.Passive_Friction_Angle - this.Mudline_Angle)) /
                     (Math.Cos(this.Soil_to_Wall_Friction_Angle) * Math.Cos(this.Mudline_Angle)))), 2)));
             }
+            set
+            {
+                _passive_Pressure_Coefficient = value;
+            }
         }
         //Lateral Loads 
+        private double _surcharge_Resultant_Force;
         private double Surcharge_Resultant_Force
         {
             get
             {
-                return this.Live_Surcharge * this.Active_Pressure_Coefficient * this.Panel_Height;
+                return _surcharge_Resultant_Force=this.Live_Surcharge * this.Active_Pressure_Coefficient * this.Panel_Height;
+            }
+            set
+            {
+                _surcharge_Resultant_Force = value;
             }
         }
-
+        private double _soil_Above_Groundwater_Resultant_Force;
         private double Soil_Above_GroundWater_Resultant_Force 
         {
             get
             {
-                return 0.5 * this.Active_Pressure_Coefficient * this.Soil_Density*Math.Pow(this.Ground_Water_Depth,2);
+                return _soil_Above_Groundwater_Resultant_Force=0.5 * this.Active_Pressure_Coefficient * this.Soil_Density*Math.Pow(this.Ground_Water_Depth,2);
+            }
+            set
+            {
+                _soil_Above_Groundwater_Resultant_Force = value;
             }
         }
+        private double _active_Saturated_Soul_Uniform_Resultant_Force;
         private double Active_Saturated_Soil_Uniform_Resultant_Force
         {
             get
             {
-                return this.Active_Pressure_Coefficient * this.Ground_Water_Depth * this.Soil_Density * (this.Panel_Height - this.Ground_Water_Depth);
+                return _active_Saturated_Soul_Uniform_Resultant_Force=this.Active_Pressure_Coefficient * this.Ground_Water_Depth * this.Soil_Density * (this.Panel_Height - this.Ground_Water_Depth);
+            }
+            set
+            {
+                _active_Saturated_Soul_Uniform_Resultant_Force = value;
             }
         }
+        private double _active_Saturated_Soil_Gradient_Resultant_Force;
         private double Active_Saturated_Soil_Gradient_Resultant_Force
         {
             get
             {
                 return 0.5 * this.Active_Pressure_Coefficient * this.Submerged_Density * Math.Pow(this.Panel_Height - this.Ground_Water_Depth, 2);
             }
+            set
+            {
+                _active_Saturated_Soil_Gradient_Resultant_Force = value;
+            }
         }
+        private double _hydrostatic_Groundwater_Resultant_Force;
         private double Hydrostatic_Groundwater_Resultant_Force 
         {
             get
             {
                 return (62.5 * Math.Pow(this.Panel_Height - this.Ground_Water_Depth, 2)) / 2;
             }
+            set
+            {
+                _hydrostatic_Groundwater_Resultant_Force = value;
+            }
         }
+        private double _hydrostatic_Open_Water_Resultant_Force;
         private double Hydrostatic_Open_Water_Resultant_Force
         {
             get
             {
                 return (62.5 * Math.Pow(this.Panel_Height - this.Open_Water_Level, 2)) / 2;
             }
+            set
+            {
+                _hydrostatic_Groundwater_Resultant_Force = value;
+            }
         }
+        private double _king_Pile_Resultant_Force;
         private double King_Pile_Resultant_Force
         {
             get
             {
                 return (this.LateralCapacityPiles * 1000 / this.PilesSpacing);
             }
+            set
+            {
+                _king_Pile_Resultant_Force = value;
+            }
         }
+        private double _passive_Saturated_Soil_Resultant_Force;
         private double Passive_Saturated_Soil_Resultant_Force 
         {
             get
             {
                 return (Math.Pow(this.Penetration, 2) * this.Passive_Pressure_Coefficient * this.Submerged_Density);
             }
+            set
+            {
+                _passive_Saturated_Soil_Resultant_Force=value;
+            }
         }
+        private double _battered_Pile_Resultant_Force;
         private double Battered_Pile_Resultant_Force { get; set; }
 
         //AT stands for "Above Toe"
@@ -356,6 +446,11 @@ namespace SeawallCalculator
             double Resisting_Forces = Restoring_Forces + Battered_Pile_Resultant_Force;
             this.Safety_Factor = Resisting_Forces / Resultant_Overturning_Force;
 
+        }
+        //Penetration Calculation
+        public void CantileverWallPenetration()
+        {
+            
         }
         //Wall Geometry is the base wall elevation progression across its entire height
         private void Generate_Wall_Geometry()

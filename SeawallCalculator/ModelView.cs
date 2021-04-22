@@ -47,18 +47,7 @@ namespace SeawallCalculator
                 m_WallReportCommand = value;
             }
         }
-        private ICommand m_CapNavigateButton;
-        public ICommand CapNavigateButton
-        {
-            get
-            {
-                return m_CapNavigateButton;
-            }
-            set
-            {
-                m_CapNavigateButton = value;
-            }
-        }
+        
         //Wall input Data Properties 
         private string in_GroundElevation;
         public string GroundElevation {
@@ -363,7 +352,7 @@ namespace SeawallCalculator
             //Initializes the controls as ICommand objects 
             WallAnalyzeButton = new RelayCommand(new Action<object>(AnalyzeWall));
             WallReportButton = new RelayCommand(new Action<object>(CreateWallReport));
-            CapNavigateButton = new RelayCommand(new Action<object>(NavigateCap));
+            
             
         }
         public void ShowMessage(object obj)
@@ -435,12 +424,7 @@ namespace SeawallCalculator
                 MessageBox.Show("Check input variables", "Warning Message");
             }
         }
-        private void NavigateCap(object obj)
-        {
-            MessageBox.Show("Navigation button reporting");
-            
-
-        }
+     
         private void CreateWallReport(object obj)
         {
             throw new  NotImplementedException();

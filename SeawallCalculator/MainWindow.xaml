@@ -21,7 +21,7 @@
                 <MenuItem Header="Save"></MenuItem>
             </MenuItem>
         </Menu>
-        <TabControl Grid.Row="1" Background="CadetBlue" Width="Auto">
+        <TabControl Background="CadetBlue" Width="Auto" Height="Auto" Margin="0,18,-0.4,-18.8" Grid.RowSpan="2">
             <TabItem Header="Wall Analysis" Height="Auto">
                 <Grid x:Name="WallPageGrid" Margin="0,0,0,0" Background="CadetBlue">
                     <Grid.RowDefinitions>
@@ -126,7 +126,7 @@
                         Content="Analyze" 
                         MaxWidth="100"
                         MaxHeight="400"
-                        Margin="0,30,0,5"
+                        Margin="0,40,200,0"
                         Command="{Binding WallAnalyzeButton}"
                         CommandParameter="Hai"/>
 
@@ -134,7 +134,7 @@
                         Content="Report"   
                         MaxWidth="100" 
                         MaxHeight="400" 
-                        Margin="0,30,0,0"
+                        Margin="0,20,200,30"
                         Command="{Binding WallReportButton}"
                         CommandParameter="Pon"/>
                     </StackPanel>
@@ -173,6 +173,6 @@
             </TabItem>
         </TabControl>
     </Grid>
-    
-   
+
+
 </Window>
