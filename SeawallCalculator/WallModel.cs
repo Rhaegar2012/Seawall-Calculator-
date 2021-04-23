@@ -308,7 +308,7 @@ namespace SeawallCalculator
         {
             get
             {
-                return _active_Saturated_Soil_Gradient_AF=(this.Panel_Height - this.Ground_Water_Depth) / 2;
+                return _active_Saturated_Soil_Gradient_AF=(this.Panel_Height - this.Ground_Water_Depth) / 3;
             }
             set
             {
@@ -532,12 +532,12 @@ namespace SeawallCalculator
         {
             double tolerance = 0.0001;
             Calculate_Moment_At_Toe();
-            double ForceOnCap =Math.Abs( CalculateRestoringForce() - CalculateOverturningLoads());
+            double ForceOnCap =(CalculateOverturningLoads()- CalculateRestoringForce())/(this.Panel_Height-this.Top_of_Pile);
             Console.WriteLine("Force on Cap: " + ForceOnCap.ToString());
             if (ForceOnCap > tolerance)
             {
-                Console.WriteLine("Accessed");
-                this.Penetration = this.Penetration + 0.25;
+                
+                this.Penetration = this.Penetration + 0.5;
                 Console.WriteLine("Penetration: " + this.Penetration.ToString());
                 UpdateLateralForces(this.Penetration);
                 UpdateResultantAboveToe(this.Penetration);
