@@ -49,11 +49,11 @@ namespace SeawallCalculator
         {
            //Placeholder 
         }
-        public void CreateWall(double groundElevation, double topOfPile, double mudlineDepth, double groundWaterDepth, double openWaterLevel, double penetration,
+        public void CreateWall(double groundElevation, double topOfPile, double mudlineDepth, double groundWaterDepth, double openWaterLevel, double penetration,double soilDensity,
          double saturatedSoilDensity, double activeFrictionAngle, double passiveFrictionAngle, double soiltoWallFrictionAngle,double panelThickness, double landslideSlope, double mudlineSlope,
          double liveSurcharge, double pilesSpacing,double slopeOfBattered, double pilesLateralCapacity, double inputSafetyFactor, bool isCantilever)
         {
-            Wall = new WallModel(groundElevation, topOfPile, mudlineDepth, groundWaterDepth, openWaterLevel, penetration,
+            Wall = new WallModel(groundElevation, topOfPile, mudlineDepth, groundWaterDepth, openWaterLevel, penetration,soilDensity,
                     saturatedSoilDensity, activeFrictionAngle, passiveFrictionAngle, soiltoWallFrictionAngle,panelThickness, landslideSlope,
                     mudlineSlope, liveSurcharge, pilesSpacing,slopeOfBattered, pilesLateralCapacity, inputSafetyFactor, isCantilever);
         }

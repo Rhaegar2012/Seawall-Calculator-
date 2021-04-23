@@ -413,7 +413,7 @@ namespace SeawallCalculator
                 double parse_SoilToWallFrictionAngle = Double.Parse(SoilToWallFrictionAngle);
                 double parse_TopOfPile = Double.Parse(TopOfPile);
                 calculationManager.CreateWall(parse_groundElevation,parse_TopOfPile,parse_MudlineDepth,parse_groundWaterDepth,parse_OpenWaterLevel,
-                    parse_Penetration,parse_SaturatedSoilDensity,parse_ActiveFrictionAngle,parse_PassiveFrictionAngle,parse_SoilToWallFrictionAngle,parse_wallThickness,parse_LandslideSlope,
+                    parse_Penetration,parse_SoilDensity,parse_SaturatedSoilDensity,parse_ActiveFrictionAngle,parse_PassiveFrictionAngle,parse_SoilToWallFrictionAngle,parse_wallThickness,parse_LandslideSlope,
                     parse_MudlineSlope,parse_LiveSurcharge,parse_PilesSpacing,parse_SlopeBatteredPiles,parse_PilesLateralCapacity,parse_SafetyFactor,isCantilever);
                 (this.WallMomentDistribution, this.WallShearDistribution)=calculationManager.CalculateWall();
                 UpdateWallForm();

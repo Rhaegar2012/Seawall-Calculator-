@@ -226,12 +226,25 @@ namespace SeawallCalculator
                 _hydrostatic_Groundwater_Resultant_Force = value;
             }
         }
+        private double _total_Hydrostatic_Resultant_Force;
+        private double Total_Hydrostatic_Resultant_Force
+        {
+            get
+            {
+                return _total_Hydrostatic_Resultant_Force = this.Hydrostatic_Groundwater_Resultant_Force -
+                    this.Hydrostatic_Open_Water_Resultant_Force;
+            }
+            set
+            {
+                _total_Hydrostatic_Resultant_Force = value;
+            }
+        }
         private double _king_Pile_Resultant_Force;
         private double King_Pile_Resultant_Force
         {
             get
             {
-                return (this.LateralCapacityPiles * 1000 / this.PilesSpacing);
+                return _king_Pile_Resultant_Force=(this.LateralCapacityPiles * 1000 / this.PilesSpacing);
             }
             set
             {
@@ -243,7 +256,7 @@ namespace SeawallCalculator
         {
             get
             {
-                return (Math.Pow(this.Penetration, 2) * this.Passive_Pressure_Coefficient * this.Submerged_Density);
+                return _passive_Saturated_Soil_Resultant_Force=0.5*(Math.Pow(this.Penetration, 2) * this.Passive_Pressure_Coefficient * this.Submerged_Density);
             }
             set
             {
@@ -254,60 +267,100 @@ namespace SeawallCalculator
         private double Battered_Pile_Resultant_Force { get; set; }
 
         //AT stands for "Above Toe"
+        private double _surcharge_Resultant_AT;
         private double Surcharge_Resultant_AT
         {
             get
             {
-                return this.Panel_Height / 2;
+                return _surcharge_Resultant_AT=this.Panel_Height / 2;
+            }
+            set
+            {
+                _surcharge_Resultant_AT = value;
             }
         }
+        private double _soil_Above_Groundwater_Resultant_AT;
         private double Soil_Above_GroundWater_Resultant_AT
         {
             get
             {
-                return this.Panel_Height - (2 / 3) * this.Ground_Water_Depth;
+                return _soil_Above_Groundwater_Resultant_AT=this.Panel_Height - (2 / 3) * this.Ground_Water_Depth;
+            }
+            set
+            {
+                _soil_Above_Groundwater_Resultant_AT = value;
             }
         }
+        private double _active_Saturated_Soil_Uniform_AT;
         private double Active_Saturated_Soil_Uniform_AT
         {
             get
             {
-                return (this.Panel_Height - this.Ground_Water_Depth) / 2;
+                return _active_Saturated_Soil_Uniform_AT=(this.Panel_Height - this.Ground_Water_Depth) / 2;
+            }
+            set
+            {
+                _active_Saturated_Soil_Uniform_AT = value;
             }
         }
+        private double _active_Saturated_Soil_Gradient_AF;
         private double Active_Saturated_Soil_Gradient_AF
         {
             get
             {
-                return (this.Panel_Height - this.Ground_Water_Depth) / 2;
+                return _active_Saturated_Soil_Gradient_AF=(this.Panel_Height - this.Ground_Water_Depth) / 2;
+            }
+            set
+            {
+                _active_Saturated_Soil_Gradient_AF = value;
             }
         }
+        private double _hydrostatic_Ground_Water_AT;
         private double Hydrostatic_Ground_Water_AT
         {
             get
             {
-                return (this.Panel_Height - this.Ground_Water_Depth) / 3;
+                return _hydrostatic_Ground_Water_AT=(this.Panel_Height - this.Ground_Water_Depth) / 3;
+            }
+            set
+            {
+                _hydrostatic_Ground_Water_AT = value;
             }
         }
+        private double _hydrostatic_Open_Water_AT;
         private double Hydrostatic_Open_Water_AT
         {
             get
             {
-                return (this.Panel_Height - this.Open_Water_Level) / 3;
+                return _hydrostatic_Open_Water_AT= (this.Panel_Height - this.Open_Water_Level) / 3;
+            }
+            set
+            {
+                _hydrostatic_Open_Water_AT = value;
             }
         }
+        private double _king_Pile_AT;
         private double King_Pile_AT
         {
             get
             {
-                return (this.Panel_Height - this.Top_of_Pile);
+                return _king_Pile_AT=(this.Panel_Height - this.Top_of_Pile);
+            }
+            set
+            {
+                _king_Pile_AT = value;
             }
         }
+        private double _passiveSaturatedSoil_AT;
         private double PassiveSaturatedSoil_AT
         {
             get
             {
-                return (this.Penetration / 3);
+                return _passiveSaturatedSoil_AT=(this.Penetration / 3);
+            }
+            set
+            {
+                _passiveSaturatedSoil_AT = value;
             }
         }
 
@@ -337,7 +390,7 @@ namespace SeawallCalculator
             }
         }
         //Collections, public collections can be sent to the frontend layer
-        private List<double> Moment_At_Toe = new List<double>();
+        private Dictionary<string, double> Moment_At_Toe = new Dictionary<string,double>();
         public List<double> WallElevation = new List<double>();
         private List<double> WallHeight = new List<double>();
         private List<double> WallDepth = new List<double>();
@@ -390,7 +443,7 @@ namespace SeawallCalculator
         public double Safety_Factor;
         //Constructor
         public WallModel(double GroundElevation, double TopOfPile,double MudlineDepth,
-            double GroundWaterDepth,double OpenWaterLevel,double Penetration,double SaturatedSoilDensity,
+            double GroundWaterDepth,double OpenWaterLevel,double Penetration,double SoilDensity,double SaturatedSoilDensity,
             double ActiveFrictionAngle, double PassiveFrictionAngle,double SoilToWallFrictionAngle,double panelThickness,
             double LandslideSlope, double MudlineSlope,double LiveSurcharge, 
             double PilesSpacing, double SlopeOfBattered, double PilesLateralCapacity,double InputSafetyFactor,bool isCantilever)
@@ -402,6 +455,7 @@ namespace SeawallCalculator
             this.Open_Water_Level = OpenWaterLevel;
             this.Panel_Thickness = panelThickness;
             this.Penetration = Penetration;
+            this.Soil_Density = SoilDensity;
             this.Saturated_Soil_Density = SaturatedSoilDensity;
             this.Active_Friction_Angle = ActiveFrictionAngle*Math.PI/180;
             this.Passive_Friction_Angle = PassiveFrictionAngle*Math.PI/180;
@@ -417,40 +471,80 @@ namespace SeawallCalculator
         }
         private void Calculate_Moment_At_Toe()
         {
-            Moment_At_Toe.Add(this.Surcharge_Resultant_Force * this.Surcharge_Resultant_AT);
-            Moment_At_Toe.Add(this.Soil_Above_GroundWater_Resultant_Force * this.Soil_Above_GroundWater_Resultant_AT);
-            Moment_At_Toe.Add(this.Active_Saturated_Soil_Uniform_Resultant_Force * this.Active_Saturated_Soil_Uniform_AT);
-            Moment_At_Toe.Add(this.Active_Saturated_Soil_Gradient_Resultant_Force * this.Active_Saturated_Soil_Gradient_AF);
-            Moment_At_Toe.Add(this.Hydrostatic_Groundwater_Resultant_Force * this.Hydrostatic_Ground_Water_AT);
-            Moment_At_Toe.Add(this.Hydrostatic_Open_Water_Resultant_Force * this.Hydrostatic_Open_Water_AT);
-            Moment_At_Toe.Add(Moment_At_Toe[3] - Moment_At_Toe[4]);
-            Moment_At_Toe.Add(this.King_Pile_Resultant_Force * this.King_Pile_AT);
-            Moment_At_Toe.Add(this.Passive_Saturated_Soil_Resultant_Force * this.PassiveSaturatedSoil_AT);
+            Moment_At_Toe.Add("Surcharge Moment",this.Surcharge_Resultant_Force * this.Surcharge_Resultant_AT);
+            Moment_At_Toe.Add("Soil above Groundwater Moment",this.Soil_Above_GroundWater_Resultant_Force * this.Soil_Above_GroundWater_Resultant_AT);
+            Moment_At_Toe.Add("Active Saturated Soil Uniform Moment",this.Active_Saturated_Soil_Uniform_Resultant_Force * this.Active_Saturated_Soil_Uniform_AT);
+            Moment_At_Toe.Add("Active Saturated Soil Gradient Moment",this.Active_Saturated_Soil_Gradient_Resultant_Force * this.Active_Saturated_Soil_Gradient_AF);
+            Moment_At_Toe.Add("Hydrostatic Groundwater Moment",this.Hydrostatic_Groundwater_Resultant_Force * this.Hydrostatic_Ground_Water_AT);
+            Moment_At_Toe.Add("Hydrostatic Open Water Moment",this.Hydrostatic_Open_Water_Resultant_Force * this.Hydrostatic_Open_Water_AT);
+            Moment_At_Toe.Add("Total Hydrostatic Moment",Moment_At_Toe["Hydrostatic Groundwater Moment"] - Moment_At_Toe["Hydrostatic Open Water Moment"]);
+            Moment_At_Toe.Add("King Pile Moment",this.King_Pile_Resultant_Force * this.King_Pile_AT);
+            Moment_At_Toe.Add("Passive Saturated Soil Moment", this.Passive_Saturated_Soil_Resultant_Force * this.PassiveSaturatedSoil_AT);
         }
-        public void Calculate_Safety_Factor()
-        {
-            double Resultant_Overturning_Force = Surcharge_Resultant_Force + Soil_Above_GroundWater_Resultant_Force + Active_Saturated_Soil_Uniform_Resultant_Force +
-               Active_Saturated_Soil_Uniform_Resultant_Force + (Hydrostatic_Groundwater_Resultant_Force - Hydrostatic_Open_Water_Resultant_Force);
-            double Factored_Passive_Saturated_Soil_Resultant_Force = this.Passive_Saturated_Soil_Resultant_Force / this.TargetSafetyFactor;
-            double Restoring_Forces = this.King_Pile_Resultant_Force + Factored_Passive_Saturated_Soil_Resultant_Force;
-            double Overturning_Moment = 0;
-            for (int i=0; i < Moment_At_Toe.Count - 5; i++)
-            {
-                Overturning_Moment += Moment_At_Toe[i];
-            }
-            Overturning_Moment += Moment_At_Toe[6];
-            double Factored_Passive_Saturated_Soil_Moment = Moment_At_Toe[Moment_At_Toe.Count] / this.TargetSafetyFactor;
-            double Battered_Pile_Moment = Factored_Passive_Saturated_Soil_Moment - Overturning_Moment;
-            double Battered_Pile_Resultant_AT = this.Panel_Height - this.Top_of_Pile;
-            this.Battered_Pile_Resultant_Force = Battered_Pile_Moment / Battered_Pile_Resultant_AT;
-            double Resisting_Forces = Restoring_Forces + Battered_Pile_Resultant_Force;
-            this.Safety_Factor = Resisting_Forces / Resultant_Overturning_Force;
-
-        }
+       
         //Penetration Calculation
+        private void UpdatePanelHeight(double penetration)
+        {
+            this.Panel_Height = penetration + this.Mudline_Depth;
+        }
+        private void UpdateLateralForces(double penetration)
+        {
+            UpdatePanelHeight(penetration);
+            this.Surcharge_Resultant_Force = this.Active_Pressure_Coefficient * this.Panel_Height * this.Live_Surcharge;
+            this.Soil_Above_GroundWater_Resultant_Force = 0.5 * Math.Pow(this.Ground_Water_Depth, 2) * this.Soil_Density*this.Active_Pressure_Coefficient;
+            this.Active_Saturated_Soil_Uniform_Resultant_Force = this.Active_Pressure_Coefficient * this.Ground_Water_Depth * (this.Panel_Height - this.Ground_Water_Depth);
+            this.Active_Saturated_Soil_Gradient_Resultant_Force = 0.5 * this.Active_Pressure_Coefficient * this.Submerged_Density * Math.Pow((this.Panel_Height - this.Ground_Water_Depth), 2);
+            this.Hydrostatic_Groundwater_Resultant_Force = this.Submerged_Density * Math.Pow((this.Panel_Height - this.Ground_Water_Depth), 2) / 2;
+            this.Hydrostatic_Open_Water_Resultant_Force = this.Submerged_Density * Math.Pow((this.Panel_Height - this.Open_Water_Level), 2) / 2;
+            this.Total_Hydrostatic_Resultant_Force = this.Hydrostatic_Groundwater_Resultant_Force - this.Hydrostatic_Open_Water_Resultant_Force;
+            this.Passive_Saturated_Soil_Resultant_Force = 0.5 * this.Passive_Pressure_Coefficient * this.Submerged_Density * Math.Pow(this.Penetration, 2);
+            
+        }
+        private void UpdateResultantAboveToe(double penetration)
+        {
+            UpdatePanelHeight(penetration);
+            this.Surcharge_Resultant_AT = this.Panel_Height / 2;
+            this.Soil_Above_GroundWater_Resultant_AT = this.Panel_Height - (2 / 3) * this.Ground_Water_Depth;
+            this.Active_Saturated_Soil_Uniform_AT = (this.Panel_Height - this.Ground_Water_Depth) / 2;
+            this.Active_Saturated_Soil_Gradient_AF = (this.Panel_Height - this.Ground_Water_Depth) / 3;
+            this.Hydrostatic_Ground_Water_AT = (this.Panel_Height - this.Ground_Water_Depth) / 3;
+            this.Hydrostatic_Open_Water_AT = (this.Panel_Height - this.Open_Water_Level) / 3;
+            this.King_Pile_AT = this.Panel_Height - this.Top_of_Pile;
+            this.PassiveSaturatedSoil_AT = this.Penetration / 3;
+        }
+        private double CalculateOverturningLoads()
+        {
+            double OverturningLoad = Moment_At_Toe["Surcharge Moment"] +
+                Moment_At_Toe["Soil above Groundwater Moment"] +
+                Moment_At_Toe["Active Saturated Soil Uniform Moment"] +
+                Moment_At_Toe["Active Saturated Soil Gradient Moment"] +
+                Moment_At_Toe["Total Hydrostatic Moment"];
+            return OverturningLoad;
+        }
+        private double CalculateRestoringForce()
+        {
+            double RestoringForce = Moment_At_Toe["King Pile Moment"] +
+                Moment_At_Toe["Passive Saturated Soil Moment"] / this.TargetSafetyFactor;
+            return RestoringForce;
+        }
+   
         public void CantileverWallPenetration()
         {
-            
+            double tolerance = 0.0001;
+            Calculate_Moment_At_Toe();
+            double ForceOnCap =Math.Abs( CalculateRestoringForce() - CalculateOverturningLoads());
+            Console.WriteLine("Force on Cap: " + ForceOnCap.ToString());
+            if (ForceOnCap > tolerance)
+            {
+                Console.WriteLine("Accessed");
+                this.Penetration = this.Penetration + 0.25;
+                Console.WriteLine("Penetration: " + this.Penetration.ToString());
+                UpdateLateralForces(this.Penetration);
+                UpdateResultantAboveToe(this.Penetration);
+                Moment_At_Toe.Clear();
+                CantileverWallPenetration();
+            }
+
         }
         //Wall Geometry is the base wall elevation progression across its entire height
         private void Generate_Wall_Geometry()
