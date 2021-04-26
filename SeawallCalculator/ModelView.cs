@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using OxyPlot;
 
 
 namespace SeawallCalculator
@@ -277,10 +278,18 @@ namespace SeawallCalculator
             }
         }
         //TODO:Bind cantilever bool variable to checkbox in the view  
-        public bool isCantilever=true;
-        //Collections 
-        private List<double> WallMomentDistribution;
-        private List<double> WallShearDistribution;
+        private  bool in_isCantilever;
+        public bool isCantilever
+        {
+            get
+            {
+                return in_isCantilever;
+            }
+            set
+            {
+                in_isCantilever = value;
+            }
+        }
         //Output variables 
         private string _lateralForceOnCap;
         public string LateralForceOnCap
@@ -344,6 +353,60 @@ namespace SeawallCalculator
                 OnPropertyChanged("AxialForceinKingPile");
             }
         }
+        private string _actualWallPenetration;
+        public string ActualWallPenetration
+        {
+            get
+            {
+                return _actualWallPenetration;
+            }
+            set
+            {
+                _actualWallPenetration = value;
+                OnPropertyChanged("ActualWallPenetration");
+            }
+        }
+        //Plotting data
+        private List<double> _WallElevations;
+        public List<double> WallElevations
+        {
+            get
+            {
+                return _WallElevations;
+            }
+            set
+            {
+                _WallElevations = value;
+            }
+        }
+
+        private List<double> _ShearLoadDistribution;
+        public List<double> ShearLoadDistribution
+        {
+            get
+            {
+                return _ShearLoadDistribution;
+            }
+            set
+            {
+                _ShearLoadDistribution = value;
+            }
+        }
+        private List<double> _MomentLoadDistribution;
+        public List<double> MomentLoadDistribution
+        {
+            get
+            {
+                return _MomentLoadDistribution;
+            }
+            set
+            {
+                _MomentLoadDistribution = value;
+            }
+        }
+        private List<DataPoint> WallShearSeries;
+        private List<DataPoint> WallMomentSeries;
+
         private CalculationManager calculationManager=new CalculationManager();
 
         //The model view constructor creates the relay command from the button objects and collects the data from the UI 
@@ -389,6 +452,7 @@ namespace SeawallCalculator
         }
         private void AnalyzeWall(object obj)
         {
+            Console.WriteLine(isCantilever.ToString());
             
             if (CheckWallData())
             {
@@ -415,9 +479,10 @@ namespace SeawallCalculator
                 calculationManager.CreateWall(parse_groundElevation,parse_TopOfPile,parse_MudlineDepth,parse_groundWaterDepth,parse_OpenWaterLevel,
                     parse_Penetration,parse_SoilDensity,parse_SaturatedSoilDensity,parse_ActiveFrictionAngle,parse_PassiveFrictionAngle,parse_SoilToWallFrictionAngle,parse_wallThickness,parse_LandslideSlope,
                     parse_MudlineSlope,parse_LiveSurcharge,parse_PilesSpacing,parse_SlopeBatteredPiles,parse_PilesLateralCapacity,parse_SafetyFactor,isCantilever);
-                (this.WallMomentDistribution, this.WallShearDistribution)=calculationManager.CalculateWall();
+                (this.MomentLoadDistribution, this.ShearLoadDistribution)=calculationManager.CalculateWall();
+                this.WallElevations =calculationManager.WallElevations;
                 UpdateWallForm();
-
+                CreatePlottingSeries();
             }
             else
             {
@@ -436,7 +501,16 @@ namespace SeawallCalculator
             MaxWallMoment = calculationManager.Maximum_Wall_Moment;
             AxialForceinBatteredPile = calculationManager.Axial_Force_On_Pile;
             AxialForceinKingPile = calculationManager.Axial_Force_On_King_Pile;
+            ActualWallPenetration = calculationManager.ActualWallPenetration;
 
+        }
+        private void CreatePlottingSeries()
+        {
+            for(int i=0; i < this.WallElevations.Count; i++)
+            {
+                WallShearSeries.Add(new DataPoint(this.WallElevations[i], this.ShearLoadDistribution[i]));
+                WallMomentSeries.Add(new DataPoint(this.WallElevations[i], this.MomentLoadDistribution[i]));
+            }
         }
 
 

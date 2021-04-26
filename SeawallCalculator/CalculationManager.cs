@@ -45,6 +45,25 @@ namespace SeawallCalculator
                 return (Wall.Axial_Force_in_King_Pile.ToString());
             }
         }
+        public string ActualWallPenetration
+        {
+            get
+            {
+                return (Wall.Output_Penetration.ToString());
+            }
+        }
+        private List<double> _wallElevations;
+        public List<double> WallElevations
+        {
+            get
+            {
+                return _wallElevations;
+            }
+            set
+            {
+                _wallElevations = value;
+            }
+        }
         public CalculationManager()
         {
            //Placeholder 
@@ -59,8 +78,7 @@ namespace SeawallCalculator
         }
         public (List<double>,List<double>) CalculateWall()
         {
-            Wall.CantileverWallPenetration();
-            
+            this.WallElevations = Wall.WallElevation;
             return (Wall.Calculate_Wall_Load_Distributions());
         }
         

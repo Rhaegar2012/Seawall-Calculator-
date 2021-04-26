@@ -219,11 +219,11 @@ namespace SeawallCalculator
         {
             get
             {
-                return (62.5 * Math.Pow(this.Panel_Height - this.Open_Water_Level, 2)) / 2;
+                return _hydrostatic_Open_Water_Resultant_Force= (62.5 * Math.Pow(this.Panel_Height - this.Open_Water_Level, 2)) / 2;
             }
             set
             {
-                _hydrostatic_Groundwater_Resultant_Force = value;
+                _hydrostatic_Open_Water_Resultant_Force = value;
             }
         }
         private double _total_Hydrostatic_Resultant_Force;
@@ -438,6 +438,13 @@ namespace SeawallCalculator
                 return value;
             }
         }
+        public double Output_Penetration
+        {
+            get
+            {
+                return this.Penetration;
+            }
+        }
       
         //Output Variables
         public double Safety_Factor;
@@ -546,6 +553,21 @@ namespace SeawallCalculator
             }
 
         }
+        private void SupportedWallPenetration()
+        {
+            double tolerance = 0.0001;
+            Calculate_Moment_At_Toe();
+            this.Safety_Factor = (CalculateRestoringForce() / CalculateOverturningLoads());
+            if (Math.Abs(1 - this.Safety_Factor) > tolerance)
+            {
+                this.Penetration = this.Penetration + 0.5;
+                UpdateLateralForces(this.Penetration);
+                UpdateResultantAboveToe(this.Penetration);
+                Moment_At_Toe.Clear();
+                SupportedWallPenetration();
+            }
+        }
+
         //Wall Geometry is the base wall elevation progression across its entire height
         private void Generate_Wall_Geometry()
         {
@@ -754,6 +776,14 @@ namespace SeawallCalculator
         }
         public (List<double>,List<double>) Calculate_Wall_Load_Distributions()
         {
+            if (Cantilever)
+            {
+                CantileverWallPenetration();
+            }
+            else
+            {
+                SupportedWallPenetration();
+            }
             
             Generate_Wall_Geometry();
             List<double> TotalWallShear = new List<double>();
@@ -766,8 +796,6 @@ namespace SeawallCalculator
             (List<double>HydrostaticOpenWaterShear,List<double>HydrostaticOpenWaterMoment)=Calculate_Hydrostatic_Open_Water_Load_Distribution();
             (List<double>PassivePressureShear,List<double>PassivePressureMoment)=Calculate_Passive_Pressure_Load_Distribution();
             (List<double>KingBatteredShearForce,List<double>KingBatteredMoment)=Calculate_King_Battered_Pile();
-            this.WallDepth.ForEach(Console.WriteLine);
-            this.WallHeight.ForEach(Console.WriteLine);
             this.WallElevation.ForEach(Console.WriteLine);
             for (int i=0; i < this.WallDepth.Count; i++)
             {

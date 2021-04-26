@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:local="clr-namespace:SeawallCalculator"
         mc:Ignorable="d"
         Title="Seawall Calculator-V0.0" Height="800" Width="800">
@@ -120,7 +121,7 @@
                     <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="0">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Cantilever" Margin="80,0,0,0"/>
-                            <CheckBox x:Name="CheckBoxCantilever" Margin="40,0,0,0"/>
+                            <CheckBox x:Name="CheckBoxCantilever" Margin="40,0,0,0" IsChecked="{Binding isCantilever ,Mode=TwoWay}"/>
                         </StackPanel>
                         <Button x:Name="ExecuteAnalysisButton" 
                         Content="Analyze" 
@@ -147,6 +148,7 @@
                                 <TextBlock Text="Max. Moment" Margin="20,0,0,5"/>
                                 <TextBlock Text="Axial Force in Battered Pile" Margin="20,0,0,5"/>
                                 <TextBlock Text="Axial Force in King Pile" Margin="20,0,0,5"/>
+                                <TextBlock Text="Actual Wall Penetration" Margin="20,0,0,5"/>
                             </StackPanel>
                             <StackPanel Orientation="Vertical">
                                 <TextBlock Text="{Binding LateralForceOnCap,Mode=TwoWay}" Margin="5,25,0,0" Width="75"/>
@@ -154,6 +156,7 @@
                                 <TextBlock Text="{Binding MaxWallMoment,Mode=TwoWay}" Margin="5,5,0,0" Width="75"/>
                                 <TextBlock Text="{Binding AxialForceinBatteredPile,Mode=TwoWay}" Margin="5,5,0,0" Width="75"/>
                                 <TextBlock Text="{Binding AxialForceinKingPile,Mode=TwoWay}" Margin="5,5,0,0" Width="75"/>
+                                <TextBlock Text="{Binding ActualWallPenetration,Mode=TwoWay}" Margin="5,5,0,0" Width="75"/>
                             </StackPanel>
                             <StackPanel Orientation="Vertical">
                                 <TextBlock Text="lb/ft" Margin="0,25,0,0"/>
@@ -161,14 +164,19 @@
                                 <TextBlock Text="lb*ft/ft" Margin="0,5,0,0"/>
                                 <TextBlock Text="kip" Margin="0,5,0,0"/>
                                 <TextBlock Text="kip" Margin="0,5,0,0"/>
+                                <TextBlock Text="ft" Margin="0,5,0,0"/>
                             </StackPanel>
                         </StackPanel>
+                        <oxy:Plot Title="Wall Load Distribution">
+                            <oxy:Plot.Series>
+                                <oxy:LineSeries ItemsSource="{Binding WallShearSeries}" />
+                            </oxy:Plot.Series>
+                        </oxy:Plot>
                     </StackPanel>
                 </Grid>
             </TabItem>
             <TabItem Header="Cap Analysis">
                 <Grid Background="CadetBlue">
-
                 </Grid>
             </TabItem>
         </TabControl>
