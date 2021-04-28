@@ -534,18 +534,30 @@ namespace SeawallCalculator
                 Moment_At_Toe["Passive Saturated Soil Moment"] / this.TargetSafetyFactor;
             return RestoringForce;
         }
+        private double CalculateTiedOverturningForces()
+        {
+            double OverturningForce = this.Surcharge_Resultant_Force + this.Soil_Above_GroundWater_Resultant_Force +
+                this.Active_Saturated_Soil_Gradient_Resultant_Force + this.Active_Saturated_Soil_Uniform_Resultant_Force + this.Total_Hydrostatic_Resultant_Force;
+            return OverturningForce;
+
+        }
+        private double CalculateTiedRestoringForce()
+        {
+            double RestoringForce = (this.Passive_Saturated_Soil_Resultant_Force / this.TargetSafetyFactor)+this.King_Pile_Resultant_Force+
+                (CalculateOverturningLoads()-CalculateRestoringForce())/(this.Panel_Height-this.Top_of_Pile);
+            return RestoringForce;
+            
+        }
    
         public void CantileverWallPenetration()
         {
             double tolerance = 0.0001;
             Calculate_Moment_At_Toe();
             double ForceOnCap =(CalculateOverturningLoads()- CalculateRestoringForce())/(this.Panel_Height-this.Top_of_Pile);
-            Console.WriteLine("Force on Cap: " + ForceOnCap.ToString());
             if (ForceOnCap > tolerance)
             {
                 
                 this.Penetration = this.Penetration + 0.5;
-                Console.WriteLine("Penetration: " + this.Penetration.ToString());
                 UpdateLateralForces(this.Penetration);
                 UpdateResultantAboveToe(this.Penetration);
                 Moment_At_Toe.Clear();
@@ -555,12 +567,12 @@ namespace SeawallCalculator
         }
         private void SupportedWallPenetration()
         {
-            double tolerance = 0.0001;
+            
             Calculate_Moment_At_Toe();
-            this.Safety_Factor = (CalculateRestoringForce() / CalculateOverturningLoads());
-            if (Math.Abs(1 - this.Safety_Factor) > tolerance)
+            this.Safety_Factor = (CalculateTiedRestoringForce() / CalculateTiedOverturningForces());
+            if (this.Safety_Factor <1)
             {
-                this.Penetration = this.Penetration + 0.5;
+                this.Penetration = this.Penetration + 0.25;
                 UpdateLateralForces(this.Penetration);
                 UpdateResultantAboveToe(this.Penetration);
                 Moment_At_Toe.Clear();
@@ -639,7 +651,6 @@ namespace SeawallCalculator
                         Depth.Add(Math.Max(0, depth - this.Mudline_Depth));
                         Moment_Arm.Add((1 / 3) * Math.Max(0, depth - this.Mudline_Depth));
                     }
-                    Depth.ForEach(Console.WriteLine);
                     break;
                 case "King and Battered Piles":
                     foreach (double depth in this.WallDepth)
@@ -796,7 +807,6 @@ namespace SeawallCalculator
             (List<double>HydrostaticOpenWaterShear,List<double>HydrostaticOpenWaterMoment)=Calculate_Hydrostatic_Open_Water_Load_Distribution();
             (List<double>PassivePressureShear,List<double>PassivePressureMoment)=Calculate_Passive_Pressure_Load_Distribution();
             (List<double>KingBatteredShearForce,List<double>KingBatteredMoment)=Calculate_King_Battered_Pile();
-            this.WallElevation.ForEach(Console.WriteLine);
             for (int i=0; i < this.WallDepth.Count; i++)
             {
                 
@@ -818,10 +828,20 @@ namespace SeawallCalculator
                     KingBatteredMoment[i]);
             }
             
-            TotalWallShear.ForEach(Console.WriteLine);
+            
             this.WallShear = TotalWallShear;
             this.WallMoment = TotalWallMoment;
             return (TotalWallShear, TotalWallMoment);
+        }
+        public List<double> Calculate_Wall_Elevation()
+        {
+            List<double> WallElevation = new List<double>();
+            WallElevation.Add(this.Ground_Elevation);
+            for (int i=1; i < this.WallHeight.Count; i++)
+            {
+                WallElevation.Add(WallElevation[i - 1] - this.WallHeight[0] / 20);
+            }
+            return WallElevation;
         }
 
 

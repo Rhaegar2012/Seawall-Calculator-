@@ -167,7 +167,7 @@
                                 <TextBlock Text="ft" Margin="0,5,0,0"/>
                             </StackPanel>
                         </StackPanel>
-                        <oxy:Plot Title="Wall Load Distribution">
+                        <oxy:Plot Title="Wall Load Distribution" Width="300" Height="300" Background="Transparent">
                             <oxy:Plot.Series>
                                 <oxy:LineSeries ItemsSource="{Binding WallShearSeries}" />
                             </oxy:Plot.Series>

@@ -16,3 +16,8 @@ C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\Se
 C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\SeawallCalculator\obj\Debug\BeamView.g.cs
 C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\SeawallCalculator\obj\Debug\BeamView.baml
 C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\SeawallCalculator\obj\Debug\SeawallCalculator.csprojAssemblyReference.cache
+C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\SeawallCalculator\bin\Debug\OxyPlot.dll
+C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\SeawallCalculator\bin\Debug\OxyPlot.Wpf.dll
+C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\SeawallCalculator\bin\Debug\OxyPlot.xml
+C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\SeawallCalculator\bin\Debug\OxyPlot.Wpf.xml
+C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\SeawallCalculator\obj\Debug\SeawallCalculator.csproj.CopyComplete

@@ -404,8 +404,32 @@ namespace SeawallCalculator
                 _MomentLoadDistribution = value;
             }
         }
-        private List<DataPoint> WallShearSeries;
-        private List<DataPoint> WallMomentSeries;
+        private List<DataPoint> _WallShearSeries=new List<DataPoint>();
+        public List<DataPoint> WallShearSeries
+        {
+            get
+            {
+                return _WallShearSeries;
+            }
+            set
+            {
+                _WallShearSeries = value;
+                OnPropertyChanged("WallShearSeries");
+            }
+        }
+        private List<DataPoint> _WallMomentSeries=new List<DataPoint>();
+        public List<DataPoint> WallMomentSeries
+        {
+            get
+            {
+                return _WallMomentSeries;
+            }
+            set
+            {
+                _WallMomentSeries = value;
+                OnPropertyChanged("WallMomentSeries");
+            }
+        }
 
         private CalculationManager calculationManager=new CalculationManager();
 
@@ -480,7 +504,7 @@ namespace SeawallCalculator
                     parse_Penetration,parse_SoilDensity,parse_SaturatedSoilDensity,parse_ActiveFrictionAngle,parse_PassiveFrictionAngle,parse_SoilToWallFrictionAngle,parse_wallThickness,parse_LandslideSlope,
                     parse_MudlineSlope,parse_LiveSurcharge,parse_PilesSpacing,parse_SlopeBatteredPiles,parse_PilesLateralCapacity,parse_SafetyFactor,isCantilever);
                 (this.MomentLoadDistribution, this.ShearLoadDistribution)=calculationManager.CalculateWall();
-                this.WallElevations =calculationManager.WallElevations;
+                this.WallElevations =calculationManager.CalculateWallDepth();
                 UpdateWallForm();
                 CreatePlottingSeries();
             }
@@ -502,14 +526,20 @@ namespace SeawallCalculator
             AxialForceinBatteredPile = calculationManager.Axial_Force_On_Pile;
             AxialForceinKingPile = calculationManager.Axial_Force_On_King_Pile;
             ActualWallPenetration = calculationManager.ActualWallPenetration;
+           
 
         }
         private void CreatePlottingSeries()
         {
+            Console.WriteLine("Wall Elevations");
+            this.WallElevations.ForEach(Console.WriteLine);
+            Console.WriteLine("Shear Distribution");
+            this.ShearLoadDistribution.ForEach(Console.WriteLine);
             for(int i=0; i < this.WallElevations.Count; i++)
             {
-                WallShearSeries.Add(new DataPoint(this.WallElevations[i], this.ShearLoadDistribution[i]));
-                WallMomentSeries.Add(new DataPoint(this.WallElevations[i], this.MomentLoadDistribution[i]));
+                
+                _WallShearSeries.Add(new DataPoint(this.WallElevations[i], this.ShearLoadDistribution[i]));
+                _WallMomentSeries.Add(new DataPoint(this.WallElevations[i], this.MomentLoadDistribution[i]));
             }
         }
 

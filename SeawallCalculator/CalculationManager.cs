@@ -78,8 +78,11 @@ namespace SeawallCalculator
         }
         public (List<double>,List<double>) CalculateWall()
         {
-            this.WallElevations = Wall.WallElevation;
             return (Wall.Calculate_Wall_Load_Distributions());
+        }
+        public List<double> CalculateWallDepth()
+        {
+            return Wall.Calculate_Wall_Elevation();
         }
         
     }
