@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:oxy="http://oxyplot.org/wpf" 
         xmlns:local="clr-namespace:SeawallCalculator"
         mc:Ignorable="d"
         Title="Seawall Calculator-V0.0" Height="800" Width="800">
@@ -167,9 +167,12 @@
                                 <TextBlock Text="ft" Margin="0,5,0,0"/>
                             </StackPanel>
                         </StackPanel>
-                        <oxy:Plot Title="Wall Load Distribution" Width="300" Height="300" Background="Transparent">
+                        <oxy:Plot Title="Wall Load Distribution" Width="400" Height="300" 
+                                  Background="Honeydew"
+                                  Margin="20,0,0,30">
                             <oxy:Plot.Series>
-                                <oxy:LineSeries ItemsSource="{Binding WallShearSeries}" />
+                                <oxy:LineSeries ItemsSource="{Binding WallShearSeries}"/>
+                                <oxy:LineSeries ItemsSource="{Binding WallMomentSeries}"/>
                             </oxy:Plot.Series>
                         </oxy:Plot>
                     </StackPanel>

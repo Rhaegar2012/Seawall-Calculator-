@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using OxyPlot;
+using OxyPlot.Series;
+using System.Collections.ObjectModel;
 
 
 namespace SeawallCalculator
@@ -277,7 +279,7 @@ namespace SeawallCalculator
                 in_LiveSurcharge = value;
             }
         }
-        //TODO:Bind cantilever bool variable to checkbox in the view  
+        
         private  bool in_isCantilever;
         public bool isCantilever
         {
@@ -367,6 +369,11 @@ namespace SeawallCalculator
             }
         }
         //Plotting data
+        //Plotting Model 
+       
+       private ObservableCollection <DataPoint> ShearData { get; set; }
+        public PlotModel WallPlotModel;
+
         private List<double> _WallElevations;
         public List<double> WallElevations
         {
@@ -404,32 +411,10 @@ namespace SeawallCalculator
                 _MomentLoadDistribution = value;
             }
         }
-        private List<DataPoint> _WallShearSeries=new List<DataPoint>();
-        public List<DataPoint> WallShearSeries
-        {
-            get
-            {
-                return _WallShearSeries;
-            }
-            set
-            {
-                _WallShearSeries = value;
-                OnPropertyChanged("WallShearSeries");
-            }
-        }
-        private List<DataPoint> _WallMomentSeries=new List<DataPoint>();
-        public List<DataPoint> WallMomentSeries
-        {
-            get
-            {
-                return _WallMomentSeries;
-            }
-            set
-            {
-                _WallMomentSeries = value;
-                OnPropertyChanged("WallMomentSeries");
-            }
-        }
+        
+        public ObservableCollection<DataPoint> WallShearSeries { get; private set; }=new ObservableCollection<DataPoint>();
+        public ObservableCollection<DataPoint> WallMomentSeries { get; private set; }=new ObservableCollection<DataPoint>();
+      
 
         private CalculationManager calculationManager=new CalculationManager();
 
@@ -535,12 +520,16 @@ namespace SeawallCalculator
             this.WallElevations.ForEach(Console.WriteLine);
             Console.WriteLine("Shear Distribution");
             this.ShearLoadDistribution.ForEach(Console.WriteLine);
+            this.WallPlotModel = new PlotModel { Title = "Wall Load Distribution" };
+            ScatterSeries shearLoad=new ScatterSeries();
             for(int i=0; i < this.WallElevations.Count; i++)
             {
                 
-                _WallShearSeries.Add(new DataPoint(this.WallElevations[i], this.ShearLoadDistribution[i]));
-                _WallMomentSeries.Add(new DataPoint(this.WallElevations[i], this.MomentLoadDistribution[i]));
+               this.WallShearSeries.Add(new DataPoint(this.ShearLoadDistribution[i],this.WallElevations[i]));
+               this.WallMomentSeries.Add(new DataPoint(this.MomentLoadDistribution[i], this.WallElevations[i]));
+               
             }
+       
         }
 
 
