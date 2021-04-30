@@ -619,37 +619,53 @@ namespace SeawallCalculator
                 case "Uniform Soil":
                     foreach (double depth in this.WallDepth)
                     {
+                        double DeltaDepth = depth - this.Ground_Water_Depth;
+                        double EffectiveDepth = Math.Max(0, DeltaDepth);
+                        double momentArm = EffectiveDepth / 2;
                         Depth.Add(Math.Max(0, depth - this.Ground_Water_Depth));
-                        Moment_Arm.Add((1 / 2) * (Math.Max(0, depth - this.Ground_Water_Depth)));
+                        Moment_Arm.Add(momentArm);
                     }
+                    
                     break;
                 case "Gradient Soil":
                     foreach (double depth in this.WallDepth)
                     {
+                        double DeltaDepth = depth - this.Ground_Water_Depth;
+                        double EffectiveDepth = Math.Max(0, DeltaDepth);
+                        double momentArm = EffectiveDepth / 3;
                         Depth.Add(Math.Max(0, depth - this.Ground_Water_Depth));
-                        Moment_Arm.Add((1 / 3) * (Math.Max(0, depth - this.Ground_Water_Depth)));
+                        Moment_Arm.Add(momentArm);
                     }
                     break;
                 case "Hydrostatic Ground Water":
                     foreach (double depth in this.WallDepth)
                     {
+                        double DeltaDepth = depth - this.Ground_Water_Depth;
+                        double EffectiveDepth = Math.Max(0, DeltaDepth);
+                        double momentArm = EffectiveDepth / 3;
                         Depth.Add(Math.Max(0, depth - this.Ground_Water_Depth));
-                        Moment_Arm.Add((1 / 3) * (Math.Max(0, depth - this.Ground_Water_Depth)));
+                        Moment_Arm.Add(momentArm);
                     }
 
                     break;
                 case "Hydrostatic Open Water":
                     foreach (double depth in this.WallDepth)
                     {
+                        double DeltaDepth = depth - this.Open_Water_Level;
+                        double EffectiveDepth = Math.Max(0, DeltaDepth);
+                        double momentArm = EffectiveDepth / 3;
                         Depth.Add(Math.Max(0, depth - this.Open_Water_Level));
-                        Moment_Arm.Add((1 / 3) * (Math.Max(0, depth - this.Open_Water_Level)));
+                        Moment_Arm.Add(momentArm);
                     }
                     break;
                 case "Factored Passive Pressure":
                     foreach (double depth in this.WallDepth)
                     {
+                        double DeltaDepth = depth - this.Mudline_Depth;
+                        double EffectiveDepth = Math.Max(0, DeltaDepth);
+                        double momentArm = EffectiveDepth / 3;
                         Depth.Add(Math.Max(0, depth - this.Mudline_Depth));
-                        Moment_Arm.Add((1 / 3) * Math.Max(0, depth - this.Mudline_Depth));
+                        Moment_Arm.Add(momentArm);
                     }
                     break;
                 case "King and Battered Piles":
@@ -700,10 +716,20 @@ namespace SeawallCalculator
             (List<double> Depth, List<double> MomentArm) = Generate_Wall_Elevations("Uniform Soil");
             for (int i = 0; i < Depth.Count; i++)
             {
-
-                double Force = (Depth[i] * this.Active_Pressure_Coefficient * this.Submerged_Density);
-                ShearForce.Add(Force);
-                Moment.Add(Force * MomentArm[i]);
+                if (Depth[i] + this.Ground_Water_Depth < this.Mudline_Depth)
+                {
+                    double Force = (Depth[i] * this.Active_Pressure_Coefficient * this.Submerged_Density);
+                    ShearForce.Add(Force);
+                    Moment.Add(Force * MomentArm[i]);
+                }
+                else
+                {
+                    double Force = (this.Active_Pressure_Coefficient * this.Soil_Density *
+                        this.Ground_Water_Depth * Depth[i]);
+                    ShearForce.Add(Force);
+                    Moment.Add(Force * MomentArm[i]);
+                }
+                
             }
             return (ShearForce, Moment);
         }
@@ -756,7 +782,7 @@ namespace SeawallCalculator
             (List<double> Depth, List<double> MomentArm) = Generate_Wall_Elevations("Factored Passive Pressure");
             for (int i = 0; i < Depth.Count; i++)
             {
-
+                
                 double Force = (Math.Pow(Depth[i], 2) * this.Passive_Pressure_Coefficient*this.Submerged_Density) / (2*TargetSafetyFactor);
                 ShearForce.Add(Force);
                 Moment.Add(Force * MomentArm[i]);
@@ -827,8 +853,10 @@ namespace SeawallCalculator
                     PassivePressureMoment[i] -
                     KingBatteredMoment[i]);
             }
-            
-            
+
+            Debugging_function(SurchargeShear, SurchargeMoment, SoilShear, SoilMoment, UniformSoilShear, UniformSoilMoment, GradientSoilShear, GradientSoilMoment,
+                HydrostaticGroundWaterShear, HydrostaticGroundWaterMoment, HydrostaticOpenWaterShear, HydrostaticOpenWaterMoment, PassivePressureShear, PassivePressureMoment,
+                KingBatteredShearForce, KingBatteredMoment);
             this.WallShear = TotalWallShear;
             this.WallMoment = TotalWallMoment;
             return (TotalWallShear, TotalWallMoment);
@@ -842,6 +870,47 @@ namespace SeawallCalculator
                 WallElevation.Add(WallElevation[i - 1] - this.WallHeight[0] / 20);
             }
             return WallElevation;
+        }
+        private void Debugging_function(List<double> SurchargeShear,List<double> SurchargeMoment, List<double> SoilShear,List<double> SoilMoment,
+            List<double> UniformSoilShear,List<double>UniformSoilMoment,List<double>GradientSoilShear,List<double>GradientSoilMoment,
+            List<double> HydrostaticGroundWaterShear,List<double> HydrostaticGroundWaterMoment,
+            List<double> HydrostaticOpenWaterShear,List<double> HydrostaticOpenWaterMoment,
+            List<double> PassivePressureShear,List<double> PassivePressureMoment,List<double> KingPilesShear, List<double> KingPilesMoment)
+        {
+            Console.WriteLine("Surcharge load Shear");
+            SurchargeShear.ForEach(Console.WriteLine);
+            Console.WriteLine("Surcharge load Moment");
+            SurchargeMoment.ForEach(Console.WriteLine);
+            Console.WriteLine("Soil shear");
+            SoilShear.ForEach(Console.WriteLine);
+            Console.WriteLine("Soil Moment");
+            SoilMoment.ForEach(Console.WriteLine);
+            Console.WriteLine("Uniform Soil Shear");
+            UniformSoilShear.ForEach(Console.WriteLine);
+            Console.WriteLine("Uniform Soil Moment");
+            UniformSoilMoment.ForEach(Console.WriteLine);
+            Console.WriteLine("Gradient Soil Shear");
+            GradientSoilShear.ForEach(Console.WriteLine);
+            Console.WriteLine("Gradient Soil Moment");
+            GradientSoilMoment.ForEach(Console.WriteLine);
+            Console.WriteLine("Hydrostatic Ground Water Shear ");
+            HydrostaticGroundWaterShear.ForEach(Console.WriteLine);
+            Console.WriteLine("Hydrostatic GroundWater Moment");
+            HydrostaticGroundWaterMoment.ForEach(Console.WriteLine);
+            Console.WriteLine("Hydrostatic Open Water Shear");
+            HydrostaticOpenWaterShear.ForEach(Console.WriteLine);
+            Console.WriteLine("Hydrostatic Open Water Moment");
+            HydrostaticOpenWaterMoment.ForEach(Console.WriteLine);
+            Console.WriteLine("Passive Pressure Shear");
+            PassivePressureShear.ForEach(Console.WriteLine);
+            Console.WriteLine("Passive Pressure Moment");
+            PassivePressureMoment.ForEach(Console.WriteLine);
+            Console.WriteLine("King Pile Shear");
+            KingPilesShear.ForEach(Console.WriteLine);
+            Console.WriteLine("King Pile Moment");
+            KingPilesMoment.ForEach(Console.WriteLine);
+
+
         }
 
 
