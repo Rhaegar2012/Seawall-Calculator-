@@ -477,7 +477,7 @@ namespace SeawallCalculator
                 calculationManager.CreateWall(parse_groundElevation,parse_TopOfPile,parse_MudlineDepth,parse_groundWaterDepth,parse_OpenWaterLevel,
                     Initial_Penetration,parse_SoilDensity,parse_SaturatedSoilDensity,parse_ActiveFrictionAngle,parse_PassiveFrictionAngle,parse_SoilToWallFrictionAngle,parse_wallThickness,parse_LandslideSlope,
                     parse_MudlineSlope,parse_LiveSurcharge,parse_PilesSpacing,parse_SlopeBatteredPiles,parse_PilesLateralCapacity,parse_SafetyFactor,isCantilever);
-                (this.MomentLoadDistribution, this.ShearLoadDistribution)=calculationManager.CalculateWall();
+                (this.ShearLoadDistribution, this.MomentLoadDistribution)=calculationManager.CalculateWall();
                 this.WallElevations =calculationManager.CalculateWallDepth();
                 UpdateWallForm();
                 CreatePlottingSeries();
@@ -516,8 +516,8 @@ namespace SeawallCalculator
 
                double MaxMoment = Double.Parse(this.MaxWallMoment);
                double MaxShear = Double.Parse(this.MaxWallShear);
-               this.WallShearSeries.Add(new DataPoint(this.ShearLoadDistribution[i]/MaxMoment,this.WallElevations[i]));
-               this.WallMomentSeries.Add(new DataPoint(this.MomentLoadDistribution[i]/MaxShear, this.WallElevations[i]));
+               this.WallShearSeries.Add(new DataPoint(this.ShearLoadDistribution[i]/MaxShear,this.WallElevations[i]));
+               this.WallMomentSeries.Add(new DataPoint(this.MomentLoadDistribution[i]/MaxMoment, this.WallElevations[i]));
                
             }
        
