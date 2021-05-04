@@ -461,7 +461,8 @@ namespace SeawallCalculator
         }
         private void AnalyzeWall(object obj)
         {
-            Console.WriteLine(isCantilever.ToString());
+            this.WallShearSeries.Clear();
+            this.WallMomentSeries.Clear();
             
             if (CheckWallData())
             {
@@ -524,9 +525,11 @@ namespace SeawallCalculator
             ScatterSeries shearLoad=new ScatterSeries();
             for(int i=0; i < this.WallElevations.Count; i++)
             {
-                
-               this.WallShearSeries.Add(new DataPoint(this.ShearLoadDistribution[i],this.WallElevations[i]));
-               this.WallMomentSeries.Add(new DataPoint(this.MomentLoadDistribution[i], this.WallElevations[i]));
+
+               double MaxMoment = Double.Parse(this.MaxWallMoment);
+               double MaxShear = Double.Parse(this.MaxWallShear);
+               this.WallShearSeries.Add(new DataPoint(this.ShearLoadDistribution[i]/MaxMoment,this.WallElevations[i]));
+               this.WallMomentSeries.Add(new DataPoint(this.MomentLoadDistribution[i]/MaxShear, this.WallElevations[i]));
                
             }
        

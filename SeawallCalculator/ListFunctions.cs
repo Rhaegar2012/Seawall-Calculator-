@@ -13,14 +13,15 @@ namespace SeawallCalculator
             double max_value = 0.0;
             foreach(double value in a_list)
             {
-               
+
+                double check_value = Math.Abs(value);
          
-                if (Math.Abs(value) > max_value)
+                if (check_value > max_value)
                     
-                    max_value = value;
+                    max_value = check_value;
                
             }
-            return Math.Abs(max_value);
+            return max_value;
         }
     }
 }

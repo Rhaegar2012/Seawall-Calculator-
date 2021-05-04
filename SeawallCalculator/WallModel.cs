@@ -264,7 +264,16 @@ namespace SeawallCalculator
             }
         }
         private double _battered_Pile_Resultant_Force;
-        private double Battered_Pile_Resultant_Force { get; set; }
+        private double Battered_Pile_Resultant_Force {
+            get
+            {
+                return _battered_Pile_Resultant_Force;
+            }
+            set
+            {
+                _battered_Pile_Resultant_Force = value;
+            }
+        }
 
         //AT stands for "Above Toe"
         private double _surcharge_Resultant_AT;
@@ -394,22 +403,28 @@ namespace SeawallCalculator
         public List<double> WallElevation = new List<double>();
         private List<double> WallHeight = new List<double>();
         private List<double> WallDepth = new List<double>();
+        private List<double> ReversedDepth = new List<double>();
         public List<double> WallShear = new List<double>();
         public List<double> WallMoment = new List<double>();
 
         //Output Variables to be displayed on the View
+        private double _LateralForceOnCap;
         public double LateralForceonCap 
         {
             get 
             {
                 return this.Battered_Pile_Resultant_Force;
             }
+            set
+            {
+                _LateralForceOnCap = value;
+            }
         }
         public double Max_Shear 
         {
             get
             {
-                double max_value = this.FindMaxValue(WallShear);
+                double max_value = this.FindMaxValue(this.WallShear);
                 return max_value;
             }
         }
@@ -417,7 +432,7 @@ namespace SeawallCalculator
         {
             get
             {
-                double max_value = this.FindMaxValue(WallMoment);
+                double max_value = this.FindMaxValue(this.WallMoment);
                 return max_value;
             }
         }
@@ -557,7 +572,7 @@ namespace SeawallCalculator
             if (ForceOnCap > tolerance)
             {
                 
-                this.Penetration = this.Penetration + 0.5;
+                this.Penetration = this.Penetration + 0.05;
                 UpdateLateralForces(this.Penetration);
                 UpdateResultantAboveToe(this.Penetration);
                 Moment_At_Toe.Clear();
@@ -567,12 +582,16 @@ namespace SeawallCalculator
         }
         private void SupportedWallPenetration()
         {
-            
+           
             Calculate_Moment_At_Toe();
             this.Safety_Factor = (CalculateTiedRestoringForce() / CalculateTiedOverturningForces());
+            double BatteredPileMoment = CalculateOverturningLoads() - CalculateRestoringForce();
+            double ForceOnCap = BatteredPileMoment / (this.Panel_Height - this.Top_of_Pile);
+            this.LateralForceonCap = ForceOnCap;
+            this.Battered_Pile_Resultant_Force = ForceOnCap;
             if (this.Safety_Factor <1)
             {
-                this.Penetration = this.Penetration + 0.25;
+                this.Penetration = this.Penetration + 0.05;
                 UpdateLateralForces(this.Penetration);
                 UpdateResultantAboveToe(this.Penetration);
                 Moment_At_Toe.Clear();
@@ -592,14 +611,16 @@ namespace SeawallCalculator
             }
             for(int i=0; i < this.WallHeight.Count; i++)
             {
-                this.WallDepth.Add(this.Panel_Height-this.WallHeight[i]);
+                double currentHeight = this.WallHeight[i];
+                double wallDepth = this.Panel_Height - currentHeight;
+                this.WallDepth.Add(wallDepth);
             }
 
         }
         //Generate_Wall_Elevations is load specific, returs the wall elevations used to calculate a specific load distribution
         private (List<double>,List<double>) Generate_Wall_Elevations(string Case  )
         {
-            //TODO: Needs to return both the depth and the moment lever 
+           
             List<double> Depth = new List<double>();
             List<double> Moment_Arm = new List<double>();
             switch (Case)
@@ -857,8 +878,11 @@ namespace SeawallCalculator
             Debugging_function(SurchargeShear, SurchargeMoment, SoilShear, SoilMoment, UniformSoilShear, UniformSoilMoment, GradientSoilShear, GradientSoilMoment,
                 HydrostaticGroundWaterShear, HydrostaticGroundWaterMoment, HydrostaticOpenWaterShear, HydrostaticOpenWaterMoment, PassivePressureShear, PassivePressureMoment,
                 KingBatteredShearForce, KingBatteredMoment);
+            double MaxShear = this.FindMaxValue(TotalWallShear);
+            double MaxMoment = this.FindMaxValue(TotalWallMoment);
             this.WallShear = TotalWallShear;
             this.WallMoment = TotalWallMoment;
+            
             return (TotalWallShear, TotalWallMoment);
         }
         public List<double> Calculate_Wall_Elevation()
@@ -877,6 +901,10 @@ namespace SeawallCalculator
             List<double> HydrostaticOpenWaterShear,List<double> HydrostaticOpenWaterMoment,
             List<double> PassivePressureShear,List<double> PassivePressureMoment,List<double> KingPilesShear, List<double> KingPilesMoment)
         {
+            Console.WriteLine("Wall total Height");
+            Console.WriteLine(this.Panel_Height);
+            Console.WriteLine("Wall Height");
+            this.WallHeight.ForEach(Console.WriteLine);
             Console.WriteLine("Surcharge load Shear");
             SurchargeShear.ForEach(Console.WriteLine);
             Console.WriteLine("Surcharge load Moment");
