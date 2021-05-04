@@ -13,43 +13,48 @@ namespace SeawallCalculator
         {
             get
             {
-                return (Wall.LateralForceonCap.ToString());
+                double value = Math.Round(Wall.LateralForceonCap, 2);
+                return (value.ToString());
             }
         }
         public string Maximum_Wall_Shear
         {
             get
             {
-                
-                return (Wall.Max_Shear.ToString());
+                double value = Math.Round(Wall.Max_Shear, 2);
+                return (value.ToString());
             }
         }
         public string Maximum_Wall_Moment
         {
             get
             {
-                return (Wall.Max_Moment.ToString());
+                double value = Math.Round(Wall.Max_Moment, 2);
+                return (value.ToString());
             }
         }
         public string Axial_Force_On_Pile
         {
             get
             {
-                return (Wall.Axial_Force_in_Battered_Pile.ToString());
+                double value = Math.Round(Wall.Axial_Force_in_Battered_Pile, 2);
+                return (value.ToString());
             }
         }
         public string Axial_Force_On_King_Pile
         {
             get
             {
-                return (Wall.Axial_Force_in_King_Pile.ToString());
+                double value = Math.Round(Wall.Axial_Force_in_King_Pile, 2);
+                return (value.ToString());
             }
         }
         public string ActualWallPenetration
         {
             get
             {
-                return (Wall.Output_Penetration.ToString());
+                double value = Math.Round(Wall.Output_Penetration, 2);
+                return (value.ToString());
             }
         }
         private List<double> _wallElevations;

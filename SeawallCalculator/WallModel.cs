@@ -440,7 +440,7 @@ namespace SeawallCalculator
         {
             get
             {
-                double value = Math.Sqrt(Math.Pow(12, 2) + Math.Pow(this.PilesSpacing, 2)) / (this.SlopeOfBatteredPiles) * (this.LateralForceonCap) * (this.PilesSpacing / 1000);
+                double value = (Math.Sqrt(Math.Pow(12, 2) + Math.Pow(this.SlopeOfBatteredPiles, 2))) / (this.SlopeOfBatteredPiles) * (this.LateralForceonCap) * (this.PilesSpacing)/1000 ;
                 return value;
             }
             
@@ -572,7 +572,7 @@ namespace SeawallCalculator
             if (ForceOnCap > tolerance)
             {
                 
-                this.Penetration = this.Penetration + 0.05;
+                this.Penetration = this.Penetration + 0.01;
                 UpdateLateralForces(this.Penetration);
                 UpdateResultantAboveToe(this.Penetration);
                 Moment_At_Toe.Clear();
@@ -591,7 +591,7 @@ namespace SeawallCalculator
             this.Battered_Pile_Resultant_Force = ForceOnCap;
             if (this.Safety_Factor <1)
             {
-                this.Penetration = this.Penetration + 0.05;
+                this.Penetration = this.Penetration + 0.01;
                 UpdateLateralForces(this.Penetration);
                 UpdateResultantAboveToe(this.Penetration);
                 Moment_At_Toe.Clear();
@@ -878,8 +878,6 @@ namespace SeawallCalculator
             Debugging_function(SurchargeShear, SurchargeMoment, SoilShear, SoilMoment, UniformSoilShear, UniformSoilMoment, GradientSoilShear, GradientSoilMoment,
                 HydrostaticGroundWaterShear, HydrostaticGroundWaterMoment, HydrostaticOpenWaterShear, HydrostaticOpenWaterMoment, PassivePressureShear, PassivePressureMoment,
                 KingBatteredShearForce, KingBatteredMoment);
-            double MaxShear = this.FindMaxValue(TotalWallShear);
-            double MaxMoment = this.FindMaxValue(TotalWallMoment);
             this.WallShear = TotalWallShear;
             this.WallMoment = TotalWallMoment;
             

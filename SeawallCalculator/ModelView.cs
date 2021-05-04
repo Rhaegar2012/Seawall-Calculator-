@@ -50,6 +50,8 @@ namespace SeawallCalculator
                 m_WallReportCommand = value;
             }
         }
+        //Input constants 
+        private const double Initial_Penetration= 0.0;
         
         //Wall input Data Properties 
         private string in_GroundElevation;
@@ -181,18 +183,6 @@ namespace SeawallCalculator
             set
             {
                 in_PanelThickness = value;
-            }
-        }
-        private string in_Penetration;
-        public string Penetration
-        {
-            get
-            {
-                return in_Penetration;
-            }
-            set
-            {
-                in_Penetration = value;
             }
         }
         private string in_SafetyFactor;
@@ -444,7 +434,6 @@ namespace SeawallCalculator
                                   in_OpenWaterLevel,
                                   in_PanelThickness,
                                   in_PassiveFrictionAngle,
-                                  in_Penetration,
                                   in_PilesSpacing,
                                   in_SafetyFactor,
                                   in_SaturatedSoilDensity,
@@ -477,7 +466,6 @@ namespace SeawallCalculator
                 double parse_ActiveFrictionAngle = Double.Parse(ActiveFrictionAngle);
                 double parse_LandslideSlope = Double.Parse(LandslideSlope);
                 double parse_LiveSurcharge = Double.Parse(LiveSurcharge);
-                double parse_Penetration = Double.Parse(Penetration);
                 double parse_PilesSpacing = Double.Parse(PilesSpacing);
                 double parse_SlopeBatteredPiles = Double.Parse(SlopeBatteredPiles);
                 double parse_PilesLateralCapacity = Double.Parse(LateralCapacityKingPiles);
@@ -487,7 +475,7 @@ namespace SeawallCalculator
                 double parse_SoilToWallFrictionAngle = Double.Parse(SoilToWallFrictionAngle);
                 double parse_TopOfPile = Double.Parse(TopOfPile);
                 calculationManager.CreateWall(parse_groundElevation,parse_TopOfPile,parse_MudlineDepth,parse_groundWaterDepth,parse_OpenWaterLevel,
-                    parse_Penetration,parse_SoilDensity,parse_SaturatedSoilDensity,parse_ActiveFrictionAngle,parse_PassiveFrictionAngle,parse_SoilToWallFrictionAngle,parse_wallThickness,parse_LandslideSlope,
+                    Initial_Penetration,parse_SoilDensity,parse_SaturatedSoilDensity,parse_ActiveFrictionAngle,parse_PassiveFrictionAngle,parse_SoilToWallFrictionAngle,parse_wallThickness,parse_LandslideSlope,
                     parse_MudlineSlope,parse_LiveSurcharge,parse_PilesSpacing,parse_SlopeBatteredPiles,parse_PilesLateralCapacity,parse_SafetyFactor,isCantilever);
                 (this.MomentLoadDistribution, this.ShearLoadDistribution)=calculationManager.CalculateWall();
                 this.WallElevations =calculationManager.CalculateWallDepth();

@@ -59,7 +59,6 @@
                             <TextBlock Text="Slope of Battered Piles" FontSize="12" Margin="20,0,5,10"/>
                             <TextBlock Text="Wall Properties" FontSize="12" FontWeight="Bold" Margin="20,0,10,3"/>
                             <TextBlock Text="Panel Thickness" FontSize="12" Margin="20,0,5,3"/>
-                            <TextBlock Text="Penetration" FontSize="12" Margin="20,0,5,3"/>
                             <TextBlock Text="Safety Factor" FontSize="12" Margin="20,0,5,10"/>
                             <TextBlock Text="Soil Properties" FontSize="12" FontWeight="Bold" Margin="20,0,10,0"/>
                             <TextBlock Text="Soil Density" FontSize="12" Margin="20,0,5,3"/>
@@ -81,7 +80,6 @@
                             <TextBox x:Name="LateralPileCapacityInput" Width="75" Margin="0,0,20,3" Text="{Binding LateralCapacityKingPiles,Mode=TwoWay}"/>
                             <TextBox x:Name="SlopeBatteredPilesInput" Width="75" Margin="0,0,20,25" Text="{Binding SlopeBatteredPiles,Mode=TwoWay}"/>
                             <TextBox x:Name="PanelThicknessInput" Width="75" Margin="0,0,20,3" Text="{Binding PanelThickness,Mode=TwoWay}"/>
-                            <TextBox x:Name="WallPenetrationInput" Width="75" Margin="0,0,20,3" Text="{Binding Penetration,Mode=TwoWay}"/>
                             <TextBox x:Name="SafetyFactorInput" Width="75" Margin="0,0,20,20" Text="{Binding SafetyFactor,Mode=TwoWay}"/>
                             <TextBox x:Name="SoilDensityInput" Width="75" Margin="0,0,20,3" Text="{Binding SoilDensity,Mode=TwoWay}"/>
                             <TextBox x:Name="SaturatedSoilDensityInput" Width="75" Margin="0,0,20,3" Text="{Binding SaturatedSoilDensity,Mode=TwoWay}"/>
@@ -105,7 +103,6 @@
                             <TextBlock Text="in/ft" FontSize="12" Margin="20,0,5,10"/>
                             <TextBlock Text="" FontSize="12" FontWeight="Bold" Margin="20,0,10,3"/>
                             <TextBlock Text="in" FontSize="12" Margin="20,0,5,3"/>
-                            <TextBlock Text="ft below Mudline" FontSize="12" Margin="20,0,5,3"/>
                             <TextBlock Text="Unitless" FontSize="12" Margin="20,0,5,10"/>
                             <TextBlock Text="" FontSize="12" FontWeight="Bold" Margin="20,0,10,0"/>
                             <TextBlock Text="pcf" FontSize="12" Margin="20,0,5,3"/>
