@@ -168,8 +168,8 @@
                                   Background="Honeydew"
                                   Margin="20,0,0,30">
                             <oxy:Plot.Series>
-                                <oxy:LineSeries ItemsSource="{Binding WallShearSeries}"/>
-                                <oxy:LineSeries ItemsSource="{Binding WallMomentSeries}"/>
+                                <oxy:LineSeries ItemsSource="{Binding WallShearSeries}" Title=" Shear/Max Shear"/>
+                                <oxy:LineSeries ItemsSource="{Binding WallMomentSeries}" Title=" Moment/Max Moment"/>
                             </oxy:Plot.Series>
                         </oxy:Plot>
                     </StackPanel>
