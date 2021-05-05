@@ -6,7 +6,8 @@
         xmlns:oxy="http://oxyplot.org/wpf" 
         xmlns:local="clr-namespace:SeawallCalculator"
         mc:Ignorable="d"
-        Title="Seawall Calculator-V0.0" Height="800" Width="800">
+        Title="Seawall Calculator-V0.0" Height="800" Width="800"
+        Background="CadetBlue">
     <Window.DataContext>
         <local:ModelView/>
     </Window.DataContext>
@@ -177,6 +178,15 @@
             </TabItem>
             <TabItem Header="Cap Analysis">
                 <Grid Background="CadetBlue">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="Cap Input" FontSize="20" FontWeight="Bold" Margin="40,10,10,10"/>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        
+                    </StackPanel>
                 </Grid>
             </TabItem>
         </TabControl>
