@@ -525,7 +525,109 @@ namespace SeawallCalculator
         }
         //END OF WALL MODEL VIEW 
         //CAP MODEL VIEW 
-        //INPUT VARIABLES
+        //SPAN VISUALIZATION 
+        private bool _visibilitySpanTwo;
+        public bool VisibilitySpanTwo
+        {
+            get
+            {
+                return _visibilitySpanTwo;
+            }
+            set
+            {
+                _visibilitySpanTwo = value;
+                OnPropertyChanged("VisibilitySpanTwo");
+            }
+        }
+        private bool _visibilitySpanThree;
+        public bool VisibilitySpanThree
+        {
+            get
+            {
+                return _visibilitySpanThree;
+            }
+            set
+            {
+                _visibilitySpanThree = value;
+                OnPropertyChanged("VisibilitySpanThree");
+            }
+        }
+        private bool _visibilitySpanFour;
+        public bool VisibilitySpanFour
+        {
+            get
+            {
+                return _visibilitySpanFour;
+            }
+            set
+            {
+                _visibilitySpanFour = value;
+                OnPropertyChanged("VisibilitySpanFour");
+            }
+        }
+        private bool _visibilitySpanFive;
+        public bool VisibilitySpanFive
+        {
+            get
+            {
+                return _visibilitySpanFive;
+            }
+            set
+            {
+                _visibilitySpanFive = value;
+                OnPropertyChanged("VisibilitySpanFive");
+            }
+        }
+        private string _numberOfSpans;
+        public string NumberOfSpans
+        {
+            get
+            {
+                return _numberOfSpans;
+            }
+            set
+            {
+
+                _numberOfSpans = value;
+                UpdateNumberOfSpans(_numberOfSpans);
+                OnPropertyChanged("NumberOfSpans");
+            }
+        }
+        private void UpdateNumberOfSpans(string numberOfSpans)
+        {
+            
+            switch (numberOfSpans[numberOfSpans.Length-1].ToString())
+            {
+                
+                case "2":
+                    this.VisibilitySpanTwo = true;
+                    this.VisibilitySpanThree = false;
+                    this.VisibilitySpanFour = false;
+                    this.VisibilitySpanFive = false;
+                    break;
+                case "3":
+                    this.VisibilitySpanTwo = true;
+                    this.VisibilitySpanThree = true;
+                    this.VisibilitySpanFour = false;
+                    this.VisibilitySpanFive = false;
+                    break;
+                case "4":
+                    this.VisibilitySpanTwo = true;
+                    this.VisibilitySpanThree = true;
+                    this.VisibilitySpanFour = true;
+                    this.VisibilitySpanFive = false;
+                    break;
+                case "5":
+                    this.VisibilitySpanTwo = true;
+                    this.VisibilitySpanThree = true;
+                    this.VisibilitySpanFour = true;
+                    this.VisibilitySpanFive = true;
+                    break;
+                default:
+                    break;
+               
+            }
+        }
         
 
 

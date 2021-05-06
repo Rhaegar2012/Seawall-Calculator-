@@ -11,6 +11,9 @@
     <Window.DataContext>
         <local:ModelView/>
     </Window.DataContext>
+    <Window.Resources>
+        <local:VisibilityConverter x:Key="VisibilityConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -186,7 +189,7 @@
                     <TextBlock Grid.Row="0" Text="Cap Input" FontSize="20" FontWeight="Bold" Margin="40,10,10,100"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Number of Spans" Margin="40,60,0,0" FontSize="14" FontWeight="Bold"/>
-                        <ComboBox x:Name="SpanComboBox" Width="50" Height="20" Margin="20" Text="1">
+                        <ComboBox x:Name="SpanComboBox" Width="50" Height="20" Margin="20" Text="1" SelectedItem="{Binding NumberOfSpans,Mode=TwoWay}">
                             <ComboBoxItem Content="1"></ComboBoxItem>
                             <ComboBoxItem Content="2"></ComboBoxItem>
                             <ComboBoxItem Content="3"></ComboBoxItem>
@@ -213,36 +216,36 @@
                                 <TextBox Text="@PL1" Margin="0,0,0,5"/>
                             </StackPanel>
                             <StackPanel Orientation="Vertical">
-                                <TextBlock Text="Span 2" Margin="0,0,0,8"/>
-                                <TextBox Text="Width2" Margin="0,0,0,5"/>
-                                <TextBox Text="Height2" Margin="0,0,0,5"/>
-                                <TextBox Text="DL2" Margin="0,0,0,5"/>
-                                <TextBox Text="PL2" Margin="0,0,0,5"/>
-                                <TextBox Text="@PL2" Margin="0,0,0,5"/>
+                                <TextBlock x:Name="Span2TextBlk" Text="Span 2" Margin="0,0,0,8" Visibility="{Binding VisibilitySpanTwo ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="Width2" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanTwo ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="Height2" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanTwo ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="DL2" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanTwo ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="PL2" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanTwo ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="@PL2" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanTwo ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
                             </StackPanel>
                             <StackPanel Orientation="Vertical">
-                                <TextBlock Text="Span 3" Margin="0,0,0,8"/>
-                                <TextBox Text="Width3" Margin="0,0,0,5"/>
-                                <TextBox Text="Height3" Margin="0,0,0,5"/>
-                                <TextBox Text="DL3" Margin="0,0,0,5"/>
-                                <TextBox Text="PL3" Margin="0,0,0,5"/>
-                                <TextBox Text="@PL3" Margin="0,0,0,5"/>
+                                <TextBlock Text="Span 3" Margin="0,0,0,8" Visibility="{Binding VisibilitySpanThree ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="Width3" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanThree ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="Height3" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanThree ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="DL3" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanThree ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="PL3" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanThree ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="@PL3" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanThree ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
                             </StackPanel>
                             <StackPanel Orientation="Vertical">
-                                <TextBlock Text="Span 4" Margin="0,0,0,8"/>
-                                <TextBox Text="Width4" Margin="0,0,0,5"/>
-                                <TextBox Text="Height4" Margin="0,0,0,5"/>
-                                <TextBox Text="DL4" Margin="0,0,0,5"/>
-                                <TextBox Text="PL4" Margin="0,0,0,5"/>
-                                <TextBox Text="@PL4" Margin="0,0,0,5"/>
+                                <TextBlock Text="Span 4" Margin="0,0,0,8" Visibility="{Binding VisibilitySpanFour ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="Width4" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFour ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="Height4" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFour ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="DL4" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFour ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="PL4" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFour ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="@PL4" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFour ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
                             </StackPanel>
                             <StackPanel Orientation="Vertical">
-                                <TextBlock Text="Span 5" Margin="0,0,0,8"/>
-                                <TextBox Text="Width5" Margin="0,0,0,5"/>
-                                <TextBox Text="Height5" Margin="0,0,0,5"/>
-                                <TextBox Text="DL5" Margin="0,0,0,5"/>
-                                <TextBox Text="PL5" Margin="0,0,0,5"/>
-                                <TextBox Text="@PL5" Margin="0,0,0,5"/>
+                                <TextBlock Text="Span 5" Margin="0,0,0,8" Visibility="{Binding VisibilitySpanFive ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="Width5" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFive ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="Height5" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFive ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="DL5" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFive ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="PL5" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFive ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="@PL5" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFive ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
