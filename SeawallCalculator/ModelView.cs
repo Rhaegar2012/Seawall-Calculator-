@@ -50,6 +50,7 @@ namespace SeawallCalculator
                 m_WallReportCommand = value;
             }
         }
+        //wALL MODEL VIEW
         //Input constants 
         private const double Initial_Penetration= 0.0;
         
@@ -522,7 +523,10 @@ namespace SeawallCalculator
             }
        
         }
-
+        //END OF WALL MODEL VIEW 
+        //CAP MODEL VIEW 
+        //INPUT VARIABLES
+        
 
 
     }

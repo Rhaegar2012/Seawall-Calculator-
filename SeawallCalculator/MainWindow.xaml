@@ -183,9 +183,68 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Text="Cap Input" FontSize="20" FontWeight="Bold" Margin="40,10,10,10"/>
+                    <TextBlock Grid.Row="0" Text="Cap Input" FontSize="20" FontWeight="Bold" Margin="40,10,10,100"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Number of Spans" Margin="40,60,0,0" FontSize="14" FontWeight="Bold"/>
+                        <ComboBox x:Name="SpanComboBox" Width="50" Height="20" Margin="20" Text="1">
+                            <ComboBoxItem Content="1"></ComboBoxItem>
+                            <ComboBoxItem Content="2"></ComboBoxItem>
+                            <ComboBoxItem Content="3"></ComboBoxItem>
+                            <ComboBoxItem Content="4"></ComboBoxItem>
+                            <ComboBoxItem Content="5"></ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
-                        
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="Span" Margin="30,0,0,5" FontSize="14" FontWeight="Bold"/>
+                                <TextBlock Text="Beam Width" Margin="30,0,0,5" FontSize="14" FontWeight="Bold"/>
+                                <TextBlock Text="Beam Height" Margin="30,0,0,5" FontSize="14" FontWeight="Bold"/>
+                                <TextBlock Text="Distributed Load" Margin="30,0,0,5" FontSize="14" FontWeight="Bold"/>
+                                <TextBlock Text="Point Load" Margin="30,0,0,5" FontSize="14" FontWeight="Bold"/>
+                                <TextBlock Text="Point Load Location" Margin="30,0,0,5" FontSize="14" FontWeight="Bold"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="Span 1" Margin="0,0,0,8"/>
+                                <TextBox Text="Width1" Margin="0,0,0,5"/>
+                                <TextBox Text="Height1" Margin="0,0,0,5"/>
+                                <TextBox Text="DL1" Margin="0,0,0,5"/>
+                                <TextBox Text="PL1" Margin="0,0,0,5"/>
+                                <TextBox Text="@PL1" Margin="0,0,0,5"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="Span 2" Margin="0,0,0,8"/>
+                                <TextBox Text="Width2" Margin="0,0,0,5"/>
+                                <TextBox Text="Height2" Margin="0,0,0,5"/>
+                                <TextBox Text="DL2" Margin="0,0,0,5"/>
+                                <TextBox Text="PL2" Margin="0,0,0,5"/>
+                                <TextBox Text="@PL2" Margin="0,0,0,5"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="Span 3" Margin="0,0,0,8"/>
+                                <TextBox Text="Width3" Margin="0,0,0,5"/>
+                                <TextBox Text="Height3" Margin="0,0,0,5"/>
+                                <TextBox Text="DL3" Margin="0,0,0,5"/>
+                                <TextBox Text="PL3" Margin="0,0,0,5"/>
+                                <TextBox Text="@PL3" Margin="0,0,0,5"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="Span 4" Margin="0,0,0,8"/>
+                                <TextBox Text="Width4" Margin="0,0,0,5"/>
+                                <TextBox Text="Height4" Margin="0,0,0,5"/>
+                                <TextBox Text="DL4" Margin="0,0,0,5"/>
+                                <TextBox Text="PL4" Margin="0,0,0,5"/>
+                                <TextBox Text="@PL4" Margin="0,0,0,5"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="Span 5" Margin="0,0,0,8"/>
+                                <TextBox Text="Width5" Margin="0,0,0,5"/>
+                                <TextBox Text="Height5" Margin="0,0,0,5"/>
+                                <TextBox Text="DL5" Margin="0,0,0,5"/>
+                                <TextBox Text="PL5" Margin="0,0,0,5"/>
+                                <TextBox Text="@PL5" Margin="0,0,0,5"/>
+                            </StackPanel>
+                        </StackPanel>
                     </StackPanel>
                 </Grid>
             </TabItem>
