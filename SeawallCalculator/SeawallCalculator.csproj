@@ -67,6 +67,7 @@
       <DependentUpon>BeamView.xaml</DependentUpon>
     </Compile>
     <Compile Include="CalculationManager.cs" />
+    <Compile Include="CapModel.cs" />
     <Compile Include="ListFunctions.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

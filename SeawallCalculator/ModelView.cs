@@ -598,7 +598,13 @@ namespace SeawallCalculator
             
             switch (numberOfSpans[numberOfSpans.Length-1].ToString())
             {
-                
+                case "1":
+                    this.VisibilitySpanTwo = false;
+                    this.VisibilitySpanThree = false;
+                    this.VisibilitySpanFour = false;
+                    this.VisibilitySpanFive = false;
+                    break;
+
                 case "2":
                     this.VisibilitySpanTwo = true;
                     this.VisibilitySpanThree = false;
@@ -627,6 +633,8 @@ namespace SeawallCalculator
                     break;
                
             }
+            //CAP INPUT VARIABLES 
+
         }
         
 

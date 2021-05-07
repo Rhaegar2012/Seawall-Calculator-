@@ -197,6 +197,13 @@
                             <ComboBoxItem Content="5"></ComboBoxItem>
                         </ComboBox>
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Support Condition" Margin="40,90,0,0" FontSize="14" FontWeight="Bold"/>
+                        <ComboBox x:Name="SupportComboBox" Width="70" Height="20" Margin="12,60,20,0" Text="Pinned">
+                            <ComboBoxItem Content="Pinned"></ComboBoxItem>
+                            <ComboBoxItem Content="Fixed"></ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
                         <StackPanel Orientation="Horizontal">
                             <StackPanel Orientation="Vertical">
@@ -248,6 +255,41 @@
                                 <TextBox Text="@PL5" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFive ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
                             </StackPanel>
                         </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Max Moment" Margin="40,20,0,0"/>
+                            <TextBlock Text="Max Shear" Margin="40,5,0,0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Margin="20,0,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Span 1"/>
+                                <TextBlock Text="Span 2" Margin="10,0,0,5"/>
+                                <TextBlock Text="Span 3" Margin="10,0,0,0"/>
+                                <TextBlock Text="Span 4" Margin="10,0,0,0"/>
+                                <TextBlock Text="Span 5" Margin="10,0,0,0"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="MSpan1"/>
+                                <TextBlock Text="MSpan2" Margin="10,0,0,5"/>
+                                <TextBlock Text="MSpan3" Margin="10,0,0,5"/>
+                                <TextBlock Text="MSpan4" Margin="10,0,0,5"/>
+                                <TextBlock Text="MSpan5" Margin="10,0,0,5"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="VSpan1"/>
+                                <TextBlock Text="VSpan2" Margin="10,0,0,0"/>
+                                <TextBlock Text="VSpan3" Margin="10,0,0,0"/>
+                                <TextBlock Text="VSpan4" Margin="10,0,0,0"/>
+                                <TextBlock Text="VSpan5" Margin="10,0,0,0"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="30,50,0,0">
+                        <Button x:Name="CapAnalyzeButton" 
+                                Content="Analyze"
+                                MaxHeight="100"
+                                MaxWidth="400"
+                                Width="100"
+                                />
                     </StackPanel>
                 </Grid>
             </TabItem>
