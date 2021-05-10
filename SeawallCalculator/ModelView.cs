@@ -506,9 +506,8 @@ namespace SeawallCalculator
         }
         private void CreatePlottingSeries()
         {
-            Console.WriteLine("Wall Elevations");
+          
             this.WallElevations.ForEach(Console.WriteLine);
-            Console.WriteLine("Shear Distribution");
             this.ShearLoadDistribution.ForEach(Console.WriteLine);
             this.WallPlotModel = new PlotModel { Title = "Wall Load Distribution" };
             ScatterSeries shearLoad=new ScatterSeries();
@@ -633,10 +632,463 @@ namespace SeawallCalculator
                     break;
                
             }
-            //CAP INPUT VARIABLES 
+           
 
         }
-        
+        //CAP INPUT VARIABLES 
+        //SPAN 1 
+        private string in_SpanLength1;
+        public string SpanLength1 
+        {
+            get
+            {
+                return in_SpanLength1;
+            }
+            set
+            {
+                in_SpanLength1 = value;
+            }
+        }
+        private string in_BeamWidth1;
+        public string BeamWidth1
+        {
+            get
+            {
+                return in_BeamWidth1;
+            }
+            set
+            {
+                in_BeamWidth1 = value;
+            }
+        }
+        private string in_BeamHeight1;
+        public string BeamHeight1
+        {
+            get
+            {
+                return in_BeamHeight1;
+            }
+            set
+            {
+                in_BeamHeight1 = value;
+            }
+        }
+        private string in_DistLoad1;
+        public string DistLoad1
+        {
+            get
+            {
+                return in_DistLoad1;
+            }
+            set
+            {
+                in_DistLoad1 = value;
+            }
+        }
+        private string in_PointLoad1;
+        public string PointLoad1
+        {
+            get
+            {
+                return in_PointLoad1;
+            }
+            set
+            {
+                in_PointLoad1 = value;
+            }
+        }
+        private string in_PointLoadLocation1;
+        public string PointLoadLocation1
+        {
+            get
+            {
+                return in_PointLoadLocation1;
+            }
+            set
+            {
+                in_PointLoadLocation1 = value;
+            }
+        }
+        // SPAN 2 
+        private string in_SpanLength2;
+        public string SpanLength2
+        {
+            get
+            {
+                return in_SpanLength2;
+            }
+            set
+            {
+                in_SpanLength2 = value;
+            }
+        }
+        private string in_BeamWidth2;
+        public string BeamWidth2
+        {
+            get
+            {
+                return in_BeamWidth2;
+            }
+            set
+            {
+                in_BeamWidth2 = value;
+            }
+        }
+        private string in_BeamHeight2;
+        public string BeamHeight2
+        {
+            get
+            {
+                return in_BeamHeight2;
+            }
+            set
+            {
+                in_BeamHeight2 = value;
+            }
+        }
+        private string in_DistLoad2;
+        public string DistLoad2
+        {
+            get
+            {
+                return in_DistLoad2;
+            }
+            set
+            {
+                in_DistLoad2 = value;
+            }
+        }
+        private string in_PointLoad2;
+        public string PointLoad2
+        {
+            get
+            {
+                return in_PointLoad2;
+            }
+            set
+            {
+                in_PointLoad2 = value;
+            }
+        }
+        private string in_PointLoadLocation2;
+        public string PointLoadLocation2
+        {
+            get
+            {
+                return in_PointLoadLocation2;
+            }
+            set
+            {
+                in_PointLoadLocation2 = value;
+            }
+        }
+        //SPAN 3
+        private string in_SpanLength3;
+        public string SpanLength3
+        {
+            get
+            {
+                return in_SpanLength3;
+            }
+            set
+            {
+                in_SpanLength3 = value;
+            }
+        }
+        private string in_BeamWidth3;
+        public string BeamWidth3
+        {
+            get
+            {
+                return in_BeamWidth3;
+            }
+            set
+            {
+                in_BeamWidth3 = value;
+            }
+        }
+        private string in_BeamHeight3;
+        public string BeamHeight3
+        {
+            get
+            {
+                return in_BeamHeight3;
+            }
+            set
+            {
+                in_BeamHeight3 = value;
+            }
+        }
+        private string in_DistLoad3;
+        public string DistLoad3
+        {
+            get
+            {
+                return in_DistLoad3;
+            }
+            set
+            {
+                in_DistLoad3 = value;
+            }
+        }
+        private string in_PointLoad3;
+        public string PointLoad3
+        {
+            get
+            {
+                return in_PointLoad3;
+            }
+            set
+            {
+                in_PointLoad3 = value;
+            }
+        }
+        private string in_PointLoadLocation3;
+        public string PointLoadLocation3
+        {
+            get
+            {
+                return in_PointLoadLocation3;
+            }
+            set
+            {
+                in_PointLoadLocation3 = value;
+            }
+        }
+        //SPAN 4
+        private string in_SpanLength4;
+        public string SpanLength4
+        {
+            get
+            {
+                return in_SpanLength4;
+            }
+            set
+            {
+                in_SpanLength4 = value;
+            }
+        }
+        private string in_BeamWidth4;
+        public string BeamWidth4
+        {
+            get
+            {
+                return in_BeamWidth4;
+            }
+            set
+            {
+                in_BeamWidth4 = value;
+            }
+        }
+        private string in_BeamHeight4;
+        public string BeamHeight4
+        {
+            get
+            {
+                return in_BeamHeight4;
+            }
+            set
+            {
+                in_BeamHeight4 = value;
+            }
+        }
+        private string in_DistLoad4;
+        public string DistLoad4
+        {
+            get
+            {
+                return in_DistLoad4;
+            }
+            set
+            {
+                in_DistLoad4 = value;
+            }
+        }
+        private string in_PointLoad4;
+        public string PointLoad4
+        {
+            get
+            {
+                return in_PointLoad4;
+            }
+            set
+            {
+                in_PointLoad4 = value;
+            }
+        }
+        private string in_PointLoadLocation4;
+        public string PointLoadLocation4
+        {
+            get
+            {
+                return in_PointLoadLocation4;
+            }
+            set
+            {
+                in_PointLoadLocation4 = value;
+            }
+        }
+        //SPAN 5
+        private string in_SpanLength5;
+        public string SpanLength5
+        {
+            get
+            {
+                return in_SpanLength5;
+            }
+            set
+            {
+                in_SpanLength5 = value;
+            }
+        }
+        private string in_BeamWidth5;
+        public string BeamWidth5
+        {
+            get
+            {
+                return in_BeamWidth5;
+            }
+            set
+            {
+                in_BeamWidth5 = value;
+            }
+        }
+        private string in_BeamHeight5;
+        public string BeamHeight5
+        {
+            get
+            {
+                return in_BeamHeight5;
+            }
+            set
+            {
+                in_BeamHeight5 = value;
+            }
+        }
+        private string in_DistLoad5;
+        public string DistLoad5
+        {
+            get
+            {
+                return in_DistLoad5;
+            }
+            set
+            {
+                in_DistLoad5 = value;
+            }
+        }
+        private string in_PointLoad5;
+        public string PointLoad5
+        {
+            get
+            {
+                return in_PointLoad5;
+            }
+            set
+            {
+                in_PointLoad5 = value;
+            }
+        }
+        private string in_PointLoadLocation5;
+        public string PointLoadLocation5
+        {
+            get
+            {
+                return in_PointLoadLocation5;
+            }
+            set
+            {
+                in_PointLoadLocation5 = value;
+            }
+        }
+        //Support Condition 
+        private string in_SupportCondition;
+        public string SupportCondition
+        {
+            get
+            {
+                return in_SupportCondition;
+            }
+            set
+            {
+                in_SupportCondition = value;
+            }
+        }
+        //COLLECTIONS FOR BEAM INPUT DATA 
+        Dictionary<string, double> BeamSpan1 = new Dictionary<string, double>();
+        Dictionary<string, double> BeamSpan2 = new Dictionary<string, double>();
+        Dictionary<string, double> BeamSpan3 = new Dictionary<string, double>();
+        Dictionary<string, double> BeamSpan4 = new Dictionary<string, double>();
+        Dictionary<string, double> BeamSpan5 = new Dictionary<string, double>();
+        // ANALYZE METHODS 
+        private void ParseBeamData()
+        {
+            BeamSpan1.Add("Span", Double.Parse(SpanLength1));
+            BeamSpan1.Add("Beam Width", Double.Parse(BeamWidth1));
+            BeamSpan1.Add("Beam Height", Double.Parse(BeamHeight1));
+            BeamSpan1.Add("Distributed Load", Double.Parse(DistLoad1));
+            BeamSpan1.Add("Point Load", Double.Parse(PointLoad1));
+            BeamSpan1.Add("Point Load Location", Double.Parse(PointLoadLocation1));
+            BeamSpan2.Add("Span", Double.Parse(SpanLength2));
+            BeamSpan2.Add("Beam Width", Double.Parse(BeamWidth2));
+            BeamSpan2.Add("Beam Height", Double.Parse(BeamHeight2));
+            BeamSpan2.Add("Distributed Load", Double.Parse(DistLoad2));
+            BeamSpan2.Add("Point Load", Double.Parse(PointLoad2));
+            BeamSpan2.Add("Point Load Location", Double.Parse(PointLoadLocation2));
+            BeamSpan3.Add("Span", Double.Parse(SpanLength3));
+            BeamSpan3.Add("Beam Width", Double.Parse(BeamWidth3));
+            BeamSpan3.Add("Beam Height", Double.Parse(BeamHeight3));
+            BeamSpan3.Add("Distributed Load", Double.Parse(DistLoad3));
+            BeamSpan3.Add("Point Load", Double.Parse(PointLoad3));
+            BeamSpan3.Add("Point Load Location", Double.Parse(PointLoadLocation3));
+            BeamSpan4.Add("Span", Double.Parse(SpanLength4));
+            BeamSpan4.Add("Beam Width", Double.Parse(BeamWidth4));
+            BeamSpan4.Add("Beam Height", Double.Parse(BeamHeight4));
+            BeamSpan4.Add("Distributed Load", Double.Parse(DistLoad4));
+            BeamSpan4.Add("Point Load", Double.Parse(PointLoad4));
+            BeamSpan4.Add("Point Load Location", Double.Parse(PointLoadLocation4));
+            BeamSpan5.Add("Span", Double.Parse(SpanLength5));
+            BeamSpan5.Add("Beam Width", Double.Parse(BeamWidth5));
+            BeamSpan5.Add("Beam Height", Double.Parse(BeamHeight5));
+            BeamSpan5.Add("Distributed Load", Double.Parse(DistLoad5));
+            BeamSpan5.Add("Point Load", Double.Parse(PointLoad5));
+            BeamSpan5.Add("Point Load Location", Double.Parse(PointLoadLocation5));
+        }
+        private void CheckBeamData()
+        {
+            //NEEDS TO BE CLOMPLETED
+            bool Verified = false;
+            List<string> DataList = new List<string>();
+            switch (NumberOfSpans[NumberOfSpans.Length - 1].ToString())
+            {
+                case "1":
+                    DataList.Add(SpanLength1);
+                    DataList.Add(BeamWidth1);
+                    DataList.Add(BeamHeight1);
+                    DataList.Add(DistLoad1);
+                    DataList.Add(PointLoad1);
+                    DataList.Add(PointLoadLocation1);
+                    break;
+                case "2":
+                    DataList.Add(SpanLength1);
+                    DataList.Add(BeamWidth1);
+                    DataList.Add(BeamHeight1);
+                    DataList.Add(DistLoad1);
+                    DataList.Add(PointLoad1);
+                    DataList.Add(PointLoadLocation1);
+                    DataList.Add(SpanLength2);
+                    DataList.Add(BeamWidth2);
+                    DataList.Add(BeamHeight2);
+                    DataList.Add(DistLoad2);
+                    DataList.Add(PointLoad2);
+                    DataList.Add(PointLoadLocation2);
+                    break;
+
+            }
+
+        }
+
+
 
 
     }
