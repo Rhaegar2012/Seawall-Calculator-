@@ -50,6 +50,18 @@ namespace SeawallCalculator
                 m_WallReportCommand = value;
             }
         }
+        private ICommand m_BeamAnalyzeButton;
+        public ICommand BeamAnalyzeButton
+        {
+            get
+            {
+                return m_BeamAnalyzeButton;
+            }
+            set
+            {
+                m_BeamAnalyzeButton = value;
+            }
+        }
         //wALL MODEL VIEW
         //Input constants 
         private const double Initial_Penetration= 0.0;
@@ -415,6 +427,8 @@ namespace SeawallCalculator
             //Initializes the controls as ICommand objects 
             WallAnalyzeButton = new RelayCommand(new Action<object>(AnalyzeWall));
             WallReportButton = new RelayCommand(new Action<object>(CreateWallReport));
+            BeamAnalyzeButton = new RelayCommand(new Action<object>(AnalyzeBeam));
+
             
             
         }
@@ -1177,7 +1191,17 @@ namespace SeawallCalculator
 
 
         }
-
+        private void AnalyzeBeam(object obj)
+        {
+            if (CheckBeamData())
+            {
+                ParseBeamData();
+            }
+            else
+            {
+                MessageBox.Show("Check input variables", "Missing Input");
+            }
+        }
 
 
 
