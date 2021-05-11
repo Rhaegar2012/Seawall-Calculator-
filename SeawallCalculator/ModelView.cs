@@ -1054,10 +1054,10 @@ namespace SeawallCalculator
             BeamSpan5.Add("Point Load", Double.Parse(PointLoad5));
             BeamSpan5.Add("Point Load Location", Double.Parse(PointLoadLocation5));
         }
-        private void CheckBeamData()
+        private bool CheckBeamData()
         {
-            //NEEDS TO BE CLOMPLETED
-            bool Verified = false;
+           
+            bool Verified = true;
             List<string> DataList = new List<string>();
             switch (NumberOfSpans[NumberOfSpans.Length - 1].ToString())
             {
@@ -1083,8 +1083,98 @@ namespace SeawallCalculator
                     DataList.Add(PointLoad2);
                     DataList.Add(PointLoadLocation2);
                     break;
-
+                case "3":
+                    DataList.Add(SpanLength1);
+                    DataList.Add(BeamWidth1);
+                    DataList.Add(BeamHeight1);
+                    DataList.Add(DistLoad1);
+                    DataList.Add(PointLoad1);
+                    DataList.Add(PointLoadLocation1);
+                    DataList.Add(SpanLength2);
+                    DataList.Add(BeamWidth2);
+                    DataList.Add(BeamHeight2);
+                    DataList.Add(DistLoad2);
+                    DataList.Add(PointLoad2);
+                    DataList.Add(PointLoadLocation2);
+                    DataList.Add(SpanLength3);
+                    DataList.Add(BeamWidth3);
+                    DataList.Add(BeamHeight3);
+                    DataList.Add(DistLoad3);
+                    DataList.Add(PointLoad3);
+                    DataList.Add(PointLoadLocation3);
+                    break;
+                case "4":
+                    DataList.Add(SpanLength1);
+                    DataList.Add(BeamWidth1);
+                    DataList.Add(BeamHeight1);
+                    DataList.Add(DistLoad1);
+                    DataList.Add(PointLoad1);
+                    DataList.Add(PointLoadLocation1);
+                    DataList.Add(SpanLength2);
+                    DataList.Add(BeamWidth2);
+                    DataList.Add(BeamHeight2);
+                    DataList.Add(DistLoad2);
+                    DataList.Add(PointLoad2);
+                    DataList.Add(PointLoadLocation2);
+                    DataList.Add(SpanLength3);
+                    DataList.Add(BeamWidth3);
+                    DataList.Add(BeamHeight3);
+                    DataList.Add(DistLoad3);
+                    DataList.Add(PointLoad3);
+                    DataList.Add(PointLoadLocation3);
+                    DataList.Add(SpanLength4);
+                    DataList.Add(BeamWidth4);
+                    DataList.Add(BeamHeight4);
+                    DataList.Add(DistLoad4);
+                    DataList.Add(PointLoad4);
+                    DataList.Add(PointLoadLocation4);
+                    break;
+                case "5":
+                    DataList.Add(SpanLength1);
+                    DataList.Add(BeamWidth1);
+                    DataList.Add(BeamHeight1);
+                    DataList.Add(DistLoad1);
+                    DataList.Add(PointLoad1);
+                    DataList.Add(PointLoadLocation1);
+                    DataList.Add(SpanLength2);
+                    DataList.Add(BeamWidth2);
+                    DataList.Add(BeamHeight2);
+                    DataList.Add(DistLoad2);
+                    DataList.Add(PointLoad2);
+                    DataList.Add(PointLoadLocation2);
+                    DataList.Add(SpanLength3);
+                    DataList.Add(BeamWidth3);
+                    DataList.Add(BeamHeight3);
+                    DataList.Add(DistLoad3);
+                    DataList.Add(PointLoad3);
+                    DataList.Add(PointLoadLocation3);
+                    DataList.Add(SpanLength4);
+                    DataList.Add(BeamWidth4);
+                    DataList.Add(BeamHeight4);
+                    DataList.Add(DistLoad4);
+                    DataList.Add(PointLoad4);
+                    DataList.Add(PointLoadLocation4);
+                    DataList.Add(SpanLength5);
+                    DataList.Add(BeamWidth5);
+                    DataList.Add(BeamHeight5);
+                    DataList.Add(DistLoad5);
+                    DataList.Add(PointLoad5);
+                    DataList.Add(PointLoadLocation5);
+                    break;
+                default:
+                    break;
             }
+            foreach (string data in DataList)
+            {
+                if (data == null)
+                {
+                    Verified = false;
+                    break;
+                }
+                   
+            }
+            return Verified;
+
 
         }
 

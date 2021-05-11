@@ -207,7 +207,7 @@
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
                         <StackPanel Orientation="Horizontal">
                             <StackPanel Orientation="Vertical">
-                                <TextBlock Text="Span" Margin="30,0,0,5" FontSize="14" FontWeight="Bold"/>
+                                <TextBlock Text="Span" Margin="30,20,0,5" FontSize="14" FontWeight="Bold"/>
                                 <TextBlock Text="Beam Width" Margin="30,0,0,5" FontSize="14" FontWeight="Bold"/>
                                 <TextBlock Text="Beam Height" Margin="30,0,0,5" FontSize="14" FontWeight="Bold"/>
                                 <TextBlock Text="Distributed Load" Margin="30,0,0,5" FontSize="14" FontWeight="Bold"/>
@@ -216,43 +216,48 @@
                             </StackPanel>
                             <StackPanel Orientation="Vertical">
                                 <TextBlock Text="Span 1" Margin="0,0,0,8"/>
-                                <TextBox Text="Width1" Margin="0,0,0,5"/>
-                                <TextBox Text="Height1" Margin="0,0,0,5"/>
-                                <TextBox Text="DL1" Margin="0,0,0,5"/>
-                                <TextBox Text="PL1" Margin="0,0,0,5"/>
-                                <TextBox Text="@PL1" Margin="0,0,0,5"/>
+                                <TextBox Text="{Binding SpanLength1,Mode=TwoWay}" Margin="0,0,0,5" />
+                                <TextBox Text="{Binding BeamWidth1,Mode=TwoWay}" Margin="0,0,0,5"/>
+                                <TextBox Text="{Binding BeamHeight1,Mode=TwoWay}" Margin="0,0,0,5"/>
+                                <TextBox Text="{Binding DistLoad1, Mode=TwoWay}" Margin="0,0,0,5"/>
+                                <TextBox Text="{Binding PointLoad1,Mode=TwoWay}" Margin="0,0,0,5"/>
+                                <TextBox Text="{Binding PointLoadLocation1, Mode=TwoWay}" Margin="0,0,0,5"/>
                             </StackPanel>
                             <StackPanel Orientation="Vertical">
                                 <TextBlock x:Name="Span2TextBlk" Text="Span 2" Margin="0,0,0,8" Visibility="{Binding VisibilitySpanTwo ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
-                                <TextBox Text="Width2" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanTwo ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
-                                <TextBox Text="Height2" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanTwo ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
-                                <TextBox Text="DL2" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanTwo ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
-                                <TextBox Text="PL2" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanTwo ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
-                                <TextBox Text="@PL2" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanTwo ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="{Binding SpanLength2,Mode=TwoWay}" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanTwo ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="{Binding BeamWidth2,Mode=TwoWay}" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanTwo ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="{Binding BeamHeight2, Mode=TwoWay}" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanTwo ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="{Binding DistLoad2,Mode=TwoWay}" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanTwo ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="{Binding PointLoad2, Mode=TwoWay}" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanTwo ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="{Binding PointLoadLocation2,Mode=TwoWay}" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanTwo ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
                             </StackPanel>
                             <StackPanel Orientation="Vertical">
                                 <TextBlock Text="Span 3" Margin="0,0,0,8" Visibility="{Binding VisibilitySpanThree ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
-                                <TextBox Text="Width3" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanThree ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
-                                <TextBox Text="Height3" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanThree ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
-                                <TextBox Text="DL3" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanThree ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
-                                <TextBox Text="PL3" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanThree ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
-                                <TextBox Text="@PL3" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanThree ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="{Binding SpanLength3,Mode=TwoWay}" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanTwo ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="{Binding BeamWidth3,Mode=TwoWay}" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanThree ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="{Binding BeamHeight3, Mode=TwoWay}" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanThree ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="{Binding DistLoad3,Mode=TwoWay}" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanThree ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="{Binding PointLoad3,Mode=TwoWay}" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanThree ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="{Binding PointLoadLocation3,Mode=TwoWay}" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanThree ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
                             </StackPanel>
                             <StackPanel Orientation="Vertical">
                                 <TextBlock Text="Span 4" Margin="0,0,0,8" Visibility="{Binding VisibilitySpanFour ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
-                                <TextBox Text="Width4" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFour ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
-                                <TextBox Text="Height4" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFour ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
-                                <TextBox Text="DL4" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFour ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
-                                <TextBox Text="PL4" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFour ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
-                                <TextBox Text="@PL4" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFour ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="{Binding SpanLength4,Mode=TwoWay}" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanTwo ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="{Binding BeamWidth4,Mode=TwoWay}" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFour ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="{Binding BeamHeight4,Mode=TwoWay}" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFour ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="{Binding DistLoad4,Mode=TwoWay}" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFour ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="{Binding PointLoad4 ,Mode=TwoWay}" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFour ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="{Binding PointLoadLocation4 ,Mode=TwoWay}" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFour ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
                             </StackPanel>
                             <StackPanel Orientation="Vertical">
                                 <TextBlock Text="Span 5" Margin="0,0,0,8" Visibility="{Binding VisibilitySpanFive ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
-                                <TextBox Text="Width5" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFive ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
-                                <TextBox Text="Height5" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFive ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
-                                <TextBox Text="DL5" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFive ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
-                                <TextBox Text="PL5" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFive ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
-                                <TextBox Text="@PL5" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFive ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="{Binding SpanLength5,Mode=TwoWay}" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanTwo ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="{Binding BeamWidth5,Mode=TwoWay}" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFive ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="{Binding BeamHeight5,Mode=TwoWay}" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFive ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="{Binding DistLoad5,Mode=TwoWay}" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFive ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="{Binding PointLoad5,Mode=TwoWay}" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFive ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
+                                <TextBox Text="{Binding PointLoadLoacation5,Mode=TwoWay}" Margin="0,0,0,5" Visibility="{Binding VisibilitySpanFive ,Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"/>
                             </StackPanel>
                         </StackPanel>
                         <StackPanel Orientation="Vertical">
