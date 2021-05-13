@@ -64,7 +64,7 @@ namespace SeawallCalculator
         }
         //wALL MODEL VIEW
         //Input constants 
-        private const double Initial_Penetration= 0.0;
+        private const double Initial_Penetration= 1.0;
         
         //Wall input Data Properties 
         private string in_GroundElevation;

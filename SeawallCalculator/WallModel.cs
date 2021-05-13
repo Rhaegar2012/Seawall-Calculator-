@@ -293,7 +293,8 @@ namespace SeawallCalculator
         {
             get
             {
-                return _soil_Above_Groundwater_Resultant_AT=this.Panel_Height - (2 / 3) * this.Ground_Water_Depth;
+                double result = this.Panel_Height - (0.67 * this.Ground_Water_Depth);
+                return _soil_Above_Groundwater_Resultant_AT=result;
             }
             set
             {
@@ -536,6 +537,11 @@ namespace SeawallCalculator
         }
         private double CalculateOverturningLoads()
         {
+            double Surcharge_Moment = Moment_At_Toe["Surcharge Moment"];
+            double Soil_GroundWater_Moment = Moment_At_Toe["Soil above Groundwater Moment"];
+            double Active_Saturated_Soil_Uniform_Moment = Moment_At_Toe["Active Saturated Soil Uniform Moment"];
+            double Active_Saturated_Soil_Gradient_Moment = Moment_At_Toe["Active Saturated Soil Gradient Moment"];
+            double Total_Hydrostatic_Moment = Moment_At_Toe["Total Hydrostatic Moment"];
             double OverturningLoad = Moment_At_Toe["Surcharge Moment"] +
                 Moment_At_Toe["Soil above Groundwater Moment"] +
                 Moment_At_Toe["Active Saturated Soil Uniform Moment"] +
@@ -584,8 +590,10 @@ namespace SeawallCalculator
         {
            
             Calculate_Moment_At_Toe();
-            this.Safety_Factor = (CalculateTiedRestoringForce() / CalculateTiedOverturningForces());
-            double BatteredPileMoment = CalculateOverturningLoads() - CalculateRestoringForce();
+            double RestoringForce = CalculateTiedRestoringForce();
+            double OverturningForce = CalculateTiedOverturningForces();
+            this.Safety_Factor = (RestoringForce / OverturningForce);
+            double BatteredPileMoment = OverturningForce - RestoringForce;
             double ForceOnCap = BatteredPileMoment / (this.Panel_Height - this.Top_of_Pile);
             this.LateralForceonCap = ForceOnCap;
             this.Battered_Pile_Resultant_Force = ForceOnCap;
