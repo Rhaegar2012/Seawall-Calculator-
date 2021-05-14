@@ -564,8 +564,11 @@ namespace SeawallCalculator
         }
         private double CalculateTiedRestoringForce()
         {
+            double PanelEffectiveHeight = this.Panel_Height - this.Top_of_Pile;
+            double OverturningBalancedLoad = CalculateOverturningLoads() - CalculateRestoringForce();
+            double BalancedLoad = OverturningBalancedLoad / PanelEffectiveHeight;
             double RestoringForce = (this.Passive_Saturated_Soil_Resultant_Force / this.TargetSafetyFactor)+this.King_Pile_Resultant_Force+
-                (CalculateOverturningLoads()-CalculateRestoringForce())/(this.Panel_Height-this.Top_of_Pile);
+                BalancedLoad;
             return RestoringForce;
             
         }
@@ -592,8 +595,10 @@ namespace SeawallCalculator
             Calculate_Moment_At_Toe();
             double RestoringForce = CalculateTiedRestoringForce();
             double OverturningForce = CalculateTiedOverturningForces();
+            double BatteredPileOverturningMoment = CalculateOverturningLoads();
+            double BatteredPileResistingMoment = CalculateRestoringForce();
             this.Safety_Factor = (RestoringForce / OverturningForce);
-            double BatteredPileMoment = OverturningForce - RestoringForce;
+            double BatteredPileMoment = BatteredPileOverturningMoment - BatteredPileResistingMoment;
             double ForceOnCap = BatteredPileMoment / (this.Panel_Height - this.Top_of_Pile);
             this.LateralForceonCap = ForceOnCap;
             this.Battered_Pile_Resultant_Force = ForceOnCap;
