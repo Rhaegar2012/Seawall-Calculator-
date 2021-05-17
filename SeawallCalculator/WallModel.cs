@@ -387,7 +387,7 @@ namespace SeawallCalculator
             get
             {
                 double value = (Surcharge_Resultant_Force + Soil_Above_GroundWater_Resultant_Force + Active_Saturated_Soil_Uniform_Resultant_Force +
-                    Active_Saturated_Soil_Gradient_Resultant_Force + Passive_Saturated_Soil_Resultant_Force) * Math.Tan(this.Soil_to_Wall_Friction_Angle);
+                    Active_Saturated_Soil_Gradient_Resultant_Force - Passive_Saturated_Soil_Resultant_Force) * Math.Tan(this.Soil_to_Wall_Friction_Angle);
                 return value;
             }
         }
@@ -646,8 +646,10 @@ namespace SeawallCalculator
                 case "Soil":
                     foreach (double depth in this.WallDepth)
                     {
-                        Depth.Add(Math.Min(depth, this.Ground_Water_Depth));
-                        Moment_Arm.Add((2 / 3) * (Math.Max(0, depth - this.Ground_Water_Depth)));
+                        double MinDepth = Math.Min(depth, this.Ground_Water_Depth);
+                        double MomentArm = (0.667) * MinDepth;
+                        Depth.Add(MinDepth);
+                        Moment_Arm.Add(MomentArm);
                     }
                     break;
                 case "Uniform Soil":
@@ -890,7 +892,7 @@ namespace SeawallCalculator
 
             Debugging_function(SurchargeShear, SurchargeMoment, SoilShear, SoilMoment, UniformSoilShear, UniformSoilMoment, GradientSoilShear, GradientSoilMoment,
                 HydrostaticGroundWaterShear, HydrostaticGroundWaterMoment, HydrostaticOpenWaterShear, HydrostaticOpenWaterMoment, PassivePressureShear, PassivePressureMoment,
-                KingBatteredShearForce, KingBatteredMoment);
+                KingBatteredShearForce, KingBatteredMoment,TotalWallShear,TotalWallMoment);
             this.WallShear = TotalWallShear;
             this.WallMoment = TotalWallMoment;
             
@@ -910,7 +912,8 @@ namespace SeawallCalculator
             List<double> UniformSoilShear,List<double>UniformSoilMoment,List<double>GradientSoilShear,List<double>GradientSoilMoment,
             List<double> HydrostaticGroundWaterShear,List<double> HydrostaticGroundWaterMoment,
             List<double> HydrostaticOpenWaterShear,List<double> HydrostaticOpenWaterMoment,
-            List<double> PassivePressureShear,List<double> PassivePressureMoment,List<double> KingPilesShear, List<double> KingPilesMoment)
+            List<double> PassivePressureShear,List<double> PassivePressureMoment,List<double> KingPilesShear, List<double> KingPilesMoment,List<double> TotalShear,
+            List<double> TotalMoment)
         {
             Console.WriteLine("Wall total Height");
             Console.WriteLine(this.Panel_Height);
@@ -948,8 +951,10 @@ namespace SeawallCalculator
             KingPilesShear.ForEach(Console.WriteLine);
             Console.WriteLine("King Pile Moment");
             KingPilesMoment.ForEach(Console.WriteLine);
-
-
+            Console.WriteLine("Total Wall Shear");
+            TotalShear.ForEach(Console.WriteLine);
+            Console.WriteLine("Total Wall Moment");
+            TotalMoment.ForEach(Console.WriteLine);
         }
 
 
