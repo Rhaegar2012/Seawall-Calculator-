@@ -658,7 +658,7 @@ namespace SeawallCalculator
                         double DeltaDepth = depth - this.Ground_Water_Depth;
                         double EffectiveDepth = Math.Max(0, DeltaDepth);
                         double momentArm = EffectiveDepth / 2;
-                        Depth.Add(Math.Max(0, depth - this.Ground_Water_Depth));
+                        Depth.Add(EffectiveDepth);
                         Moment_Arm.Add(momentArm);
                     }
                     
