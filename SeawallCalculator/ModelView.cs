@@ -505,7 +505,8 @@ namespace SeawallCalculator
      
         private void CreateWallReport(object obj)
         {
-            throw new  NotImplementedException();
+            ReportManager report = new ReportManager();
+            report.CreateReport();
         }
         private void UpdateWallForm()
         {
