@@ -505,6 +505,7 @@ namespace SeawallCalculator
      
         private void CreateWallReport(object obj)
         {
+            
             ReportManager report = new ReportManager();
             report.CreateReport();
         }

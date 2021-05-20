@@ -14,24 +14,30 @@ namespace SeawallCalculator
 {
     class ReportManager
     {
+        ReportManager(string groundElevation)
+        {
+
+        }
         public void CreateReport()
         {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.InitialDirectory = Convert.ToString(Environment.SpecialFolder.MyDocuments);
-            saveFileDialog1.Filter = "Your extension here (*.EXT)|*.ext|All Files (*.*)|*.*";
-            saveFileDialog1.FilterIndex = 1;
-            if ((bool) saveFileDialog1.ShowDialog())
+            SaveFileDialog reportFileDialog = new SaveFileDialog();
+            reportFileDialog.InitialDirectory = Convert.ToString(Environment.SpecialFolder.MyDocuments);
+            reportFileDialog.Filter = "Your extension here (*.EXT)|*.ext|All Files (*.*)|*.*";
+            reportFileDialog.FilterIndex = 1;
+            if ((bool) reportFileDialog.ShowDialog())
             {
-                string filepath = saveFileDialog1.FileName;
+                string filepath =reportFileDialog.FileName;
                 PdfWriter writer = new PdfWriter(filepath);
                 PdfDocument pdf = new PdfDocument(writer);
                 Document document = new Document(pdf);
-                Paragraph header = new Paragraph("HEADER")
-                    .SetTextAlignment(TextAlignment.CENTER)
-                    .SetFontSize(20);
-                document.Add(header);
+                Paragraph paragraph = new Paragraph("Hello World");
+                Console.WriteLine(paragraph.ToString());
+                document.Add(paragraph);
                 document.Close();
+
             }
+          
+            
             
         }
     }
