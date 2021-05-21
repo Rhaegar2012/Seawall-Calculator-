@@ -7,6 +7,7 @@ using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using iText.Kernel.Pdf.Canvas.Draw;
 using System.IO;
 using Microsoft.Win32;
 
@@ -42,7 +43,7 @@ namespace SeawallCalculator
         private string AxialForceKingPile;
         private string ActualWallPenetration;
         
-        ReportManager(string groundElevation, string groundwaterdepth, string openWaterLevel, string mudlineSlope, string landslideSlope , string mudlineDepth,
+       public ReportManager(string groundElevation, string groundwaterdepth, string openWaterLevel, string mudlineSlope, string landslideSlope , string mudlineDepth,
             string topOfPile , string pilesSpacing, string lateralCapacityofKingPiles,string slopeBatteredPiles, string panelThickness, string safetyFactor, string soilDensity, 
             string saturatedSoilDensity, string activeFrictionAngle, string  passiveFrictionAngle,string soilWallFrictionAngle, string liveSurcharge,
             string lateralForceOnCap, string maxWallShear, string maxWallMoment,string axialForceBatteredPile, string axialForceKingPile, string actualWallPenetration)
@@ -88,9 +89,35 @@ namespace SeawallCalculator
                 Paragraph title = new Paragraph("Green Coastal Engineering - Seawall Calculation Report");
                 title.SetTextAlignment(TextAlignment.JUSTIFIED);
                 title.SetFontSize(20);
-                Paragraph subtitle = new Paragraph("Project: XXXX \n Engineer: XXXX");
-                LineSeparator titleUnderline = new LineSeparator();
+                Paragraph subtitle = new Paragraph("Project: XXXX               Date: XXXX \n Engineer: XXXX");
+                LineSeparator titleUnderline = new LineSeparator( new SolidLine(1f));
+                Paragraph input_title = new Paragraph("Input Variables");
+                input_title.SetTextAlignment(TextAlignment.JUSTIFIED);
+                input_title.SetFontSize(16);
+                Paragraph input_Variables = new Paragraph("Ground Elevation: " + GroundElevation + " ft\n" +
+                    "Ground Water Depth: " + GroundWaterDepth + " ft below ground\n"+
+                    "Open Water Level: " +OpenWaterLevel +" ft below ground\n"+
+                    "Mudline Slope: "+MudlineSlope +" Downward +\n"+
+                    "Landslide Slope: "+LandslideSlope+" Upward+\n"+
+                    "Mudline Depth: "+MudlineDepth+" ft below Ground \n"+ 
+                    "Top of Pile: "+TopOfPile+" ft below Ground \n"+
+                    "Piles Spacing: "+PilesSpacing+" ft\n"+
+                    "Lateral Capacity of King Piles: "+LateralCapacityofKingPiles+" kip\n"+
+                    "Slope of Battered Piles: "+SlopeBatteredPiles+" in/ft\n"+
+                    "Wall Panel Thickness: "+PanelThickness+" in\n"+
+                    "Safety Factor: "+SafetyFactor+" in\n"+
+                    "Soil Density: "+SoilDensity+" pcf\n"+
+                    "Saturated Soil Density: "+SaturatedSoilDensity+" pcf\n"+
+                    "Active Friction Angle: "+ActiveFrictionAngle+" Deg\n"+
+                    "Passive Friction Angle: "+PassiveFrictionAngle+"Deg\n"+
+                    "Soil to Wall Friction Angle: "+SoilToWallFrictionAngle+"Deg\n"+
+                    "Live Surcharge Load: "+LiveSurcharge+"psf\n");
+                input_Variables.SetTextAlignment(TextAlignment.JUSTIFIED);
                 document.Add(title);
+                document.Add(subtitle);
+                document.Add(titleUnderline);
+                document.Add(input_title);
+
                 document.Close();
             }
           

@@ -505,9 +505,12 @@ namespace SeawallCalculator
      
         private void CreateWallReport(object obj)
         {
-            
-            ReportManager report = new ReportManager();
-            report.CreateReport();
+
+            ReportManager report = new ReportManager(GroundElevation,GroundWaterDepth,OpenWaterLevel,MudlineSlope,
+                LandslideSlope,MudlineDepth,TopOfPile,PilesSpacing,LateralCapacityKingPiles,SlopeBatteredPiles,PanelThickness,SafetyFactor,SoilDensity,
+                SaturatedSoilDensity,ActiveFrictionAngle,PassiveFrictionAngle,SoilToWallFrictionAngle,LiveSurcharge,LateralForceOnCap,
+                MaxWallShear,MaxWallMoment,AxialForceinBatteredPile,AxialForceinKingPile,ActualWallPenetration);
+            report.CreateWallReport();
         }
         private void UpdateWallForm()
         {
