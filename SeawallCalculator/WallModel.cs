@@ -951,10 +951,13 @@ namespace SeawallCalculator
             KingPilesShear.ForEach(Console.WriteLine);
             Console.WriteLine("King Pile Moment");
             KingPilesMoment.ForEach(Console.WriteLine);
+            Console.WriteLine("Wall Depth");
+            this.WallDepth.ForEach(Console.WriteLine);
             Console.WriteLine("Total Wall Shear");
             TotalShear.ForEach(Console.WriteLine);
             Console.WriteLine("Total Wall Moment");
             TotalMoment.ForEach(Console.WriteLine);
+
         }
 
 

@@ -109,15 +109,26 @@ namespace SeawallCalculator
                     "Soil Density: "+SoilDensity+" pcf\n"+
                     "Saturated Soil Density: "+SaturatedSoilDensity+" pcf\n"+
                     "Active Friction Angle: "+ActiveFrictionAngle+" Deg\n"+
-                    "Passive Friction Angle: "+PassiveFrictionAngle+"Deg\n"+
-                    "Soil to Wall Friction Angle: "+SoilToWallFrictionAngle+"Deg\n"+
-                    "Live Surcharge Load: "+LiveSurcharge+"psf\n");
+                    "Passive Friction Angle: "+PassiveFrictionAngle+" Deg\n"+
+                    "Soil to Wall Friction Angle: "+SoilToWallFrictionAngle+" Deg\n"+
+                    "Live Surcharge Load: "+LiveSurcharge+" psf\n");
                 input_Variables.SetTextAlignment(TextAlignment.JUSTIFIED);
+                Paragraph output_title = new Paragraph("Output Variables");
+                output_title.SetTextAlignment(TextAlignment.JUSTIFIED);
+                output_title.SetFontSize(16);
+                Paragraph output_Variables = new Paragraph("Lateral Force on Cap: " + LateralForceonCap + " lb/ft\n" +
+                    "Max Wall Shear: " + MaxWallShear + " lb*ft/ft\n" +
+                    "Max Wall Moment: " + MaxWallMoment + " lb*ft/ft\n" +
+                    "Axial Force on Battered Pile: " + AxialForceBatteredPile + " kip\n" +
+                    "Axial Force on King Pile: " + AxialForceKingPile + " kip");
+                output_Variables.SetTextAlignment(TextAlignment.JUSTIFIED);
                 document.Add(title);
                 document.Add(subtitle);
                 document.Add(titleUnderline);
                 document.Add(input_title);
-
+                document.Add(input_Variables);
+                document.Add(output_title);
+                document.Add(output_Variables);
                 document.Close();
             }
           
