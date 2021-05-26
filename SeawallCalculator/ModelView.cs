@@ -62,7 +62,31 @@ namespace SeawallCalculator
                 m_BeamAnalyzeButton = value;
             }
         }
-        //wALL MODEL VIEW
+        //Wall Model View
+        private string in_ProjectName;
+        public string ProjectName
+        {
+            get
+            {
+                return in_ProjectName;
+            }
+            set
+            {
+                in_ProjectName = value;
+            }
+        }
+        private string in_EngineerName;
+        public string EngineerName
+        {
+            get
+            {
+                return in_EngineerName;
+            }
+            set
+            {
+                in_EngineerName = value;
+            }
+        }
         //Input constants 
         private const double Initial_Penetration= 1.0;
         
@@ -509,7 +533,7 @@ namespace SeawallCalculator
             ReportManager report = new ReportManager(GroundElevation,GroundWaterDepth,OpenWaterLevel,MudlineSlope,
                 LandslideSlope,MudlineDepth,TopOfPile,PilesSpacing,LateralCapacityKingPiles,SlopeBatteredPiles,PanelThickness,SafetyFactor,SoilDensity,
                 SaturatedSoilDensity,ActiveFrictionAngle,PassiveFrictionAngle,SoilToWallFrictionAngle,LiveSurcharge,LateralForceOnCap,
-                MaxWallShear,MaxWallMoment,AxialForceinBatteredPile,AxialForceinKingPile,ActualWallPenetration);
+                MaxWallShear,MaxWallMoment,AxialForceinBatteredPile,AxialForceinKingPile,ActualWallPenetration,ProjectName,EngineerName);
             report.CreateWallReport();
         }
         private void UpdateWallForm()

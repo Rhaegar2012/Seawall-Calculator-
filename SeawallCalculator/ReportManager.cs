@@ -15,6 +15,9 @@ namespace SeawallCalculator
 {
     class ReportManager
     {
+        //Project Variables 
+        private string ProjectName;
+        private string EngineerName;
         //Wall Input variables 
         private string GroundElevation;
         private string GroundWaterDepth;
@@ -46,7 +49,8 @@ namespace SeawallCalculator
        public ReportManager(string groundElevation, string groundwaterdepth, string openWaterLevel, string mudlineSlope, string landslideSlope , string mudlineDepth,
             string topOfPile , string pilesSpacing, string lateralCapacityofKingPiles,string slopeBatteredPiles, string panelThickness, string safetyFactor, string soilDensity, 
             string saturatedSoilDensity, string activeFrictionAngle, string  passiveFrictionAngle,string soilWallFrictionAngle, string liveSurcharge,
-            string lateralForceOnCap, string maxWallShear, string maxWallMoment,string axialForceBatteredPile, string axialForceKingPile, string actualWallPenetration)
+            string lateralForceOnCap, string maxWallShear, string maxWallMoment,string axialForceBatteredPile, string axialForceKingPile, string actualWallPenetration,
+            string projectName, string engineerName)
         {
             GroundElevation = groundElevation;
             GroundWaterDepth = groundwaterdepth;
@@ -71,7 +75,9 @@ namespace SeawallCalculator
             MaxWallMoment = maxWallMoment;
             AxialForceBatteredPile = axialForceBatteredPile;
             AxialForceKingPile = axialForceKingPile;
-            ActualWallPenetration = actualWallPenetration; 
+            ActualWallPenetration = actualWallPenetration;
+            ProjectName = projectName;
+            EngineerName = engineerName;
         }
         public void CreateWallReport()
         {
@@ -89,7 +95,9 @@ namespace SeawallCalculator
                 Paragraph title = new Paragraph("Green Coastal Engineering - Seawall Calculation Report");
                 title.SetTextAlignment(TextAlignment.JUSTIFIED);
                 title.SetFontSize(20);
-                Paragraph subtitle = new Paragraph("Project: XXXX               Date: XXXX \n Engineer: XXXX");
+                Paragraph subtitle = new Paragraph("Project: "+ProjectName+"\n"+
+                    "Engineer: "+EngineerName+"\n"+
+                    "Date:xxxxx");
                 LineSeparator titleUnderline = new LineSeparator( new SolidLine(1f));
                 Paragraph input_title = new Paragraph("Input Variables");
                 input_title.SetTextAlignment(TextAlignment.JUSTIFIED);

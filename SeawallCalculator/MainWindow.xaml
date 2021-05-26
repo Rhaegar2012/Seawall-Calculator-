@@ -44,7 +44,13 @@
                     </StackPanel>
                     <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
                         <TextBlock Text="Wall Analysis" FontSize="20" Foreground="Black" Margin="20,20,10,10" FontWeight="Bold"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Project" FontSize="16" Foreground="Black" Margin="20,0,20,0" FontWeight="Bold"/>
+                            <TextBox x:Name="Project_input"  Width="80" Text="{Binding ProjectName, Mode=TwoWay}" Margin="0,0,0,0"/>
+                            <TextBlock Text="Engineer" FontSize="16" Foreground="Black" Margin="20,0,20,0" FontWeight="Bold"/>
+                            <TextBox x:Name="Engineer_input" Width="80" Text="{Binding EngineerName, Mode=TwoWay}" Margin="0,0,0,0"/>
 
+                        </StackPanel>
                     </StackPanel>
                     <TextBlock Text="Input Variables" FontSize="16" FontWeight="Bold" Grid.Row="1" Grid.Column="0" Margin="20,0,0,20"/>
                     <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">

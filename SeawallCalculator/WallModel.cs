@@ -752,9 +752,10 @@ namespace SeawallCalculator
             (List<double> Depth, List<double> MomentArm) = Generate_Wall_Elevations("Uniform Soil");
             for (int i = 0; i < Depth.Count; i++)
             {
-                if (Depth[i] + this.Ground_Water_Depth < this.Mudline_Depth)
+                double actual_depth = Depth[i];
+                if (actual_depth==0)
                 {
-                    double Force = (Depth[i] * this.Active_Pressure_Coefficient * this.Submerged_Density);
+                    double Force = (actual_depth * this.Active_Pressure_Coefficient * this.Submerged_Density);
                     ShearForce.Add(Force);
                     Moment.Add(Force * MomentArm[i]);
                 }
