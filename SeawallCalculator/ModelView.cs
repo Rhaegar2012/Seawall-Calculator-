@@ -63,6 +63,34 @@ namespace SeawallCalculator
             }
         }
         //Wall Model View
+        //UI Control Properties
+        private bool enableReportButton = false;
+        public bool EnableReportButton
+        {
+            get
+            {
+                return enableReportButton;
+            }
+            set
+            {
+                enableReportButton = value;
+                OnPropertyChanged("EnableReportButton");
+            }
+        }
+        private bool enableWallDiagramTab = false;
+        public bool EnableWallDiagramTab
+        {
+            get
+            {
+                return enableWallDiagramTab;
+            }
+            set
+            {
+                enableWallDiagramTab = value;
+                OnPropertyChanged("EnableWallDiagramTab");
+            }
+        }
+        //Project variable properties
         private string in_ProjectName;
         public string ProjectName
         {
@@ -85,6 +113,7 @@ namespace SeawallCalculator
             set
             {
                 in_EngineerName = value;
+                
             }
         }
         //Input constants 
@@ -491,6 +520,8 @@ namespace SeawallCalculator
         {
             this.WallShearSeries.Clear();
             this.WallMomentSeries.Clear();
+            EnableReportButton = true;
+            EnableWallDiagramTab = true;
             
             if (CheckWallData())
             {

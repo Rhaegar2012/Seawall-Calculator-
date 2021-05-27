@@ -144,7 +144,8 @@
                         MaxHeight="400" 
                         Margin="0,20,200,30"
                         Command="{Binding WallReportButton}"
-                        CommandParameter="Pon"/>
+                        CommandParameter="Pon"
+                        IsEnabled="{Binding EnableReportButton}"/>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" >
                         <StackPanel Orientation="Horizontal">
@@ -183,6 +184,19 @@
                             </oxy:Plot.Series>
                         </oxy:Plot>
                     </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Wall Diagram" IsEnabled="{Binding EnableWallDiagramTab}">
+                <Grid Background="CadetBlue">
+                    <Canvas Height="800" Width="600" HorizontalAlignment="stretch" VerticalAlignment="Stretch" Background="WhiteSmoke">
+                        <Line 
+                            X1="0" Y1="0"
+                            X2="0" Y2="50"
+                            Stroke="Black"
+                            StrokeThickness="4"
+                            Margin="300,100,10,10"/>
+                        <TextBlock Text="Hola mundo" Canvas.Bottom="300"/>
+                    </Canvas>
                 </Grid>
             </TabItem>
             <TabItem Header="Cap Analysis">
