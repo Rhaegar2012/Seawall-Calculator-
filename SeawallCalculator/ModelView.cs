@@ -473,6 +473,19 @@ namespace SeawallCalculator
       
 
         private CalculationManager calculationManager=new CalculationManager();
+        //Wall Schematic Variables
+        private double out_SchemaWallDepth;
+        public double SchemaWallDepth
+        {
+            get
+            {
+                return out_SchemaWallDepth;
+            }
+            set
+            {
+                out_SchemaWallDepth = value;
+            }
+        }
 
         //The model view constructor creates the relay command from the button objects and collects the data from the UI 
         public ModelView()

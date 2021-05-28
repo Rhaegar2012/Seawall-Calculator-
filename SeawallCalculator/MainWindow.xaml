@@ -190,12 +190,58 @@
                 <Grid Background="CadetBlue">
                     <Canvas Height="800" Width="600" HorizontalAlignment="stretch" VerticalAlignment="Stretch" Background="WhiteSmoke">
                         <Line 
-                            X1="0" Y1="0"
-                            X2="0" Y2="50"
+                            X1="0" Y1="-80"
+                            X2="0" Y2="1000"
                             Stroke="Black"
-                            StrokeThickness="4"
-                            Margin="300,100,10,10"/>
-                        <TextBlock Text="Hola mundo" Canvas.Bottom="300"/>
+                            StrokeThickness="2"
+                            Margin="300,100,10,10"
+                            StrokeDashArray="2 2"/>
+                        <Rectangle 
+                            Width="20" Height="300"
+                            Stroke="black"
+                            StrokeThickness="1"
+                            Fill="Gray"
+                            Margin="291,100,10,10"/>
+                        <Rectangle 
+                            Width="40" Height="20"
+                            Stroke="Black"
+                            StrokeThickness="1"
+                            Fill="Gray"
+                            Margin="291,80,10,10"/>
+                        <Line 
+                            X1="0" Y1="0"
+                            X2="290" Y2="0"
+                            Stroke="Green"
+                            Margin="0,80,10,10"
+                            StrokeThickness="6"/>
+                        <TextBlock Text="Ground Elevation" Canvas.Top="50"/>
+                        <TextBlock Text="Elevation= " Canvas.Top="60"/>
+                        <Line
+                            X1="0" Y1="0"
+                            X2="290" Y2="0"
+                            Stroke="Blue"
+                            StrokeThickness="2"
+                            Margin="0,300,10,10"
+                            StrokeDashArray="2 2"/>
+                        <TextBlock Text="Ground Water Elevation" Canvas.Top="270"/>
+                        <TextBlock Text="Elevation= " Canvas.Top="280"/>
+                        <Line
+                            X1="0" Y1="0"
+                            X2="280" Y2="0"
+                            Stroke="Blue"
+                            StrokeThickness="6"
+                            Margin="315,160,10,10"/>
+                        <TextBlock Text="Open Water Elevation " Canvas.Top="0" Margin="470,125,10,10"/>
+                        <TextBlock Text="Elevation= " Canvas.Top="0" Margin="470,135,10,10"/>
+                        <Line 
+                            X1="0" Y1="0"
+                            X2="280" Y2="0"
+                            Stroke="Brown"
+                            StrokeThickness="6"
+                            Margin="315,300,10,10"/>
+                        <TextBlock Text="Mudline Elevation" Canvas.Top="0" Margin="470,265,10,10"/>
+                        <TextBlock Text="Elevation= " Canvas.Top="0" Margin="470,275,10,10"/>
+
                     </Canvas>
                 </Grid>
             </TabItem>
