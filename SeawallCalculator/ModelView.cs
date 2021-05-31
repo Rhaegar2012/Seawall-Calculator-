@@ -77,7 +77,7 @@ namespace SeawallCalculator
                 OnPropertyChanged("EnableReportButton");
             }
         }
-        private bool enableWallDiagramTab = false;
+        private bool enableWallDiagramTab = true;
         public bool EnableWallDiagramTab
         {
             get
@@ -116,6 +116,44 @@ namespace SeawallCalculator
                 
             }
         }
+        //Wall diagram variables 
+        private const double Origin = 80.0;
+        private const double CanvasConversionFactor = 20.0;
+        private double in_DiagramGroundWaterElevation;
+        public string DiagramGroundWaterElevation
+        {
+            get
+            {
+               
+                double GroundWaterDepth = double.Parse(this.GroundWaterDepth);
+                double in_DiagramGroundWaterElevation =Origin+GroundWaterDepth*CanvasConversionFactor;
+                Console.WriteLine("Ground Water depth coordinate: " + in_DiagramGroundWaterElevation.ToString());
+                return in_DiagramGroundWaterElevation.ToString();
+
+            }
+            set
+            {
+                in_DiagramGroundWaterElevation = double.Parse(value);
+                OnPropertyChanged("DiagramGroundWaterElevation");
+            }
+        }
+        private double in_DiagramOpenWaterElevation;
+        public double DiagramOpenWaterElevation
+        {
+            get
+            {
+                double OpenWaterDepth = double.Parse(this.OpenWaterLevel);
+                double in_DiagramOpenWaterElevation = Origin + OpenWaterDepth * CanvasConversionFactor;
+                return in_DiagramOpenWaterElevation;
+            }
+            set
+            {
+                in_DiagramOpenWaterElevation = value;
+                OnPropertyChanged("DiagramOpenWaterElevation");
+            }
+        }
+        
+
         //Input constants 
         private const double Initial_Penetration= 1.0;
         

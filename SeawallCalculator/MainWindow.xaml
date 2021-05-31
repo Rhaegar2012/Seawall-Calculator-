@@ -209,25 +209,25 @@
                             Fill="Gray"
                             Margin="291,80,10,10"/>
                         <Line 
-                            X1="0" Y1="0"
-                            X2="290" Y2="0"
+                            X1="0" Y1="80"
+                            X2="290" Y2="80"
                             Stroke="Green"
-                            Margin="0,80,10,10"
+                            Margin="0,0,10,10"
                             StrokeThickness="6"/>
                         <TextBlock Text="Ground Elevation" Canvas.Top="50"/>
                         <TextBlock Text="Elevation= " Canvas.Top="60"/>
                         <Line
-                            X1="0" Y1="0"
-                            X2="290" Y2="0"
+                            X1="0" Y1="{Binding DiagramGroundWaterElevation}"
+                            X2="290" Y2="{Binding DiagramGroundWaterElevation}"
                             Stroke="Blue"
                             StrokeThickness="2"
-                            Margin="0,300,10,10"
+                            Margin="0,0,10,10"
                             StrokeDashArray="2 2"/>
                         <TextBlock Text="Ground Water Elevation" Canvas.Top="270"/>
                         <TextBlock Text="Elevation= " Canvas.Top="280"/>
                         <Line
-                            X1="0" Y1="0"
-                            X2="280" Y2="0"
+                            X1="0" Y1="{Binding DiagramOpenWaterElevation}"
+                            X2="280" Y2="{Binding DiagramOpenWaterElevation}"
                             Stroke="Blue"
                             StrokeThickness="6"
                             Margin="315,160,10,10"/>
