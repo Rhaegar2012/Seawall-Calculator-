@@ -891,9 +891,9 @@ namespace SeawallCalculator
                     KingBatteredMoment[i]);
             }
 
-            Debugging_function(SurchargeShear, SurchargeMoment, SoilShear, SoilMoment, UniformSoilShear, UniformSoilMoment, GradientSoilShear, GradientSoilMoment,
-                HydrostaticGroundWaterShear, HydrostaticGroundWaterMoment, HydrostaticOpenWaterShear, HydrostaticOpenWaterMoment, PassivePressureShear, PassivePressureMoment,
-                KingBatteredShearForce, KingBatteredMoment,TotalWallShear,TotalWallMoment);
+            //Debugging_function(SurchargeShear, SurchargeMoment, SoilShear, SoilMoment, UniformSoilShear, UniformSoilMoment, GradientSoilShear, GradientSoilMoment,
+            //    HydrostaticGroundWaterShear, HydrostaticGroundWaterMoment, HydrostaticOpenWaterShear, HydrostaticOpenWaterMoment, PassivePressureShear, PassivePressureMoment,
+            //    KingBatteredShearForce, KingBatteredMoment,TotalWallShear,TotalWallMoment);
             this.WallShear = TotalWallShear;
             this.WallMoment = TotalWallMoment;
             

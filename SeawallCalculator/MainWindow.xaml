@@ -130,13 +130,22 @@
                             <TextBlock Text="Cantilever" Margin="80,0,0,0"/>
                             <CheckBox x:Name="CheckBoxCantilever" Margin="40,0,0,0" IsChecked="{Binding isCantilever ,Mode=TwoWay}"/>
                         </StackPanel>
-                        <Button x:Name="ExecuteAnalysisButton" 
-                        Content="Analyze" 
-                        MaxWidth="100"
-                        MaxHeight="400"
-                        Margin="0,40,200,0"
-                        Command="{Binding WallAnalyzeButton}"
-                        CommandParameter="Hai"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="ExecuteAnalysisButton" 
+                              Content="Analyze" 
+                              Width="80"
+                              MaxHeight="400"
+                              Margin="46,20,200,0"
+                              Command="{Binding WallAnalyzeButton}"
+                              CommandParameter="Hai"/>
+                            <Button x:Name="DrawWallButton"
+                                    Content="Draw Wall"
+                                    Width="80"
+                                    MaxHeight="400"
+                                    Margin="-300,20,0,0"
+                                    Command="{Binding DrawWallButton}"/>
+                        </StackPanel>
+                        
 
                         <Button x:Name="GenerateReportButton" 
                         Content="Report"   
@@ -217,8 +226,8 @@
                         <TextBlock Text="Ground Elevation" Canvas.Top="50"/>
                         <TextBlock Text="Elevation= " Canvas.Top="60"/>
                         <Line
-                            X1="0" Y1="{Binding DiagramGroundWaterElevation}"
-                            X2="290" Y2="{Binding DiagramGroundWaterElevation}"
+                            X1="0" Y1="{Binding DiagramGroundWaterElevation,Mode=TwoWay}"
+                            X2="290" Y2="{Binding DiagramGroundWaterElevation,Mode=TwoWay}"
                             Stroke="Blue"
                             StrokeThickness="2"
                             Margin="0,0,10,10"
@@ -226,8 +235,8 @@
                         <TextBlock Text="Ground Water Elevation" Canvas.Top="270"/>
                         <TextBlock Text="Elevation= " Canvas.Top="280"/>
                         <Line
-                            X1="0" Y1="{Binding DiagramOpenWaterElevation}"
-                            X2="280" Y2="{Binding DiagramOpenWaterElevation}"
+                            X1="0" Y1="{Binding DiagramOpenWaterElevation,Mode=TwoWay}"
+                            X2="280" Y2="{Binding DiagramOpenWaterElevation,Mode=TwoWay}"
                             Stroke="Blue"
                             StrokeThickness="6"
                             Margin="315,160,10,10"/>

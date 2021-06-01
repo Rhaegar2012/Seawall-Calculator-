@@ -50,6 +50,18 @@ namespace SeawallCalculator
                 m_WallReportCommand = value;
             }
         }
+        private ICommand m_DrawWallButton;
+        public ICommand DrawWallButton
+        {
+            get
+            {
+                return m_DrawWallButton;
+            }
+            set
+            {
+                m_DrawWallButton = value;
+            }
+        }
         private ICommand m_BeamAnalyzeButton;
         public ICommand BeamAnalyzeButton
         {
@@ -62,6 +74,7 @@ namespace SeawallCalculator
                 m_BeamAnalyzeButton = value;
             }
         }
+
         //Wall Model View
         //UI Control Properties
         private bool enableReportButton = false;
@@ -119,25 +132,22 @@ namespace SeawallCalculator
         //Wall diagram variables 
         private const double Origin = 80.0;
         private const double CanvasConversionFactor = 20.0;
-        private double in_DiagramGroundWaterElevation;
+        private string in_DiagramGroundWaterElevation;
         public string DiagramGroundWaterElevation
         {
             get
             {
                
-                double GroundWaterDepth = double.Parse(this.GroundWaterDepth);
-                double in_DiagramGroundWaterElevation =Origin+GroundWaterDepth*CanvasConversionFactor;
-                Console.WriteLine("Ground Water depth coordinate: " + in_DiagramGroundWaterElevation.ToString());
-                return in_DiagramGroundWaterElevation.ToString();
+                return in_DiagramGroundWaterElevation;
 
             }
             set
             {
-                in_DiagramGroundWaterElevation = double.Parse(value);
+                in_DiagramGroundWaterElevation =value;
                 OnPropertyChanged("DiagramGroundWaterElevation");
             }
         }
-        private double in_DiagramOpenWaterElevation;
+        private double in_DiagramOpenWaterElevation=0;
         public double DiagramOpenWaterElevation
         {
             get
@@ -532,9 +542,17 @@ namespace SeawallCalculator
             WallAnalyzeButton = new RelayCommand(new Action<object>(AnalyzeWall));
             WallReportButton = new RelayCommand(new Action<object>(CreateWallReport));
             BeamAnalyzeButton = new RelayCommand(new Action<object>(AnalyzeBeam));
+            DrawWallButton = new RelayCommand(new Action<object>(DrawWall));
 
             
             
+        }
+        public void DrawWall(object obj)
+        {
+            Console.WriteLine("Ground water elevationDiagramGroundWaterElevation: " + this.DiagramGroundWaterElevation);
+            double GroundWaterDepth = double.Parse(this.GroundWaterDepth);
+            double GroundWaterCoordinate = GroundWaterDepth * CanvasConversionFactor;
+            this.DiagramGroundWaterElevation =GroundWaterCoordinate.ToString();
         }
         public void ShowMessage(object obj)
         {
