@@ -130,36 +130,81 @@ namespace SeawallCalculator
             }
         }
         //Wall diagram variables 
-        private const double Origin = 80.0;
         private const double CanvasConversionFactor = 20.0;
-        private string in_DiagramGroundWaterElevation;
-        public string DiagramGroundWaterElevation
+        private string in_DiagramGroundWaterElevation_Y1;
+        public string DiagramGroundWaterElevation_Y1
         {
             get
             {
                
-                return in_DiagramGroundWaterElevation;
+                return in_DiagramGroundWaterElevation_Y1;
 
             }
             set
             {
-                in_DiagramGroundWaterElevation =value;
+                in_DiagramGroundWaterElevation_Y1 =value;
                 OnPropertyChanged("DiagramGroundWaterElevation");
             }
         }
-        private double in_DiagramOpenWaterElevation=0;
-        public double DiagramOpenWaterElevation
+        private string in_DiagramGroundWaterElevation_Y2;
+        public string DiagramGroundWaterElevation_Y2
         {
             get
             {
-                double OpenWaterDepth = double.Parse(this.OpenWaterLevel);
-                double in_DiagramOpenWaterElevation = Origin + OpenWaterDepth * CanvasConversionFactor;
-                return in_DiagramOpenWaterElevation;
+                return in_DiagramGroundWaterElevation_Y2;
             }
             set
             {
-                in_DiagramOpenWaterElevation = value;
+                in_DiagramGroundWaterElevation_Y2 = value;
+            }
+        }
+        private string in_DiagramOpenWaterElevation_Y1;
+        public string DiagramOpenWaterElevation_Y1
+        {
+            get
+            {
+                return in_DiagramOpenWaterElevation_Y1;
+            }
+            set
+            {
+                in_DiagramOpenWaterElevation_Y1 = value;
                 OnPropertyChanged("DiagramOpenWaterElevation");
+            }
+        }
+        private string in_DiagramOpenWaterElevation_Y2;
+        public string DiagramOpenWaterElevation_Y2
+        {
+            get
+            {
+                return in_DiagramOpenWaterElevation_Y2;
+            }
+            set
+            {
+                in_DiagramOpenWaterElevation_Y2 = value;
+            }
+        }
+        private string in_DiagramMudlineElevation_Y1;
+        public string DiagramMudlineElevation_Y1
+        {
+            get
+            {
+                return in_DiagramMudlineElevation_Y1;
+            }
+            set
+            {
+                in_DiagramMudlineElevation_Y1 = value;
+            }
+        }
+        private string in_DiagramMudlineElevation_Y2;
+        public string DiagramMudlineElevation_Y2
+        {
+            get
+            {
+                return DiagramMudlineElevation_Y2;
+            }
+            set
+            {
+                in_DiagramMudlineElevation_Y2 = value;
             }
         }
         
@@ -547,9 +592,30 @@ namespace SeawallCalculator
             
             
         }
+        private string (Tuple<string>) CalculateDatumCoordinates(string datum_elevation, string datum_slope,string direction)
+        {
+            double DatumElevation = double.Parse(datum_elevation);
+            double DatumSlope = double.Parse(datum_slope);
+            double Origin = double.Parse(this.GroundElevation);
+            double Initial_Coordinate =Origin+DatumElevation * CanvasConversionFactor;
+            double End_Coordinate;
+
+            switch(direction){
+                case "downward":
+                    End_Coordinate = Initial_Coordinate - 280 * DatumSlope;
+                    Tuple<string, string> coordinates = new Tuple<string, string>(Initial_Coordinate.ToString(), End_Coordinate.ToString());
+                    break;
+                case "upward":
+                    End_Coordinate = Initial_Coordinate + 280 * DatumSlope;
+                    Tuple<string, string> coordinates = new Tuple<string, string>(Initial_Coordinate.ToString(), End_Coordinate.ToString());
+                    break;
+            }
+    
+            return DatumCanvasCoordinate.ToString();
+        }
         public void DrawWall(object obj)
         {
-            Console.WriteLine("Ground water elevationDiagramGroundWaterElevation: " + this.DiagramGroundWaterElevation);
+            //Datum Elevations 
             double GroundWaterDepth = double.Parse(this.GroundWaterDepth);
             double GroundWaterCoordinate = GroundWaterDepth * CanvasConversionFactor;
             this.DiagramGroundWaterElevation =GroundWaterCoordinate.ToString();
