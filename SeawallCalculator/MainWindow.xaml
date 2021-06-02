@@ -206,7 +206,7 @@
                             Margin="300,100,10,10"
                             StrokeDashArray="2 2"/>
                         <Rectangle 
-                            Width="20" Height="300"
+                            Width="20" Height="500"
                             Stroke="black"
                             StrokeThickness="1"
                             Fill="Gray"
@@ -219,15 +219,15 @@
                             Margin="291,80,10,10"/>
                         <Line 
                             X1="0" Y1="80"
-                            X2="290" Y2="80"
+                            X2="290" Y2="{Binding DiagramGroundLevelElevation_Y2,Mode=TwoWay}"
                             Stroke="Green"
                             Margin="0,0,10,10"
                             StrokeThickness="6"/>
                         <TextBlock Text="Ground Elevation" Canvas.Top="50"/>
                         <TextBlock Text="Elevation= " Canvas.Top="60"/>
                         <Line
-                            X1="0" Y1="{Binding DiagramGroundWaterElevation,Mode=TwoWay}"
-                            X2="290" Y2="{Binding DiagramGroundWaterElevation,Mode=TwoWay}"
+                            X1="0" Y1="{Binding DiagramGroundWaterElevation_Y1,Mode=TwoWay}"
+                            X2="290" Y2="{Binding DiagramGroundWaterElevation_Y2,Mode=TwoWay}"
                             Stroke="Blue"
                             StrokeThickness="2"
                             Margin="0,0,10,10"
@@ -235,16 +235,16 @@
                         <TextBlock Text="Ground Water Elevation" Canvas.Top="270"/>
                         <TextBlock Text="Elevation= " Canvas.Top="280"/>
                         <Line
-                            X1="0" Y1="{Binding DiagramOpenWaterElevation,Mode=TwoWay}"
-                            X2="280" Y2="{Binding DiagramOpenWaterElevation,Mode=TwoWay}"
+                            X1="0" Y1="{Binding DiagramOpenWaterElevation_Y1,Mode=TwoWay}"
+                            X2="280" Y2="{Binding DiagramOpenWaterElevation_Y2,Mode=TwoWay}"
                             Stroke="Blue"
                             StrokeThickness="6"
                             Margin="315,160,10,10"/>
                         <TextBlock Text="Open Water Elevation " Canvas.Top="0" Margin="470,125,10,10"/>
                         <TextBlock Text="Elevation= " Canvas.Top="0" Margin="470,135,10,10"/>
                         <Line 
-                            X1="0" Y1="0"
-                            X2="280" Y2="0"
+                            X1="0" Y1="{Binding DiagramMudlineElevation_Y1,Mode=TwoWay}"
+                            X2="280" Y2="{Binding DiagramMudlineElevation_Y2,Mode=TwoWay}"
                             Stroke="Brown"
                             StrokeThickness="6"
                             Margin="315,300,10,10"/>
