@@ -130,6 +130,7 @@ namespace SeawallCalculator
             }
         }
         //Wall diagram variables 
+        //Datum coordinates 
         private const double CanvasConversionFactor = 20.0;
         private string in_DiagramGroundLevel_Y1;
         public string DiagramGroundLevel_Y1
@@ -154,6 +155,7 @@ namespace SeawallCalculator
             set
             {
                 in_DiagramGroundLevel_Y2 = value;
+                OnPropertyChanged("DiagramGroundLevelElevation_Y2");
             }
         }
         private string in_DiagramGroundWaterElevation_Y1;
@@ -236,6 +238,113 @@ namespace SeawallCalculator
                 OnPropertyChanged("DiagramMudlineElevation_Y2");
             }
         }
+        //Datum tag coordinations
+        private string in_GroundElevationTagCoordinate;
+        public string GroundElevationTagCoordinate
+        {
+            get
+            {
+                return in_GroundElevationTagCoordinate;
+            }
+            set
+            {
+                in_GroundElevationTagCoordinate = value;
+                OnPropertyChanged("GroundElevationTagCoordinate");
+            }
+        }
+        private string in_GroundElevationValueCoordinate;
+        public string GroundElevationValueCoordinate
+        {
+            get
+            {
+                return in_GroundElevationValueCoordinate;
+            }
+            set
+            {
+                in_GroundElevationValueCoordinate = value;
+                OnPropertyChanged("GroundElevationValueCoordinate");
+            }
+        }
+        private string in_GroundwaterElevationTagCoordinate;
+        public string GroundWaterElevationTagCoordinate
+        {
+            get
+            {
+                return in_GroundwaterElevationTagCoordinate;
+            }
+            set
+            {
+                in_GroundwaterElevationTagCoordinate = value;
+                OnPropertyChanged("GroundElevationTagCoordinate");
+            }
+        }
+        private string in_GroundwaterElevationValueCoordinate;
+        public string GroundWaterElevationValueCoordinate
+        {
+            get
+            {
+                return in_GroundwaterElevationValueCoordinate;
+            }
+            set
+            {
+                in_GroundwaterElevationValueCoordinate = value;
+                OnPropertyChanged("GroundWaterElevationValueCoordinate");
+            }
+        }
+        private string in_OpenWaterElevationTagCoordinate;
+        public string OpenWaterElevationTagCoordinate
+        {
+            get
+            {
+                return in_OpenWaterElevationTagCoordinate;
+            }
+            set
+            {
+                in_OpenWaterElevationTagCoordinate = value;
+                OnPropertyChanged("OpenWaterElevationTagCoordinate");
+            }
+        }
+        private string in_OpenWaterElevationValueCoordinate;
+        public string OpenWaterElevationValueCoordinate
+        {
+            get
+            {
+                return in_OpenWaterElevationValueCoordinate;
+            }
+            set
+            {
+                in_OpenWaterElevationTagCoordinate = value;
+                OnPropertyChanged("OpenWaterElevationValueCoordinate");
+            }
+        }
+        private string in_MudlineElevationTagCoordinate;
+        public string MudlineElevationTagCoodinate
+        {
+            get
+            {
+                return in_MudlineElevationTagCoordinate;
+            }
+            set
+            {
+                in_MudlineElevationTagCoordinate = value;
+                OnPropertyChanged("MudlineElevationTagCoordinate");
+            }
+
+        }
+        private string in_MudlineElevationValueCoordinate;
+        public string MudlineElevationValueCoordinate
+        {
+            get
+            {
+                return in_MudlineElevationValueCoordinate;
+            }
+            set
+            {
+                in_MudlineElevationValueCoordinate = value;
+                OnPropertyChanged("MudlineElevationValueCoordiante");
+            }
+        }
+
         
 
         //Input constants 
@@ -626,7 +735,15 @@ namespace SeawallCalculator
             double DatumElevation = double.Parse(datum_elevation);
             double DatumSlope = double.Parse(datum_slope);
             double Origin =80.0;
-            double Initial_Coordinate =Origin+DatumElevation * CanvasConversionFactor;
+            double Initial_Coordinate;
+            if (DatumElevation * CanvasConversionFactor == Origin)
+            {
+                Initial_Coordinate = Origin;
+            }
+            else
+            {
+                Initial_Coordinate = Origin + DatumElevation * CanvasConversionFactor;
+            }
             double End_Coordinate=Initial_Coordinate;
 
             switch(direction){
@@ -642,6 +759,13 @@ namespace SeawallCalculator
             }
             return (Initial_Coordinate.ToString(), End_Coordinate.ToString());
         }
+        private (string,string) CalculateDatumTagsCoordinates(string datum_coordinate)
+        {
+            string tag_coordinate="0";
+            string value_coordinate = "0";
+            double datum = double.Parse(datum_coordinate);
+            return (tag_coordinate,value_coordinate);
+        }
         public void DrawWall(object obj)
         {
             //Datum Elevations
@@ -649,6 +773,8 @@ namespace SeawallCalculator
             (this.DiagramGroundWaterElevation_Y1, this.DiagramGroundWaterElevation_Y2) = CalculateDatumCoordinates(this.GroundWaterDepth, "0", "flat");
             (this.DiagramOpenWaterElevation_Y1, this.DiagramOpenWaterElevation_Y2) = CalculateDatumCoordinates(this.OpenWaterLevel, "0", "flat");
             (this.DiagramMudlineElevation_Y2, this.DiagramMudlineElevation_Y1) = CalculateDatumCoordinates(this.MudlineDepth, this.MudlineSlope, "downward");
+            //Datum tag elevations 
+            //Datum Elevation text 
          
         }
         public void ShowMessage(object obj)
