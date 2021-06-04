@@ -344,7 +344,59 @@ namespace SeawallCalculator
                 OnPropertyChanged("MudlineElevationValueCoordiante");
             }
         }
-
+        //Datum elevation texts
+        private string out_GroundElevationValue;
+        public string GroundElevationValue
+        {
+            get
+            {
+                return out_GroundElevationValue;
+            }
+            set
+            {
+                out_GroundElevationValue = value;
+                OnPropertyChanged("GroundElevationValue");
+            }
+        }
+        private string out_GroundWaterElevationValue;
+        public string GroundWaterElevationValue
+        {
+            get
+            {
+                return out_GroundWaterElevationValue;
+            }
+            set
+            {
+                out_GroundWaterElevationValue = value;
+                OnPropertyChanged("GroundWaterElevationValue");
+            }
+        }
+        private string out_OpenWaterElevationValue;
+        public string OpenWaterElevationValue
+        {
+            get
+            {
+                return out_OpenWaterElevationValue;
+            }
+            set
+            {
+                out_OpenWaterElevationValue = value;
+                OnPropertyChanged("OpenWaterElevationValue");
+            }
+        }
+        private string out_MudlineElevationValue;
+        public string MudlineElevationValue
+        {
+            get
+            {
+                return out_MudlineElevationValue;
+            }
+            set
+            {
+                out_MudlineElevationValue = value;
+                OnPropertyChanged("MudlineElevationValue");
+            }
+        }
         
 
         //Input constants 
@@ -734,7 +786,7 @@ namespace SeawallCalculator
         {
             double DatumElevation = double.Parse(datum_elevation);
             double DatumSlope = double.Parse(datum_slope);
-            double Origin =80.0;
+            double Origin =110;
             double Initial_Coordinate;
             if (DatumElevation * CanvasConversionFactor == Origin)
             {
@@ -761,10 +813,17 @@ namespace SeawallCalculator
         }
         private (string,string) CalculateDatumTagsCoordinates(string datum_coordinate)
         {
-            string tag_coordinate="0";
-            string value_coordinate = "0";
+            string tag_coordinate;
+            string value_coordinate;
             double datum = double.Parse(datum_coordinate);
+            tag_coordinate = (datum - 30).ToString();
+            value_coordinate = (datum - 20).ToString();
             return (tag_coordinate,value_coordinate);
+        }
+        private string GenerateElevationText(string elevation)
+        {
+            string tag_text = "Elevation= "+elevation;
+            return tag_text;
         }
         public void DrawWall(object obj)
         {
@@ -774,7 +833,15 @@ namespace SeawallCalculator
             (this.DiagramOpenWaterElevation_Y1, this.DiagramOpenWaterElevation_Y2) = CalculateDatumCoordinates(this.OpenWaterLevel, "0", "flat");
             (this.DiagramMudlineElevation_Y2, this.DiagramMudlineElevation_Y1) = CalculateDatumCoordinates(this.MudlineDepth, this.MudlineSlope, "downward");
             //Datum tag elevations 
+            (this.GroundElevationTagCoordinate, this.GroundElevationValueCoordinate) = CalculateDatumTagsCoordinates(this.DiagramGroundLevelElevation_Y2);
+            (this.GroundWaterElevationTagCoordinate, this.GroundWaterElevationValueCoordinate) = CalculateDatumTagsCoordinates(this.DiagramGroundWaterElevation_Y2);
+            (this.OpenWaterElevationTagCoordinate, this.OpenWaterElevationValueCoordinate) = CalculateDatumTagsCoordinates(this.DiagramOpenWaterElevation_Y2);
+            (this.MudlineElevationTagCoodinate, this.MudlineElevationValueCoordinate) = CalculateDatumTagsCoordinates(this.DiagramMudlineElevation_Y2);
             //Datum Elevation text 
+            this.GroundElevationValue = GenerateElevationText(this.GroundElevation);
+            this.GroundWaterElevationValue = GenerateElevationText(this.GroundWaterDepth);
+            this.OpenWaterElevationValue = GenerateElevationText(this.OpenWaterLevel);
+            this.MudlineDepth = GenerateElevationText(this.MudlineDepth);
          
         }
         public void ShowMessage(object obj)
