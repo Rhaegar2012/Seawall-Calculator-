@@ -1,3 +1,4 @@
+C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\SeawallCalculator\bin\Debug\OxyPlot.xml
 C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\SeawallCalculator\bin\Debug\SeawallCalculator.exe.config
 C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\SeawallCalculator\bin\Debug\SeawallCalculator.exe
 C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\SeawallCalculator\bin\Debug\SeawallCalculator.pdb
@@ -29,7 +30,6 @@ C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\Se
 C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\SeawallCalculator\bin\Debug\itext.sign.xml
 C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\SeawallCalculator\bin\Debug\itext.styledxmlparser.xml
 C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\SeawallCalculator\bin\Debug\itext.svg.xml
-C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\SeawallCalculator\bin\Debug\OxyPlot.xml
 C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\SeawallCalculator\bin\Debug\OxyPlot.Wpf.xml
 C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\SeawallCalculator\obj\Debug\BeamView.g.cs
 C:\Users\joseb\Documents\GitHub\Green Coastal Engineering\Seawall-Calculator-\SeawallCalculator\obj\Debug\MainWindow.g.cs

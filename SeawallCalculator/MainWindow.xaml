@@ -159,7 +159,7 @@
                     <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" >
                         <StackPanel Orientation="Horizontal">
                             <StackPanel Orientation="Vertical">
-                                <TextBlock Text="Output" FontSize="16" FontWeight="Bold" Grid.Row="1" Grid.Column="0" Margin="20,0,0,5"/>
+                                <TextBlock Text="Analysis Results" FontSize="16" FontWeight="Bold" Grid.Row="1" Grid.Column="0" Margin="20,0,0,5"/>
                                 <TextBlock Text="Lateral Force on Cap" Margin="20,0,0,5"/>
                                 <TextBlock Text="Max. Shear" Margin="20,0,0,5"/>
                                 <TextBlock Text="Max. Moment" Margin="20,0,0,5"/>
@@ -232,23 +232,23 @@
                             StrokeThickness="2"
                             Margin="0,0,10,10"
                             StrokeDashArray="2 2"/>
-                        <TextBlock Text="Ground Water Elevation" Canvas.Top="270"/>
-                        <TextBlock Text="{Binding GroundWaterElevationValue, Mode=TwoWay}" Canvas.Top="{Binding GroundElevationValueCoordinate,Mode=TwoWay}"/>
+                        <TextBlock Text="Ground Water Elevation" Canvas.Top="{Binding GroundWaterElevationTagCoordinate, Mode=TwoWay}"/>
+                        <TextBlock Text="{Binding GroundWaterElevationValue, Mode=TwoWay}" Canvas.Top="{Binding GroundWaterElevationValueCoordinate,Mode=TwoWay}"/>
                         <Line
                             X1="0" Y1="{Binding DiagramOpenWaterElevation_Y1,Mode=TwoWay}"
                             X2="280" Y2="{Binding DiagramOpenWaterElevation_Y2,Mode=TwoWay}"
                             Stroke="Blue"
                             StrokeThickness="6"
                             Margin="315,160,10,10"/>
-                        <TextBlock Text="Open Water Elevation " Canvas.Top="130" Canvas.Left="350" />
-                        <TextBlock Text="{Binding OpenWaterElevationValue,Mode=TwoWay}" Canvas.Top="{Binding OpenWaterElevationValueCoordinate, Mode=TwoWay}" Canvas.Left="350" />
+                        <TextBlock Text="Open Water Elevation " Canvas.Top="{Binding OpenWaterElevationTagCoordinate,Mode=TwoWay}" Canvas.Left="350" />
+                        <TextBlock Text="{Binding OpenWaterElevationValue,Mode=TwoWay}" Canvas.Top="{Binding OpenWaterElevationValueCoordinate, Mode=TwoWay}" Canvas.Left="350"  />
                         <Line 
                             X1="0" Y1="{Binding DiagramMudlineElevation_Y1,Mode=TwoWay}"
                             X2="280" Y2="{Binding DiagramMudlineElevation_Y2,Mode=TwoWay}"
                             Stroke="Brown"
                             StrokeThickness="6"
                             Margin="315,300,10,10"/>
-                        <TextBlock Text="Mudline Elevation" Canvas.Top="260" Canvas.Left="350"/>
+                        <TextBlock Text="Mudline Elevation" Canvas.Top="{Binding MudlineElevationTagCoodinate,Mode=TwoWay}" Canvas.Left="350"/>
                         <TextBlock Text="{Binding MudlineElevationValue,Mode=TwoWay}" Canvas.Top="{Binding MudlineElevationValueCoordinate,Mode=TwoWay}" Canvas.Left="350"/>
 
                     </Canvas>

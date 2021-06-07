@@ -275,7 +275,7 @@ namespace SeawallCalculator
             set
             {
                 in_GroundwaterElevationTagCoordinate = value;
-                OnPropertyChanged("GroundElevationTagCoordinate");
+                OnPropertyChanged("GroundWaterElevationTagCoordinate");
             }
         }
         private string in_GroundwaterElevationValueCoordinate;
@@ -313,7 +313,7 @@ namespace SeawallCalculator
             }
             set
             {
-                in_OpenWaterElevationTagCoordinate = value;
+                in_OpenWaterElevationValueCoordinate = value;
                 OnPropertyChanged("OpenWaterElevationValueCoordinate");
             }
         }
@@ -841,7 +841,7 @@ namespace SeawallCalculator
             this.GroundElevationValue = GenerateElevationText(this.GroundElevation);
             this.GroundWaterElevationValue = GenerateElevationText(this.GroundWaterDepth);
             this.OpenWaterElevationValue = GenerateElevationText(this.OpenWaterLevel);
-            this.MudlineDepth = GenerateElevationText(this.MudlineDepth);
+            this.MudlineElevationValue = GenerateElevationText(this.MudlineDepth);
          
         }
         public void ShowMessage(object obj)
