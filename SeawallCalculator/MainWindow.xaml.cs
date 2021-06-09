@@ -25,6 +25,10 @@ namespace SeawallCalculator
             InitializeComponent();
             
         }
-      
+
+        private void GroundElevationInput_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

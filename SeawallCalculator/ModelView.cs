@@ -90,7 +90,7 @@ namespace SeawallCalculator
                 OnPropertyChanged("EnableReportButton");
             }
         }
-        private bool enableWallDiagramTab = true;
+        private bool enableWallDiagramTab = false;
         public bool EnableWallDiagramTab
         {
             get
@@ -825,8 +825,17 @@ namespace SeawallCalculator
             string tag_text = "Elevation= "+elevation;
             return tag_text;
         }
+        //Event to check if the geometry parameters were inputed 
+        //Allows visibility of the drawwall button 
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void TextChangedEventHandler(object sender, TextChangedEventArgs args)
+        {
+            Console.WriteLine("Variable updated");
+        }
         public void DrawWall(object obj)
         {
+            //Activates Wall Drawing tab 
+            this.EnableWallDiagramTab = true;
             //Datum Elevations
             (this.DiagramGroundLevelElevation_Y2, this.DiagramGroundLevel_Y1) = CalculateDatumCoordinates(this.GroundElevation, this.LandslideSlope,"upward");
             (this.DiagramGroundWaterElevation_Y1, this.DiagramGroundWaterElevation_Y2) = CalculateDatumCoordinates(this.GroundWaterDepth, "0", "flat");
