@@ -827,31 +827,51 @@ namespace SeawallCalculator
         }
         //Event to check if the geometry parameters were inputed 
         //Allows visibility of the drawwall button 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void TextChangedEventHandler(object sender, TextChangedEventArgs args)
+        private bool WallGeometryInputCheck()
+        {
+            bool CompleteInput = false;
+            if(this.GroundElevation!=null&&
+               this.GroundWaterDepth!=null&&
+               this.OpenWaterLevel!=null&&
+               this.MudlineDepth != null)
+            {
+                CompleteInput = true;
+            }
+            return CompleteInput;
+        }
+        public void GroundElevationInput_MouseDown(object sender, MouseButtonEventArgs args)
         {
             Console.WriteLine("Variable updated");
+            bool check = WallGeometryInputCheck();
         }
         public void DrawWall(object obj)
         {
-            //Activates Wall Drawing tab 
-            this.EnableWallDiagramTab = true;
-            //Datum Elevations
-            (this.DiagramGroundLevelElevation_Y2, this.DiagramGroundLevel_Y1) = CalculateDatumCoordinates(this.GroundElevation, this.LandslideSlope,"upward");
-            (this.DiagramGroundWaterElevation_Y1, this.DiagramGroundWaterElevation_Y2) = CalculateDatumCoordinates(this.GroundWaterDepth, "0", "flat");
-            (this.DiagramOpenWaterElevation_Y1, this.DiagramOpenWaterElevation_Y2) = CalculateDatumCoordinates(this.OpenWaterLevel, "0", "flat");
-            (this.DiagramMudlineElevation_Y2, this.DiagramMudlineElevation_Y1) = CalculateDatumCoordinates(this.MudlineDepth, this.MudlineSlope, "downward");
-            //Datum tag elevations 
-            (this.GroundElevationTagCoordinate, this.GroundElevationValueCoordinate) = CalculateDatumTagsCoordinates(this.DiagramGroundLevelElevation_Y2);
-            (this.GroundWaterElevationTagCoordinate, this.GroundWaterElevationValueCoordinate) = CalculateDatumTagsCoordinates(this.DiagramGroundWaterElevation_Y2);
-            (this.OpenWaterElevationTagCoordinate, this.OpenWaterElevationValueCoordinate) = CalculateDatumTagsCoordinates(this.DiagramOpenWaterElevation_Y2);
-            (this.MudlineElevationTagCoodinate, this.MudlineElevationValueCoordinate) = CalculateDatumTagsCoordinates(this.DiagramMudlineElevation_Y2);
-            //Datum Elevation text 
-            this.GroundElevationValue = GenerateElevationText(this.GroundElevation);
-            this.GroundWaterElevationValue = GenerateElevationText(this.GroundWaterDepth);
-            this.OpenWaterElevationValue = GenerateElevationText(this.OpenWaterLevel);
-            this.MudlineElevationValue = GenerateElevationText(this.MudlineDepth);
-         
+            if (WallGeometryInputCheck())
+            {
+                //Activates Wall Drawing tab 
+                this.EnableWallDiagramTab = true;
+                //Datum Elevations
+                (this.DiagramGroundLevelElevation_Y2, this.DiagramGroundLevel_Y1) = CalculateDatumCoordinates(this.GroundElevation, this.LandslideSlope, "upward");
+                (this.DiagramGroundWaterElevation_Y1, this.DiagramGroundWaterElevation_Y2) = CalculateDatumCoordinates(this.GroundWaterDepth, "0", "flat");
+                (this.DiagramOpenWaterElevation_Y1, this.DiagramOpenWaterElevation_Y2) = CalculateDatumCoordinates(this.OpenWaterLevel, "0", "flat");
+                (this.DiagramMudlineElevation_Y2, this.DiagramMudlineElevation_Y1) = CalculateDatumCoordinates(this.MudlineDepth, this.MudlineSlope, "downward");
+                //Datum tag elevations 
+                (this.GroundElevationTagCoordinate, this.GroundElevationValueCoordinate) = CalculateDatumTagsCoordinates(this.DiagramGroundLevelElevation_Y2);
+                (this.GroundWaterElevationTagCoordinate, this.GroundWaterElevationValueCoordinate) = CalculateDatumTagsCoordinates(this.DiagramGroundWaterElevation_Y2);
+                (this.OpenWaterElevationTagCoordinate, this.OpenWaterElevationValueCoordinate) = CalculateDatumTagsCoordinates(this.DiagramOpenWaterElevation_Y2);
+                (this.MudlineElevationTagCoodinate, this.MudlineElevationValueCoordinate) = CalculateDatumTagsCoordinates(this.DiagramMudlineElevation_Y2);
+                //Datum Elevation text 
+                this.GroundElevationValue = GenerateElevationText(this.GroundElevation);
+                this.GroundWaterElevationValue = GenerateElevationText(this.GroundWaterDepth);
+                this.OpenWaterElevationValue = GenerateElevationText(this.OpenWaterLevel);
+                this.MudlineElevationValue = GenerateElevationText(this.MudlineDepth);
+
+            }
+            else
+            {
+                MessageBox.Show("Input wall geometry parameters", "Warning Message");
+            }
+
         }
         public void ShowMessage(object obj)
         {

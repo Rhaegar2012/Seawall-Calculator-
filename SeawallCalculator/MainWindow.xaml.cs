@@ -30,5 +30,10 @@ namespace SeawallCalculator
         {
 
         }
+
+        private void GroundElevationInput_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

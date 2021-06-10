@@ -79,7 +79,7 @@
                             <TextBlock Text="Live Surcharge" FontSize="12" Margin="20,0,5,3"/>
                         </StackPanel>
                         <StackPanel Orientation="Vertical">
-                            <TextBox x:Name="GroundElevationInput" Width="75" Margin="0,25,20,3" Text="{Binding GroundElevation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox x:Name="GroundElevationInput" Width="75" Margin="0,25,20,3" Text="{Binding GroundElevation,Mode=TwoWay}"/>
                             <TextBox x:Name="GroundWaterDepthInput" Width="75" Margin="0,0,20,3" Text="{Binding GroundWaterDepth,Mode=TwoWay}"/>
                             <TextBox x:Name="OpenWaterLevelInput" Width="75" Margin="0,0,20,3" Text="{Binding OpenWaterLevel,Mode=TwoWay}"/>
                             <TextBox x:Name="MudlineSlopeInput" Width="75" Margin="0,0,20,3" Text="{Binding MudlineSlope,Mode=TwoWay}"/>
