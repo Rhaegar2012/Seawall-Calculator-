@@ -142,7 +142,7 @@ namespace SeawallCalculator
             set
             {
                 in_DiagramGroundLevel_Y1 = value;
-                OnPropertyChanged("DiagramGoundLevel_Y1");
+                OnPropertyChanged("DiagramGroundLevel_Y1");
             }
         }
         private string in_DiagramGroundLevel_Y2;
