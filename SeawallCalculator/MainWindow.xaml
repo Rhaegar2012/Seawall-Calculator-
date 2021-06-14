@@ -57,10 +57,10 @@
                         <StackPanel Orientation="Vertical">
                             <TextBlock Text="Coastline Properties" FontSize="12" FontWeight="Bold" Margin="20,0,20,10"/>
                             <TextBlock Text="Ground Elevation" FontSize="12" Margin="20,0,5,5"/>
-                            <TextBlock Text="Ground Water Depth" FontSize="12" Margin="20,0,5,5"/>
-                            <TextBlock Text="Open Water Level" FontSize="12" Margin="20,0,5,5"/>
+                            <TextBlock Text="Water level behind wall" FontSize="12" Margin="20,0,5,5"/>
+                            <TextBlock Text="Water level in front of wall" FontSize="12" Margin="20,0,5,5"/>
                             <TextBlock Text="Mudline Slope" FontSize="12" Margin="20,0,5,5"/>
-                            <TextBlock Text="Landslide Slope " FontSize="12" Margin="20,0,5,5"/>
+                            <TextBlock Text="Landside Slope " FontSize="12" Margin="20,0,5,5"/>
                             <TextBlock Text="Mudline Depth" FontSize="12" Margin="20,0,5,10"/>
                             <TextBlock Text="Piling" FontSize="12" FontWeight="Bold" Margin="20,0,10,0"/>
                             <TextBlock Text="Top of Pile" FontSize="12" Margin="20,0,5,3"/>
@@ -145,8 +145,6 @@
                                     Margin="-300,20,0,0"
                                     Command="{Binding DrawWallButton}"/>
                         </StackPanel>
-                        
-
                         <Button x:Name="GenerateReportButton" 
                         Content="Report"   
                         MaxWidth="100" 
@@ -232,7 +230,7 @@
                             StrokeThickness="2"
                             Margin="0,0,10,10"
                             StrokeDashArray="2 2"/>
-                        <TextBlock Text="Ground Water Elevation" Canvas.Top="{Binding GroundWaterElevationTagCoordinate, Mode=TwoWay}"/>
+                        <TextBlock Text="Water behind wall" Canvas.Top="{Binding GroundWaterElevationTagCoordinate, Mode=TwoWay}"/>
                         <TextBlock Text="{Binding GroundWaterElevationValue, Mode=TwoWay}" Canvas.Top="{Binding GroundWaterElevationValueCoordinate,Mode=TwoWay}"/>
                         <Line
                             X1="0" Y1="{Binding DiagramOpenWaterElevation_Y1,Mode=TwoWay}"
@@ -240,7 +238,7 @@
                             Stroke="Blue"
                             StrokeThickness="6"
                             Margin="315,0,10,10"/>
-                        <TextBlock Text="Open Water Elevation " Canvas.Top="{Binding OpenWaterElevationTagCoordinate,Mode=TwoWay}" Canvas.Left="350" />
+                        <TextBlock Text="Water in front of wall " Canvas.Top="{Binding OpenWaterElevationTagCoordinate,Mode=TwoWay}" Canvas.Left="350" />
                         <TextBlock Text="{Binding OpenWaterElevationValue,Mode=TwoWay}" Canvas.Top="{Binding OpenWaterElevationValueCoordinate, Mode=TwoWay}" Canvas.Left="350"  />
                         <Line 
                             X1="0" Y1="{Binding DiagramMudlineElevation_Y1,Mode=TwoWay}"
@@ -250,7 +248,7 @@
                             Margin="315,50,0,0"/>
                         <TextBlock Text="Mudline Elevation" Canvas.Bottom="130" Canvas.Left="350"/>
                         <TextBlock Text="{Binding MudlineElevationValue,Mode=TwoWay}" Canvas.Bottom="120" Canvas.Left="350"/>
-                        <TextBlock Text="Wall Min Penetration" Canvas.Bottom="110" Canvas.Left="180"/>
+                        <TextBlock Text="Wall Min Embedment" Canvas.Bottom="110" Canvas.Left="180"/>
                         <TextBlock Text="{Binding ActualWallPenetration,Mode=TwoWay}" Canvas.Bottom="100" Canvas.Left="180"/>
 
                     </Canvas>

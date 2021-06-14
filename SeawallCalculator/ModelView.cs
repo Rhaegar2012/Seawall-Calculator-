@@ -792,6 +792,10 @@ namespace SeawallCalculator
             {
                 Initial_Coordinate = Origin;
             }
+            else if (direction == "upward")
+            {
+                Initial_Coordinate = Origin;
+            }
             else
             {
                 Initial_Coordinate = Origin + DatumElevation * CanvasConversionFactor;
@@ -822,7 +826,16 @@ namespace SeawallCalculator
         }
         private string GenerateElevationText(string elevation)
         {
-            string tag_text = "Elevation= "+elevation;
+            string elevation_value;
+            if (this.GroundElevation == elevation)
+            {
+               elevation_value = this.GroundElevation;
+            }
+            else
+            {
+               elevation_value = (double.Parse(this.GroundElevation) - double.Parse(elevation)).ToString();
+            }
+            string tag_text = "Elevation= "+elevation_value.ToString();
             return tag_text;
         }
         //Event to check if the geometry parameters were inputed 
