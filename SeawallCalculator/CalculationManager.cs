@@ -13,7 +13,7 @@ namespace SeawallCalculator
         {
             get
             {
-                double value = Math.Round(Wall.LateralForceonCap, 2);
+                double value = Math.Round(Wall.LateralForceonCap, 0);
                 return (value.ToString());
             }
         }
@@ -21,7 +21,7 @@ namespace SeawallCalculator
         {
             get
             {
-                double value = Math.Round(Wall.Max_Shear, 2);
+                double value = Math.Round(Wall.Max_Shear, 0);
                 return (value.ToString());
             }
         }
@@ -29,7 +29,7 @@ namespace SeawallCalculator
         {
             get
             {
-                double value = Math.Round(Wall.Max_Moment, 2);
+                double value = Math.Round(Wall.Max_Moment, 0);
                 return (value.ToString());
             }
         }
@@ -37,7 +37,7 @@ namespace SeawallCalculator
         {
             get
             {
-                double value = Math.Round(Wall.Axial_Force_in_Battered_Pile, 2);
+                double value = Math.Round(Wall.Axial_Force_in_Battered_Pile, 0);
                 return (value.ToString());
             }
         }
@@ -45,7 +45,7 @@ namespace SeawallCalculator
         {
             get
             {
-                double value = Math.Round(Wall.Axial_Force_in_King_Pile, 2);
+                double value = Math.Round(Wall.Axial_Force_in_King_Pile, 0);
                 return (value.ToString());
             }
         }
@@ -53,7 +53,7 @@ namespace SeawallCalculator
         {
             get
             {
-                double value = Math.Round(Wall.Output_Penetration, 2);
+                double value = Math.Round(Wall.Output_Penetration, 0);
                 return (value.ToString());
             }
         }

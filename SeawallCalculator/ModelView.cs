@@ -824,10 +824,10 @@ namespace SeawallCalculator
             value_coordinate = (datum - 20).ToString();
             return (tag_coordinate,value_coordinate);
         }
-        private string GenerateElevationText(string elevation)
+        private string GenerateElevationText(string elevation,string type)
         {
             string elevation_value;
-            if (this.GroundElevation == elevation)
+            if (this.GroundElevation == elevation && type=="Ground")
             {
                elevation_value = this.GroundElevation;
             }
@@ -874,10 +874,10 @@ namespace SeawallCalculator
                 (this.OpenWaterElevationTagCoordinate, this.OpenWaterElevationValueCoordinate) = CalculateDatumTagsCoordinates(this.DiagramOpenWaterElevation_Y2);
                 (this.MudlineElevationTagCoodinate, this.MudlineElevationValueCoordinate) = CalculateDatumTagsCoordinates(this.DiagramMudlineElevation_Y2);
                 //Datum Elevation text 
-                this.GroundElevationValue = GenerateElevationText(this.GroundElevation);
-                this.GroundWaterElevationValue = GenerateElevationText(this.GroundWaterDepth);
-                this.OpenWaterElevationValue = GenerateElevationText(this.OpenWaterLevel);
-                this.MudlineElevationValue = GenerateElevationText(this.MudlineDepth);
+                this.GroundElevationValue = GenerateElevationText(this.GroundElevation,"Ground");
+                this.GroundWaterElevationValue = GenerateElevationText(this.GroundWaterDepth,"GroundWater");
+                this.OpenWaterElevationValue = GenerateElevationText(this.OpenWaterLevel,"Open Water");
+                this.MudlineElevationValue = GenerateElevationText(this.MudlineDepth,"Mudline");
 
             }
             else
