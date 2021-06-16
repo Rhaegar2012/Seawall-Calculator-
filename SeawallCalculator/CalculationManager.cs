@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace SeawallCalculator
 {
+    [Serializable]
     class CalculationManager
     {
         private  WallModel Wall;
@@ -69,9 +72,11 @@ namespace SeawallCalculator
                 _wallElevations = value;
             }
         }
+        private DataSerializer serializer; 
         public CalculationManager()
         {
-           //Placeholder 
+            //Initializes data Serializer 
+            serializer = new DataSerializer();
         }
         public void CreateWall(double groundElevation, double topOfPile, double mudlineDepth, double groundWaterDepth, double openWaterLevel, double penetration,double soilDensity,
          double saturatedSoilDensity, double activeFrictionAngle, double passiveFrictionAngle, double soiltoWallFrictionAngle,double panelThickness, double landslideSlope, double mudlineSlope,
@@ -88,6 +93,10 @@ namespace SeawallCalculator
         public List<double> CalculateWallDepth()
         {
             return Wall.Calculate_Wall_Elevation();
+        }
+        public void save_file()
+        {
+
         }
         
     }

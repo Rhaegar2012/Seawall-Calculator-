@@ -16,11 +16,14 @@ using System.Windows.Shapes;
 using OxyPlot;
 using OxyPlot.Series;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 
 namespace SeawallCalculator
 {
     //ModelView collects and displays information from the UI 
+    [Serializable]
     public class ModelView:ObservableObject
     {
         //Control Properties
@@ -754,7 +757,7 @@ namespace SeawallCalculator
         public ObservableCollection<DataPoint> WallShearSeries { get; private set; }=new ObservableCollection<DataPoint>();
         public ObservableCollection<DataPoint> WallMomentSeries { get; private set; }=new ObservableCollection<DataPoint>();
       
-
+        // Calculation Manager stores the WallModel and BeamModel objects
         private CalculationManager calculationManager=new CalculationManager();
         //Wall Schematic Variables
         private double out_SchemaWallDepth;

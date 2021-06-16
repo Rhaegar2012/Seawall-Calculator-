@@ -104,6 +104,7 @@
     </Compile>
     <Compile Include="CalculationManager.cs" />
     <Compile Include="CapModel.cs" />
+    <Compile Include="DataSerializer.cs" />
     <Compile Include="ListFunctions.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
