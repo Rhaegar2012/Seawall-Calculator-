@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SeawallCalculator
 {
+    [Serializable]
     class ListFunctions
     {
         public double FindMaxValue(List<double> a_list)

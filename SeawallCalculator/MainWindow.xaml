@@ -22,8 +22,8 @@
         <Menu Background="Transparent"  Grid.Row="0">
             <MenuItem Header="File">
                 <MenuItem Header="New"></MenuItem>
-                <MenuItem Header="Open"></MenuItem>
-                <MenuItem Header="Save"></MenuItem>
+                <MenuItem Header="Open" Command="{Binding OpenFileButton}"></MenuItem>
+                <MenuItem Header="Save" Command="{Binding SaveFileButton}"></MenuItem>
             </MenuItem>
         </Menu>
         <TabControl Background="CadetBlue" Width="Auto" Height="Auto" Margin="0,18,-0.4,-18.8" Grid.RowSpan="2">

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using Microsoft.Win32;
 
 namespace SeawallCalculator
 {
@@ -12,6 +13,8 @@ namespace SeawallCalculator
     class CalculationManager
     {
         private  WallModel Wall;
+        public  WallModel ExistingWall;
+        private DataSerializer serializer;
         public string LateralForceOnCap
         {
             get
@@ -72,7 +75,7 @@ namespace SeawallCalculator
                 _wallElevations = value;
             }
         }
-        private DataSerializer serializer; 
+         
         public CalculationManager()
         {
             //Initializes data Serializer 
@@ -96,7 +99,22 @@ namespace SeawallCalculator
         }
         public void save_file()
         {
-
+           SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            if (saveFileDialog1.ShowDialog() == true)
+            {
+                string path = saveFileDialog1.FileName;
+                serializer.BinarySerialize(Wall, path);
+            }
+        }
+        public void open_file()
+        {
+            
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            if (openFileDialog1.ShowDialog() == true)
+            {
+                this.ExistingWall = (WallModel)serializer.BinaryDeserialize(openFileDialog1.FileName);
+            }
+         
         }
         
     }

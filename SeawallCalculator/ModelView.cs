@@ -77,6 +77,30 @@ namespace SeawallCalculator
                 m_BeamAnalyzeButton = value;
             }
         }
+        private ICommand m_SaveFile;
+        public ICommand SaveFileButton
+        {
+            get
+            {
+                return m_SaveFile;
+            }
+            set
+            {
+                m_SaveFile = value;
+            }
+        }
+        private ICommand m_OpenFile;
+        public ICommand OpenFileButton
+        {
+            get
+            {
+                return m_OpenFile;
+            }
+            set
+            {
+                m_OpenFile = value;
+            }
+        }
 
         //Wall Model View
         //UI Control Properties
@@ -781,6 +805,8 @@ namespace SeawallCalculator
             WallReportButton = new RelayCommand(new Action<object>(CreateWallReport));
             BeamAnalyzeButton = new RelayCommand(new Action<object>(AnalyzeBeam));
             DrawWallButton = new RelayCommand(new Action<object>(DrawWall));
+            SaveFileButton = new RelayCommand(new Action<object>(SaveFile));
+            OpenFileButton = new RelayCommand(new Action<object>(OpenFile));
 
             
             
@@ -1665,6 +1691,15 @@ namespace SeawallCalculator
             {
                 MessageBox.Show("Check input variables", "Missing Input");
             }
+        }
+        //Open/ Save files 
+        private void SaveFile(object obj)
+        {
+            calculationManager.save_file();
+        }
+        private void OpenFile(object obj)
+        {
+            calculationManager.open_file();
         }
 
 
