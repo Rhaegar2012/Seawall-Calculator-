@@ -1700,6 +1700,10 @@ namespace SeawallCalculator
         private void OpenFile(object obj)
         {
             calculationManager.open_file();
+            (this.GroundElevation,this.TopOfPile,this.MudlineDepth,this.GroundWaterDepth,this.OpenWaterLevel,this.ActualWallPenetration,this.SoilDensity,
+                this.SaturatedSoilDensity,this.PanelThickness,this.ActiveFrictionAngle,this.PassiveFrictionAngle,this.SoilToWallFrictionAngle,this.LandslideSlope,
+                this.MudlineSlope,this.LiveSurcharge,this.PilesSpacing,this.SlopeBatteredPiles,this.LateralCapacityKingPiles,this.isCantilever) = calculationManager.ExistingWall.GetWallParameters();
+                
         }
 
 

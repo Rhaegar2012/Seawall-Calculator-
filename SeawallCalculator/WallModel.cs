@@ -963,6 +963,14 @@ namespace SeawallCalculator
             TotalMoment.ForEach(Console.WriteLine);
 
         }
+        public (string, string, string,string,string,string,string,string,string,string,
+            string,string,string,string,string,string,string,string,bool) GetWallParameters()
+        {
+            return (this.Ground_Elevation.ToString(), this.Top_of_Pile.ToString(), this.Mudline_Depth.ToString(),this.Ground_Water_Depth.ToString(),this.Open_Water_Level.ToString(),
+                this.Penetration.ToString(),this.Soil_Density.ToString(),this.Saturated_Soil_Density.ToString(),this.Panel_Thickness.ToString(),this.Active_Friction_Angle.ToString(),this.Passive_Friction_Angle.ToString()
+                ,this.Soil_to_Wall_Friction_Angle.ToString(),this.Landslide_Slope.ToString(),this.Mudline_Slope.ToString(),this.Live_Surcharge.ToString(),
+                this.PilesSpacing.ToString(),this.SlopeOfBatteredPiles.ToString(),this.LateralCapacityPiles.ToString(),this.Cantilever);
+        }
 
 
 
