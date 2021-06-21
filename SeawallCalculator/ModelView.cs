@@ -439,6 +439,7 @@ namespace SeawallCalculator
             set
             {
                 in_GroundElevation = value;
+                OnPropertyChanged("GroundElevation");
             }
         }
         private string in_GroundWaterDepth;
@@ -451,6 +452,7 @@ namespace SeawallCalculator
             set
             {
                 in_GroundWaterDepth = value;
+                OnPropertyChanged("GroundWaterDepth");
             }
         }
         private string in_OpenWaterLevel;
@@ -463,6 +465,7 @@ namespace SeawallCalculator
             set
             {
                 in_OpenWaterLevel = value;
+                OnPropertyChanged("OpenWaterLevel");
             }
         }
         private string in_MudlineSlope;
@@ -476,6 +479,7 @@ namespace SeawallCalculator
             set
             {
                 in_MudlineDepth = value;
+                OnPropertyChanged("MudlineDepth");
             }
         }
         public string MudlineSlope
@@ -487,6 +491,7 @@ namespace SeawallCalculator
             set
             {
                 in_MudlineSlope = value;
+                OnPropertyChanged("MudlineSlope");
             }
         }
         private string in_LandslideSlope;
@@ -499,6 +504,7 @@ namespace SeawallCalculator
             set
             {
                 in_LandslideSlope = value;
+                OnPropertyChanged("LandslideSlope");
             }
         }
         private string in_TopOfPile;
@@ -511,6 +517,7 @@ namespace SeawallCalculator
             set
             {
                 in_TopOfPile = value;
+                OnPropertyChanged("TopOfPile");
             }
         }
         private string in_PilesSpacing;
@@ -523,6 +530,7 @@ namespace SeawallCalculator
             set
             {
                 in_PilesSpacing = value;
+                OnPropertyChanged("PilesSpacing");
             }
         }
         private string in_LateralCapacityKingPiles;
@@ -535,6 +543,7 @@ namespace SeawallCalculator
             set
             {
                 in_LateralCapacityKingPiles = value;
+                OnPropertyChanged("LateralCapacityKingPiles");
             }
         }
         private string in_SlopeBatteredPiles;
@@ -547,6 +556,7 @@ namespace SeawallCalculator
             set
             {
                 in_SlopeBatteredPiles = value;
+                OnPropertyChanged("SlopeBatteredPiles");
             }
         }
         private string in_PanelThickness;
@@ -559,6 +569,7 @@ namespace SeawallCalculator
             set
             {
                 in_PanelThickness = value;
+                OnPropertyChanged("PanelThickness");
             }
         }
         private string in_SafetyFactor;
@@ -571,6 +582,7 @@ namespace SeawallCalculator
             set
             {
                 in_SafetyFactor = value;
+                OnPropertyChanged("SafetyFactor");
             }
         }
         private string in_SoilDensity;
@@ -583,6 +595,7 @@ namespace SeawallCalculator
             set
             {
                 in_SoilDensity = value;
+                OnPropertyChanged("SoilDensity");
             }
         }
         private string in_SaturatedSoilDensity;
@@ -595,6 +608,7 @@ namespace SeawallCalculator
             set
             {
                 in_SaturatedSoilDensity = value;
+                OnPropertyChanged("SaturatedSoilDensity");
             }
         }
         private string in_ActiveFrictionAngle;
@@ -607,6 +621,7 @@ namespace SeawallCalculator
             set
             {
                 in_ActiveFrictionAngle = value;
+                OnPropertyChanged("ActiveFrictionAngle");
             }
         }
         private string in_PassiveFrictionAngle;
@@ -619,6 +634,7 @@ namespace SeawallCalculator
             set
             {
                 in_PassiveFrictionAngle = value;
+                OnPropertyChanged("PassiveFrictionAngle");
             }
         }
         private string in_SoilToWallFrictionAngle;
@@ -631,6 +647,7 @@ namespace SeawallCalculator
             set
             {
                 in_SoilToWallFrictionAngle = value;
+                OnPropertyChanged("SoilToWallFrictionAngle");
             }
         }
         private string in_LiveSurcharge;
@@ -643,6 +660,7 @@ namespace SeawallCalculator
             set
             {
                 in_LiveSurcharge = value;
+                OnPropertyChanged("LiveSurcharge");
             }
         }
         
@@ -656,6 +674,7 @@ namespace SeawallCalculator
             set
             {
                 in_isCantilever = value;
+                OnPropertyChanged("isCantilever");
             }
         }
         //Output variables 
@@ -1702,8 +1721,8 @@ namespace SeawallCalculator
             calculationManager.open_file();
             (this.GroundElevation,this.TopOfPile,this.MudlineDepth,this.GroundWaterDepth,this.OpenWaterLevel,this.ActualWallPenetration,this.SoilDensity,
                 this.SaturatedSoilDensity,this.PanelThickness,this.ActiveFrictionAngle,this.PassiveFrictionAngle,this.SoilToWallFrictionAngle,this.LandslideSlope,
-                this.MudlineSlope,this.LiveSurcharge,this.PilesSpacing,this.SlopeBatteredPiles,this.LateralCapacityKingPiles,this.isCantilever) = calculationManager.ExistingWall.GetWallParameters();
-                
+                this.MudlineSlope,this.LiveSurcharge,this.PilesSpacing,this.SlopeBatteredPiles,this.LateralCapacityKingPiles,this.SafetyFactor,this.isCantilever) = calculationManager.ExistingWall.GetWallParameters();
+            
         }
 
 
